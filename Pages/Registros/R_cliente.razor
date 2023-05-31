@@ -5,7 +5,7 @@
 <EditForm Model="cliente" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
 
-    <div class="shadow p-3 mb-5 bg-white rounded">
+    <div class="shadow">
         <div class="modal-header">
             <h1><strong>Registro de Cliente</strong></h1>
         </div>
@@ -21,9 +21,9 @@
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>No. ID</label>
-                            <button type="button" class="btn" @onclick="Buscar" id="boton">
+                            <button type="button" class="btn"  @onclick="Buscar" id="boton">
                                 <span class="btn-text-one">Buscar</span>
-                                <span class="btn-text-two">Buscar!</span>
+                                <span style="color: white;" class="btn-text-two">Buscar</span>
                             </button>
                         </div>
 
@@ -95,7 +95,13 @@
                 </div>
             </div>
 
+            <aside id="cuadrado">
 
+            </aside>
+
+            <aside id="cuadradito">
+
+            </aside>
 
         </div>
 

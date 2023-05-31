@@ -1,165 +1,206 @@
 .group {
-    position: relative;
-   }
-   
-   .input {
-    font-size: 20px;
-    padding: 10px 10px 10px 5px;
-    display: block;
-    width: 500px;
-    border: none;
-    border-bottom: 2px solid #000000;
-    background: transparent;
-   }
-   #fecha {
-    font-size: 16px;
-    padding: 10px 10px 10px 5px;
-    display: block;
-    width: 150px;
-    border: none;
-    border-bottom: 2px solid #000000;
-    background: transparent;
-   }
+  position: relative;
+}
 
-   #id {
-    font-size: 16px;
-    padding: 5px 5px 5px 5px;
-    display: block;
-    width: 100px;
-    border: none;
-    border-bottom: 2px solid rgb(0, 0, 0);
-    background: transparent;
-   }
-   
-   .input:focus {
-    outline: none;
-   }
-   
-   label {
-    color: #999;
-    font-size: 18px;
-    font-weight: normal;
-    position: absolute;
-    pointer-events: none;
-    left: 5px;
-    top: 10px;
-    transition: 0.2s ease all;
-    -moz-transition: 0.2s ease all;
-    -webkit-transition: 0.2s ease all;
-   }
-   
-   .input:focus ~ label, .input:valid ~ label {
-    top: -20px;
-    font-size: 14px;
-    color: #5264AE;
-   }
-   
-   .bar {
-    position: relative;
-    display: block;
-    width: 200px;
-   }
-   
-   .bar:before, .bar:after {
-    content: '';
-    height: 2px;
-    width: 0;
-    bottom: 1px;
-    position: absolute;
+.input {
+  font-size: 20px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: 500px;
+  border: none;
+  border-bottom: 2px solid #000000;
+  background: transparent;
+}
+
+#fecha {
+  font-size: 16px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: 150px;
+  border: none;
+  border-bottom: 2px solid #000000;
+  background: transparent;
+
+}
+
+#id {
+  font-size: 16px;
+  padding: 5px 5px 5px 5px;
+  display: block;
+  width: 100px;
+  border: none;
+  border-bottom: 2px solid rgb(0, 0, 0);
+  background: transparent;
+}
+
+.input:focus {
+  outline: none;
+}
+
+label {
+  color: #999;
+  font-size: 25px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+
+.input:focus~label,
+.input:valid~label {
+  top: -20px;
+  font-size: 14px;
+  color: #5264AE;
+}
+
+.bar {
+  position: relative;
+  display: block;
+  width: 500px;
+}
+
+.bar:before,
+.bar:after {
+  content: '';
+  height: 2px;
+  width: 0;
+  bottom: 1px;
+  position: absolute;
+  background: #5264AE;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+
+.bar:before {
+  left: 50%;
+}
+
+.bar:after {
+  right: 50%;
+}
+
+.input:focus~.bar:before,
+.input:focus~.bar:after {
+  width: 50%;
+}
+
+.highlight {
+  position: absolute;
+  height: 60%;
+  width: 100px;
+  top: 25%;
+  left: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.input:focus~.highlight {
+  animation: inputHighlighter 0.3s ease;
+}
+
+@keyframes inputHighlighter {
+  from {
     background: #5264AE;
-    transition: 0.2s ease all;
-    -moz-transition: 0.2s ease all;
-    -webkit-transition: 0.2s ease all;
-   }
-   
-   .bar:before {
-    left: 50%;
-   }
-   
-   .bar:after {
-    right: 50%;
-   }
-   
-   .input:focus ~ .bar:before, .input:focus ~ .bar:after {
-    width: 50%;
-   }
-   
-   .highlight {
-    position: absolute;
-    height: 60%;
-    width: 100px;
-    top: 25%;
-    left: 0;
-    pointer-events: none;
-    opacity: 0.5;
-   }
-   
-   .input:focus ~ .highlight {
-    animation: inputHighlighter 0.3s ease;
-   }
-   
-   @keyframes inputHighlighter {
-    from {
-     background: #5264AE;
-    }
-   
-    to {
-     width: 0;
-     background: transparent;
-    }
-   }
+  }
 
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+
+#cuadrado {
+  display: inline;
+  float: right;
+  margin: 1em;
+  padding: .3em;
+  border: 2px solid #555;
+  width: 400px;
+  height: 965px;
+  font: 1em Arial, Helvetica, sans-serif;
+  position: relative;
+  top: -856px;
+  margin-right: -20px;
+  border-radius: 30px;
+  background-color: #00154c;
+}
+
+#cuadradito {
+  display: inline;
+  float: right;
+  margin: 1em;
+  padding: .3em;
+  width: 50px;
+  height: 80px;
+  font: 1em Arial, Helvetica, sans-serif;
+  position: relative;
+  top: -450px;
+  margin-right: -40px;
+  border-radius: 5px;
+  background-color: #F7AD19;
+}
+
+.shadow {
+  width: 1200px;
+  border-radius: 30px;
+}
 
 /*Botones*/
-#boton
-{
-    display: flex;
+#boton {
+  display: flex;
+  margin-left: 120px;
+  position: relative;
+  top: -40px;
+  width: 100px;
+  border-radius: 10px;
 }
+
 .btn {
-    width: 140px;
-    height: 50px;
-    background: linear-gradient(to top, #00154c, #12376e, #23487f);
-    color: #fff;
-    border-radius: 50px;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    position: relative;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-    overflow: hidden;
-  }
-  
-  .btn span {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: top 0.5s;
-  }
-  
-  .btn-text-one {
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-  }
-  
-  .btn-text-two {
-    position: absolute;
-    width: 100%;
-    top: 150%;
-    left: 0;
-    transform: translateY(-50%);
-  }
-  
-  .btn:hover .btn-text-one {
-    top: -100%;
-  }
-  
-  .btn:hover .btn-text-two {
-    top: 50%;
-  }
-  
+  width: 140px;
+  height: 50px;
+  background: linear-gradient(to top, #00154c, #12376e, #23487f);
+  color: #fff;
+  border-radius: 50px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
 
+.btn span {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: top 0.5s;
+}
 
-   
+.btn-text-one {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.btn-text-two {
+  position: absolute;
+  width: 100%;
+  top: 150%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.btn:hover .btn-text-one {
+  top: -100%;
+}
+
+.btn:hover .btn-text-two {
+  top: 50%;
+}
