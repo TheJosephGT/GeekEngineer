@@ -1,0 +1,27 @@
+@page "/c_cliente"
+
+<PageTitle>Consulta clientes</PageTitle>
+
+<h1 class="text-center">Consulta clientes</h1>
+
+@* <div class="card col-lg-8 mx-auto"> *@
+        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+            FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4" PagerHorizontalAlign="HorizontalAlign.Left" AllowSorting="true" Data="@listaClientes"
+            ColumnWidth="200px">
+
+            <Columns>
+                <RadzenGridColumn TItem="string" Property="ClienteId" Title="ID" />
+                <RadzenGridColumn TItem="string" Property="Nombre" Title="Nombre" />
+                <RadzenGridColumn TItem="string" Property="Cedula" Title="Cedula" />
+                <RadzenGridColumn TItem="string" Property="Telefono" Title="Teléfono" />
+                <RadzenGridColumn TItem="string" Property="Dirección" Title="Dirección" />
+                <RadzenGridColumn TItem="string" Property="Correo" Title="Correo" />
+                <RadzenGridColumn TItem="string" Property="Fecha" Title="Fecha" >
+                </RadzenGridColumn>
+            </Columns>
+        </RadzenGrid>
+@* </div> *@
+
+@code {
+    List<string> listaClientes = new List<string>();
+}
