@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
+using Radzen;
 
 namespace GeekEngineer
 {
@@ -25,7 +26,10 @@ namespace GeekEngineer
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
             builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
-
+            builder.Services.AddScoped<DialogService>();
+            builder.Services.AddScoped<NotificationService>();
+            builder.Services.AddScoped<TooltipService>();
+            builder.Services.AddScoped<ContextMenuService>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
