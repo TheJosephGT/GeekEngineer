@@ -1,3 +1,4 @@
+global using System.ComponentModel.DataAnnotations;
 using GeekEngineer.Areas.Identity;
 using GeekEngineer.Data;
 using Microsoft.AspNetCore.Components;
