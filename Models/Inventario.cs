@@ -1,6 +1,6 @@
-public class Inventarios
+public class Inventario
 {
     public int InventarioId { get; set; }
     public int ProductoId { get; set; }
-    public string Existencia { get; set; } = string.Empty;
+    public int Existencia { get; set; } 
 }
