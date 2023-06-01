@@ -3,10 +3,10 @@
 }
 
 .input {
-  font-size: 20px;
+  font-size: 16px;
   padding: 10px 10px 10px 5px;
   display: block;
-  width: 500px;
+  width: 56%;
   border: none;
   border-bottom: 2px solid #000000;
   background: transparent;
@@ -39,7 +39,7 @@
 
 label {
   color: #999;
-  font-size: 25px;
+  font-size: 16px;
   font-weight: normal;
   position: absolute;
   pointer-events: none;
@@ -120,14 +120,14 @@ label {
   margin: 1em;
   padding: .3em;
   border: 2px solid #555;
-  width: 400px;
+  width: 25%;
   height: 965px;
   font: 1em Arial, Helvetica, sans-serif;
   position: relative;
   top: -856px;
   margin-right: -20px;
   border-radius: 30px;
-  background-color: #00154c;
+  background-color: #053F5C;
 }
 
 #cuadradito {
@@ -146,8 +146,10 @@ label {
 }
 
 .shadow {
-  width: 1200px;
+  width: 100%;
   border-radius: 30px;
+  height: 10%;
+  
 }
 
 /*Botones*/
@@ -163,9 +165,9 @@ label {
 .btn {
   width: 140px;
   height: 50px;
-  background: linear-gradient(to top, #00154c, #12376e, #23487f);
+  background: linear-gradient(to top, #053F5C, #12376e, #23487f);
   color: #fff;
-  border-radius: 50px;
+  border-radius: 10px;
   border: none;
   outline: none;
   cursor: pointer;
@@ -203,4 +205,8 @@ label {
 
 .btn:hover .btn-text-two {
   top: 50%;
+}
+
+#titulo {
+  margin-right: 10px;
 }

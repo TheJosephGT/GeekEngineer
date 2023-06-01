@@ -1,0 +1,34 @@
+@page "/c_proveedor"
+
+<PageTitle>Consulta proveedor</PageTitle>
+
+
+<h1 class="text-center">Consulta proveedor</h1>
+
+<button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
+Generar reporte</button>
+
+@* <div class="card col-lg-8 mx-auto"> *@
+        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+            FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4" PagerHorizontalAlign="HorizontalAlign.Left" AllowSorting="true" Data="@listaClientes"
+            ColumnWidth="130px">
+
+            <Columns>
+                <RadzenGridColumn TItem="string" Title="ID" />
+                <RadzenGridColumn TItem="string" Title="Nombre" />
+                <RadzenGridColumn TItem="string" Title="Empresa" />
+                <RadzenGridColumn TItem="string" Title="RNC" />
+                <RadzenGridColumn TItem="string" Title="NCF" />
+                <RadzenGridColumn TItem="string" Title="Fecha" />
+                <RadzenGridColumn TItem="string" Title="Producto" />
+                <RadzenGridColumn TItem="string" Title="Teléfono" />
+                <RadzenGridColumn TItem="string" Title="Dirección" />
+                <RadzenGridColumn TItem="string" Title="Correo" >
+                </RadzenGridColumn>
+            </Columns>
+        </RadzenGrid>
+@* </div> *@
+
+@code {
+    List<string> listaClientes = new List<string>();
+}

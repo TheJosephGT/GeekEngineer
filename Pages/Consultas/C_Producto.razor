@@ -1,0 +1,33 @@
+@page "/c_producto"
+
+<PageTitle>Consulta productos</PageTitle>
+
+
+<h1 class="text-center">Consulta productos</h1>
+
+<button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
+Generar reporte</button>
+
+@* <div class="card col-lg-8 mx-auto"> *@
+        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+            FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4" PagerHorizontalAlign="HorizontalAlign.Left" AllowSorting="true" Data="@listaClientes"
+            ColumnWidth="150px">
+
+            <Columns>
+                <RadzenGridColumn TItem="string" Title="ID" />
+                <RadzenGridColumn TItem="string" Title="Nombre" />
+                <RadzenGridColumn TItem="string" Title="Fecha" />
+                <RadzenGridColumn TItem="string" Title="Precio" />
+                <RadzenGridColumn TItem="string" Title="ITBIS" />
+                <RadzenGridColumn TItem="string" Title="Categoria" />
+                <RadzenGridColumn TItem="string" Title="Existencia" />
+                <RadzenGridColumn TItem="string" Title="Proveedor" />
+                <RadzenGridColumn TItem="string" Title="empaquetado" >
+                </RadzenGridColumn>
+            </Columns>
+        </RadzenGrid>
+@* </div> *@
+
+@code {
+    List<string> listaClientes = new List<string>();
+}

@@ -2,6 +2,7 @@
 
 html, body {
     font-family: 'Rokkitt', serif;
+    background-color: rgb(255, 255, 255);
 }
 
 h1:focus {
