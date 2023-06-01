@@ -15,5 +15,5 @@ public class Clientes
     [Required(ErrorMessage = "Campo email es requerido.")]
     [RegularExpression("\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*", ErrorMessage = "Formato inválido. name@gmail.com")]
     public string Email { get; set; } = string.Empty;
-    public DateTime Fecha { get; set; } = DateTime.Today;
+    public DateOnly Fecha { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 }

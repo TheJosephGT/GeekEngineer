@@ -25,7 +25,6 @@
                                 <span style="color: white;" class="btn-text-two">Buscar</span>
                             </button>
                         </div>
-
                     </div>
 
                 </div>
@@ -34,7 +33,7 @@
 
             <br>
             <br>
-            <div class="col-md-1">
+            <div class="form-group col-md-2">
                 <div class="group">
                     <InputDate required="" @bind-Value="venta.Fecha" class="input" id="fecha" />
                     <span class="highlight"></span>
@@ -44,23 +43,36 @@
             </div>
             <br>
             <br>
+            <div class="row">
             <div class="col-md-6">
                 <div class="group">
-                    <InputNumber required="" @bind-Value="venta.ClienteId" class="input" />
+                    <InputSelect required="" @bind-Value="venta.ClienteId" class="input" />
+                    @foreach (var item in ClienteList)
+                    {
+                        <option value="@item.ClienteId">@item.Nombre</option>
+                    }
                     <span class="highlight"></span>
                     <span class="bar"></span>
-                    <label>Cliente ID</label>
+                    <label>Cliente</label>
                 </div>
+            </div>
             </div>
             <br>
             <br>
+
+            <div class="row">
             <div class="col-md-6">
                 <div class="group">
-                    <InputNumber required="" @bind-Value="venta.ProductoId" class="input" />
+                    <label>Producto</label>
+                    <InputSelect required="" @bind-Value="venta.ProductoId" class="input" />
+                    @foreach (var item in ProductoList)
+                    {
+                        <option value="@item.ProductoId">@item.Nombre </option>
+                    }
                     <span class="highlight"></span>
                     <span class="bar"></span>
-                    <label>Producto ID</label>
                 </div>
+            </div>
             </div>
             <br>
             <br>
@@ -69,7 +81,7 @@
                     <InputText required="" @bind-Value="venta.ListaProducto" class="input" />
                     <span class="highlight"></span>
                     <span class="bar"></span>
-                    <label>Lista de productod</label>
+                    <label>Lista de producto</label>
                 </div>
 
             </div>
@@ -83,7 +95,7 @@
                     <label>Precio</label>
                 </div>
             </div>
-
+            
             <aside id="cuadrado">
 
             </aside>
@@ -114,6 +126,8 @@
     [Parameter]
     public int ventaId { get; set; }
     public Ventas venta { get; set; } = new Ventas();
+    List<Productos> ProductoList = new List<Productos>();
+    List<Clientes> ClienteList = new List<Clientes>();
 
     public void Guardar()
     {
