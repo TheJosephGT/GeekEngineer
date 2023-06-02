@@ -20,7 +20,11 @@
                             <span class="bar"></span>
                             <label>No. ID</label>
                         </div>
+                        <button type="button" class="btn" @onclick="Buscar" id="boton">
+                            <span class="btn-text-one" style="color: white;">Buscar</span>
+                        </button>
                     </div>
+<<<<<<< HEAD
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto"> </div>
                     <button type="button" class="btn" @onclick="Buscar" id="boton">
                         <span class="btn-text-one" style="color: white;">Buscar</span>
@@ -107,7 +111,87 @@
                 </table>
                 <hr>
 
+=======
+
+                </div>
+
+>>>>>>> b12bc8a19b83016d56242cb3ae801382a7550102
             </div>
+
+            <br>
+            <br>
+            <div class="form-group col-md-2">
+                <div class="group">
+                    <InputDate required="" @bind-Value="venta.Fecha" class="input" id="fecha" />
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Fecha</label>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="row">
+            <div class="col-md-6">
+                <div class="group">
+                    <InputSelect required="" @bind-Value="venta.ClienteId" class="input" />
+                    @foreach (var item in ClienteList)
+                    {
+                        <option value="@item.ClienteId">@item.Nombre</option>
+                    }
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Cliente</label>
+                </div>
+            </div>
+            </div>
+            <br>
+            <br>
+
+            <div class="row">
+            <div class="col-md-6">
+                <div class="group">
+                    <label>Producto</label>
+                    <InputSelect required="" @bind-Value="venta.ProductoId" class="input" />
+                    @foreach (var item in ProductoList)
+                    {
+                        <option value="@item.ProductoId">@item.Nombre </option>
+                    }
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+            </div>
+            <br>
+            <br>
+            <div class="col-md-6">
+                <div class="group">
+                    <InputText required="" @bind-Value="venta.ListaProducto" class="input" />
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Lista de producto</label>
+                </div>
+
+            </div>
+            <br>
+            <br>
+            <div class="col-md-6">
+                <div class="group">
+                    <InputNumber required="" @bind-Value="venta" class="input" />
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Precio</label>
+                </div>
+            </div>
+            
+            <aside id="cuadrado">
+
+            </aside>
+
+            <aside id="cuadradito">
+
+            </aside>
+
+        </div>
 
             @*Botones*@
             <div class="card-footer">

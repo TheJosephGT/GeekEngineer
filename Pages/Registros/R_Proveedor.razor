@@ -4,138 +4,125 @@
 
 <EditForm Model="proveedor" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
-
-    <div class="shadow">
-        <div class="modal-header">
-            <h1><strong>Registro de Proveedores</strong></h1>
-        </div>
-        <br>
-        <br>
-        <div class="accordion-body">
-            <div class="row">
-                <div class="col-md-2">
-                    <div class="input-group">
+    <div class="card col-lg-7 mx-auto">
+        <div class="shadow">
+            <div class="card-header">
+                <h1 class="text-center"><strong>Registro de Proveedor</strong></h1>
+            </div>
+            <br>
+            <br>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
                             <InputNumber required="" @bind-Value="proveedor.ProductoId" class="input" id="id" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>No. ID</label>
-                            <button type="button" class="btn" @onclick="Buscar" id="boton">
-                                <span class="btn-text-one">Buscar</span>
-                                <span style="color: white;" class="btn-text-two">Buscar</span>
-                            </button>
+                        </div>
+                        <button type="button" class="btn" @onclick="Buscar" id="boton">
+                            <span class="btn-text-one" style="color: white;">Buscar</span>
+                        </button>
+                    </div>
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto"> </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputDate required="" @bind-Value="proveedor.Fecha" class="input" id="fecha" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Fecha</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputText required="" @bind-Value="proveedor.Nombre" class="input" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Nombre</label>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputText required="" @bind-Value="proveedor.NombreEmpresa" class="input" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Nombre de la empresa</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputText required="" @bind-Value="proveedor.RNCEmpresa" class="input" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>RNC de empresa</label>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputText required="" @bind-Value="proveedor.NCFEmpresa" class="input" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>NCF de la empresa</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputSelect required="" @bind-Value="proveedor.ProductoId" class="input" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Producto</label>
                         </div>
 
                     </div>
+                </div>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputText required="" @bind-Value="proveedor.Direccion" class="input" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Dirección</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputText required="" @bind-Value="proveedor.Telefono" class="input" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Teléfono</label>
+                        </div>
 
+                    </div>
                 </div>
 
             </div>
 
-            <br>
-            <br>
-            <div class="col-md-1">
-                <div class="group">
-                    <InputDate required="" @bind-Value="proveedor.Fecha" class="input" id="fecha" />
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>Fecha</label>
+            @*Botones*@
+            <div class="card-footer">
+                <div class="form-group text-center" display: inline-block>
+                    <button type="button" class="btn btn-outline-primary" @onclick="Nuevo"><span
+                            class="oi oi-file"></span>
+                        Nuevo</button>
+                    <button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
+                        Guardar</button>
+                    <button type="button" class="btn btn-outline-danger" @onclick="Eliminar"><span
+                            class="oi oi-delete"></span>
+                        Eliminar</button>
                 </div>
             </div>
-            <br>
-            <br>
-            <div class="col-md-6">
-                <div class="group">
-                    <InputText required="" @bind-Value="proveedor.Nombre" class="input" />
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>Nombre</label>
-                </div>
-            </div>
-            <br>
-            <br>
-            <div class="col-md-6">
-                <div class="group">
-                    <InputText required="" @bind-Value="proveedor.NombreEmpresa" class="input" />
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>Nombre de la empresa</label>
-                </div>
-            </div>
-            <br>
-            <br>
-            <div class="col-md-6">
-                <div class="group">
-                    <InputText required="" @bind-Value="proveedor.RNCEmpresa" class="input" />
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>RNC de la empresa</label>
-                </div>
-
-            </div>
-            <br>
-            <br>
-            <div class="col-md-6">
-                <div class="group">
-                    <InputText required="" @bind-Value="proveedor.NCFEmpresa" class="input" />
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>NCF de la empresa</label>
-                </div>
-            </div>
-            <br>
-            <br>
-            <div class="col-md-6">
-                <div class="group">
-                    <InputNumber required="" @bind-Value="proveedor.ProductoId" class="input" />
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>Producto ID</label>
-                </div>
-            </div>
-
-            <br>
-            <br>
-            <div class="col-md-6">
-                <div class="group">
-                    <InputText required="" @bind-Value="proveedor.Direccion" class="input" />
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>Dirección</label>
-                </div>
-            </div>
-
-            <br>
-            <br>
-            <div class="col-md-6">
-                <div class="group">
-                    <InputText required="" @bind-Value="proveedor.Telefono" class="input" />
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>Teléfono</label>
-                </div>
-            </div>
-            <aside id="cuadrado">
-
-            </aside>
-
-            <aside id="cuadradito">
-
-            </aside>
-
-        </div>
-
-        @*Botones*@
-        <hr>
-        <div class="text-center">
-            <button type="button" class="btn btn-outline-primary" @onclick="Nuevo"><span class="oi oi-file"></span>
-                Nuevo</button>
-            <button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
-                Guardar</button>
-            <button type="button" class="btn btn-outline-danger" @onclick="Eliminar"><span class="oi oi-delete"></span>
-                Eliminar</button>
-            <br>
-            <br>
         </div>
     </div>
 </EditForm>
