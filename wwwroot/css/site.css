@@ -2,7 +2,9 @@
 
 html, body {
     font-family: 'Rokkitt', serif;
-    background-color: rgb(255, 255, 255);
+    background-image: url("../Images/Img.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 h1:focus {
