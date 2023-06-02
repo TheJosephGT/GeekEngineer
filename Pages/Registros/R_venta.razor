@@ -24,96 +24,104 @@
                             <span class="btn-text-one" style="color: white;">Buscar</span>
                         </button>
                     </div>
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto"> </div>
 
                 </div>
-
-            </div>
-
-            <br>
-            <br>
-            <div class="form-group col-md-2">
-                <div class="group">
-                    <InputDate required="" @bind-Value="venta.Fecha" class="input" id="fecha" />
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>Fecha</label>
-                </div>
-            </div>
-            <br>
-            <br>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="group">
-                        <InputSelect required="" @bind-Value="venta.ClienteId" class="input" />
-                        @foreach (var item in ClienteList)
-                        {
-                            <option value="@item.ClienteId">@item.Nombre</option>
-                        }
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label>Cliente</label>
+                <div class="row">
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputDate required="" @bind-Value="venta.Fecha" class="input" id="fecha" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Fecha</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputSelect required="" @bind-Value="venta.ClienteId" class="input" />
+                            @foreach (var item in ClienteList)
+                            {
+                                <option value="@item.ClienteId">@item.Nombre</option>
+                            }
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Cliente</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <br>
-            <br>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="group">
-                        <label>Producto</label>
-                        <InputSelect required="" @bind-Value="venta.ProductoId" class="input" />
-                        @foreach (var item in ProductoList)
-                        {
-                            <option value="@item.ProductoId">@item.Nombre </option>
-                        }
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputSelect required="" @bind-Value="venta.ProductoId" class="input" />
+                            @foreach (var item in ProductoList)
+                            {
+                                <option value="@item.ProductoId">@item.Nombre</option>
+                            }
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Producto</label>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputNumber required="" @bind-Value="detalle.Cantidad" class="input" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Cantidad</label>
+                        </div>
                     </div>
                 </div>
+
+                <br>
+                <br>
+
+                <br>
+                <table class="table table-light table-striped">
+                    <thead class="thead">
+                        <tr class="table text-center bg-inventariocolor">
+                            <th class="border border-3">Id</th>
+                            <th class="border border-3">Descripción</th>
+                            <th class="border border-3">Cantidad</th>
+                            <th class="border border-3">Precio</th>
+                            <th class="border border-3">Importe</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (venta.ventasDetalle is not null)
+                        {
+                            @foreach (var item in venta.ventasDetalle)
+                            {
+                                <tr class="text-center">
+                                    <td>@item.ProductoId</td>
+                                    <td>@item.Cantidad</td>
+                                    <td>RD$ @item.Importe</td>
+                                    <td>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                <hr>
+
             </div>
-            <br>
-            <br>
-            <div class="col-md-6">
-                <div class="group">
-                    <InputText required="" @bind-Value="venta.ListaProducto" class="input" />
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>Lista de producto</label>
+
+            @*Botones*@
+            <div class="card-footer">
+                <div class="form-group text-center" display: inline-block>
+                    <button type="button" class="btn btn-outline-primary" @onclick="Nuevo"><span
+                            class="oi oi-file"></span>
+                        Nuevo</button>
+                    <button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
+                        Guardar</button>
+                    <button type="button" class="btn btn-outline-danger" @onclick="Eliminar"><span
+                            class="oi oi-delete"></span>
+                        Eliminar</button>
                 </div>
-
-            </div>
-            <br>
-            <br>
-            <div class="col-md-6">
-                <div class="group">
-                    <InputNumber required="" @bind-Value="venta" class="input" />
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>Precio</label>
-                </div>
-            </div>
-
-            <aside id="cuadrado">
-
-            </aside>
-
-            <aside id="cuadradito">
-
-            </aside>
-
-        </div>
-
-        @*Botones*@
-        <div class="card-footer">
-            <div class="form-group text-center" display: inline-block>
-                <button type="button" class="btn btn-outline-primary" @onclick="Nuevo"><span class="oi oi-file"></span>
-                    Nuevo</button>
-                <button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
-                    Guardar</button>
-                <button type="button" class="btn btn-outline-danger" @onclick="Eliminar"><span
-                        class="oi oi-delete"></span>
-                    Eliminar</button>
             </div>
         </div>
     </div>
