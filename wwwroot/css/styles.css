@@ -1,42 +1,44 @@
+/*Agrupa el label, spam, input*/
 .group {
   position: relative;
-}
+  }
 
+  /*Diseno del input*/
 .input {
   font-size: 16px;
   padding: 10px 10px 10px 5px;
   display: block;
-  width: 56%;
+  width: 100%;
   border: none;
   border-bottom: 2px solid #000000;
   background: transparent;
 }
-
+  /*ID para modificar la fecha, esta cambia el tamaño de la barra*/
 #fecha {
   font-size: 16px;
   padding: 10px 10px 10px 5px;
   display: block;
-  width: 150px;
+  width: 100%;
   border: none;
   border-bottom: 2px solid #000000;
   background: transparent;
 
 }
-
+  /*ID para modificar el ID, esta cambia el tamaño de la barra*/
 #id {
   font-size: 16px;
   padding: 5px 5px 5px 5px;
   display: block;
-  width: 100px;
+  width: 40%;
   border: none;
   border-bottom: 2px solid rgb(0, 0, 0);
   background: transparent;
 }
-
+  /*Clase de input*/
 .input:focus {
   outline: none;
 }
-
+  /*Cambian todos los label*/
 label {
   color: #999;
   font-size: 16px;
@@ -50,6 +52,7 @@ label {
   -webkit-transition: 0.2s ease all;
 }
 
+/*Esta cambia la parencia del label y en input*/
 .input:focus~label,
 .input:valid~label {
   top: -20px;
@@ -57,10 +60,11 @@ label {
   color: #5264AE;
 }
 
+/*Esta es la barra que sale cuando interacturas el input*/
 .bar {
   position: relative;
   display: block;
-  width: 500px;
+  width: 100%;
 }
 
 .bar:before,
@@ -84,11 +88,12 @@ label {
   right: 50%;
 }
 
+/*Se implementa a la clase input*/
 .input:focus~.bar:before,
 .input:focus~.bar:after {
   width: 50%;
 }
-
+/*Estilo para la clase highlight, esto pone bonito el body*/
 .highlight {
   position: absolute;
   height: 60%;
@@ -114,65 +119,37 @@ label {
   }
 }
 
-#cuadrado {
-  display: inline;
-  float: right;
-  margin: 1em;
-  padding: .3em;
-  border: 2px solid #555;
-  width: 25%;
-  height: 965px;
-  font: 1em Arial, Helvetica, sans-serif;
-  position: relative;
-  top: -856px;
-  margin-right: -20px;
-  border-radius: 30px;
-  background-color: #053F5C;
-}
-
-#cuadradito {
-  display: inline;
-  float: right;
-  margin: 1em;
-  padding: .3em;
-  width: 50px;
-  height: 80px;
-  font: 1em Arial, Helvetica, sans-serif;
-  position: relative;
-  top: -450px;
-  margin-right: -40px;
-  border-radius: 5px;
-  background-color: #F7AD19;
-}
-
+/*Este es el body, es una clase que accede al cuerpo*/
 .shadow {
   width: 100%;
-  border-radius: 30px;
   height: 10%;
-  
+  border-radius: 2%;
 }
 
 /*Botones*/
+
+/*ID de boton para el buscar*/
 #boton {
   display: flex;
-  margin-left: 120px;
+  margin-left: 24%;
   position: relative;
-  top: -40px;
-  width: 100px;
+  top: -35px;
+  width: 10%;
+  height: 40px;
   border-radius: 10px;
 }
-
+/*Clase para botones, esta abarca todos los botones*/
 .btn {
-  width: 140px;
-  height: 50px;
-  background: linear-gradient(to top, #053F5C, #12376e, #23487f);
+  width: 10%;
+  height: 70%;
+  background: linear-gradient(to top, #128ecc, #128ecc, #128ecc);
   color: #fff;
   border-radius: 10px;
   border: none;
   outline: none;
   cursor: pointer;
   position: relative;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 15px 30px rgba(255, 255, 255, 0.5);
   overflow: hidden;
 }
 
@@ -198,15 +175,16 @@ label {
   left: 0;
   transform: translateY(-50%);
 }
-
-.btn:hover .btn-text-one {
-  top: -100%;
+/*Animacion de la etiqueta de botoenes*/
+button:hover {
+  background-color: #23c483;
+  box-shadow: 0px 15px 20px #053F5C;
+  color: #fff;
+  transform: translateY(-7px);
 }
 
-.btn:hover .btn-text-two {
-  top: 50%;
+button:active {
+  transform: translateY(-1px);
 }
 
-#titulo {
-  margin-right: 10px;
-}
+
