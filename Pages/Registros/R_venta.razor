@@ -1,0 +1,149 @@
+@page "/r_venta"
+@page "/venta/{ventaId:int}"
+
+
+<EditForm Model="venta" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+
+    <div class="shadow">
+        <div class="modal-header">
+            <h1><strong>Registro de ventas</strong></h1>
+        </div>
+        <br>
+        <br>
+        <div class="accordion-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <div class="group">
+                            <InputNumber required="" @bind-Value="venta.VentaId" class="input" id="id" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>No. ID</label>
+                            <button type="button" class="btn" @onclick="Buscar" id="boton">
+                                <span class="btn-text-one">Buscar</span>
+                                <span style="color: white;" class="btn-text-two">Buscar</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <br>
+            <br>
+            <div class="form-group col-md-2">
+                <div class="group">
+                    <InputDate required="" @bind-Value="venta.Fecha" class="input" id="fecha" />
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Fecha</label>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="row">
+            <div class="col-md-6">
+                <div class="group">
+                    <InputSelect required="" @bind-Value="venta.ClienteId" class="input" />
+                    @foreach (var item in ClienteList)
+                    {
+                        <option value="@item.ClienteId">@item.Nombre</option>
+                    }
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Cliente</label>
+                </div>
+            </div>
+            </div>
+            <br>
+            <br>
+
+            <div class="row">
+            <div class="col-md-6">
+                <div class="group">
+                    <label>Producto</label>
+                    <InputSelect required="" @bind-Value="venta.ProductoId" class="input" />
+                    @foreach (var item in ProductoList)
+                    {
+                        <option value="@item.ProductoId">@item.Nombre </option>
+                    }
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+            </div>
+            <br>
+            <br>
+            <div class="col-md-6">
+                <div class="group">
+                    <InputText required="" @bind-Value="venta.ListaProducto" class="input" />
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Lista de producto</label>
+                </div>
+
+            </div>
+            <br>
+            <br>
+            <div class="col-md-6">
+                <div class="group">
+                    <InputNumber required="" @bind-Value="venta.Precio" class="input" />
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Precio</label>
+                </div>
+            </div>
+            
+            <aside id="cuadrado">
+
+            </aside>
+
+            <aside id="cuadradito">
+
+            </aside>
+
+        </div>
+
+        @*Botones*@
+        <hr>
+        <div class="text-center">
+            <button type="button" class="btn btn-outline-primary" @onclick="Nuevo"><span class="oi oi-file"></span>
+                Nuevo</button>
+            <button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
+                Guardar</button>
+            <button type="button" class="btn btn-outline-danger" @onclick="Eliminar"><span class="oi oi-delete"></span>
+                Eliminar</button>
+            <br>
+            <br>
+        </div>
+    </div>
+</EditForm>
+
+@code
+{
+    [Parameter]
+    public int ventaId { get; set; }
+    public Ventas venta { get; set; } = new Ventas();
+    List<Productos> ProductoList = new List<Productos>();
+    List<Clientes> ClienteList = new List<Clientes>();
+
+    public void Guardar()
+    {
+
+    }
+    public void Eliminar()
+    {
+
+    }
+    public void Nuevo()
+    {
+
+    }
+
+    public void Buscar()
+    {
+
+    }
+}

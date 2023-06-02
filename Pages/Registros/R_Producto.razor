@@ -1,0 +1,165 @@
+@page "/r_producto"
+@page "/producto/{productoId:int}"
+
+
+<EditForm Model="producto" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+
+    <div class="shadow">
+        <div class="modal-header">
+            <h1><strong>Registro de Productos</strong></h1>
+        </div>
+        <br>
+        <br>
+        <div class="accordion-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <div class="group">
+                            <InputNumber required="" @bind-Value="producto.ProductoId" class="input" id="id" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>No. ID</label>
+                            <button type="button" class="btn" @onclick="Buscar" id="boton">
+                                <span class="btn-text-one">Buscar</span>
+                                <span style="color: white;" class="btn-text-two">Buscar</span>
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <br>
+            <br>
+            <div class="col-md-1">
+                <div class="group">
+                    <InputDate required="" @bind-Value="producto.Fecha" class="input" id="fecha" />
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Fecha</label>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="col-md-6">
+                <div class="group">
+                    <InputText required="" @bind-Value="producto.Nombre" class="input" />
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Nombre</label>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="col-md-6">
+                <div class="group">
+                    <InputNumber required="" @bind-Value="producto.PrecioCompra" class="input" />
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Precio de compra</label>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="col-md-6">
+                <div class="group">
+                    <InputNumber required="" @bind-Value="producto.ITBIS" class="input" />
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>ITBIS</label>
+                </div>
+
+            </div>
+            <br>
+            <br>
+            <div class="col-md-6">
+                <div class="group">
+                    <InputSelect required="" @bind-Value="producto.CategoriaId" class="input" />
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Categoría</label>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="col-md-6">
+                <div class="group">
+                    <InputText required="" @bind-Value="producto.EstaEmpacado" class="input" />
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Esta empaquetado</label>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="col-md-6">
+                <div class="group">
+                    <InputNumber required="" @bind-Value="producto.Cantidad" class="input" />
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Cantidad</label>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="col-md-6">
+                <div class="group">
+                    <InputSelect required="" @bind-Value="producto.ProveedorId" class="input" />
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Proveedor</label>
+                </div>
+            </div>
+
+            <aside id="cuadrado">
+
+            </aside>
+
+            <aside id="cuadradito">
+
+            </aside>
+
+        </div>
+
+        @*Botones*@
+        <hr>
+        <div class="text-center">
+            <button type="button" class="btn btn-outline-primary" @onclick="Nuevo"><span class="oi oi-file"></span>
+                Nuevo</button>
+            <button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
+                Guardar</button>
+            <button type="button" class="btn btn-outline-danger" @onclick="Eliminar"><span class="oi oi-delete"></span>
+                Eliminar</button>
+            <br>
+            <br>
+        </div>
+    </div>
+</EditForm>
+
+@code
+{
+    [Parameter]
+    public int productoId { get; set; }
+    public Productos producto { get; set; } = new Productos();
+
+    public void Guardar()
+    {
+
+    }
+    public void Eliminar()
+    {
+
+    }
+    public void Nuevo()
+    {
+
+    }
+
+    public void Buscar()
+    {
+
+    }
+}

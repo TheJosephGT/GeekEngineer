@@ -1,0 +1,152 @@
+@page "/r_cliente"
+@page "/cliente/{clienteId:int}"
+
+
+<EditForm Model="cliente" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+
+    <div class="shadow">
+        <div class="modal-header">
+            <h1><strong>Registro de Cliente</strong></h1>
+        </div>
+        <br>
+        <br>
+        <div class="accordion-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <div class="group">
+                            <InputNumber required="" @bind-Value="cliente.ClienteId" class="input" id="id" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>No. ID</label>
+                            <button type="button" class="btn"  @onclick="Buscar" id="boton">
+                                <span class="btn-text-one">Buscar</span>
+                                <span style="color: white;" class="btn-text-two">Buscar</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <br>
+
+            <div class="col-md-1">
+                <div class="group">
+                    <InputDate required="" @bind-Value="cliente.Fecha" class="input" id="fecha" />
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Fecha</label>
+                </div>
+            </div>
+
+            <br>
+            <br>
+
+            <div class="col-md-6">
+                <div class="group">
+                    <InputText required="" @bind-Value="cliente.Nombre" class="input" />
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Nombre</label>
+                </div>
+            </div>
+
+            <br>
+            <br>
+
+            <div class="col-md-6">
+                <div class="group">
+                    <InputText required="" @bind-Value="cliente.Cedula" class="input" />
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Cédula</label>
+                </div>
+            </div>
+
+            <br>
+            <br>
+
+            <div class="col-md-6">
+                <div class="group">
+                    <InputText required="" @bind-Value="cliente.Telefono" class="input" />
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Teléfono</label>
+                </div>
+            </div>
+
+            <br>
+            <br>
+
+            <div class="col-md-6">
+                <div class="group">
+                    <InputText required="" @bind-Value="cliente.Direccion" class="input" />
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Dirección</label>
+                </div>
+            </div>
+
+            <br>
+            <br>
+            
+            <div class="col-md-6">
+                <div class="group">
+                    <InputText required="" @bind-Value="cliente.Email" class="input" />
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Email</label>
+                </div>
+            </div>
+
+            <aside id="cuadrado">
+
+            </aside>
+
+            <aside id="cuadradito">
+
+            </aside>
+
+        </div>
+
+        @*Botones*@
+        <hr>
+        <div class="text-center">
+            <button type="button" class="btn btn-outline-primary" @onclick="Nuevo"><span class="oi oi-file"></span>
+                Nuevo</button>
+            <button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
+                Guardar</button>
+            <button type="button" class="btn btn-outline-danger" @onclick="Eliminar"><span class="oi oi-delete"></span>
+                Eliminar</button>
+            <br>
+            <br>
+        </div>
+    </div>
+</EditForm>
+
+@code
+{
+    [Parameter]
+    public int clienteId { get; set; }
+    public Clientes cliente { get; set; } = new Clientes();
+
+    public void Guardar()
+    {
+
+    }
+    public void Eliminar()
+    {
+
+    }
+    public void Nuevo()
+    {
+
+    }
+
+    public void Buscar()
+    {
+
+    }
+}
