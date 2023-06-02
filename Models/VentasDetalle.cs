@@ -6,5 +6,6 @@ public class VentasDetalle{
     public int VentaId { get; set; }
     public int ProductoId { get; set; } 
     public double Cantidad { get; set; }
+    public float PrecioProducto { get; set; }
     public float Importe { get; set; }
 }

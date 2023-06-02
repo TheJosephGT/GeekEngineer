@@ -76,6 +76,8 @@
                     </div>
                 </div>
 
+                @*...................... Boton Add ......................*@
+
                 <br>
                 <br>
 
@@ -84,7 +86,7 @@
                     <thead class="thead">
                         <tr class="table text-center bg-inventariocolor">
                             <th class="border border-3">Id</th>
-                            <th class="border border-3">Descripción</th>
+                            <th class="border border-3">Producto</th>
                             <th class="border border-3">Cantidad</th>
                             <th class="border border-3">Precio</th>
                             <th class="border border-3">Importe</th>
@@ -98,9 +100,8 @@
                                 <tr class="text-center">
                                     <td>@item.ProductoId</td>
                                     <td>@item.Cantidad</td>
+                                    <td>RD$ @item.PrecioProducto</td>
                                     <td>RD$ @item.Importe</td>
-                                    <td>
-                                    </td>
                                 </tr>
                             }
                         }

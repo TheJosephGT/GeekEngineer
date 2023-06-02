@@ -8,6 +8,7 @@ public class Ventas
     public string ListaProducto { get; set; } = string.Empty; //Falta poner el tipo de dato que sea una lista.
     [DataType(DataType.Date)] 
     public DateOnly Fecha { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+    public double ITBIS { get; set; }
     public double SubTotal { get; set; }
     public double Total { get; set; }
     
