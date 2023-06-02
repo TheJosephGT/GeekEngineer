@@ -38,7 +38,7 @@
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
                             <InputSelect required="" @bind-Value="venta.ClienteId" class="input" id="fecha" />
-                             @foreach (var item in ClienteList)
+                            @foreach (var item in ClienteList)
                             {
                                 <option value="@item.ClienteId">@item.Nombre</option>
                             }
@@ -78,35 +78,35 @@
                 <br>
                 <br>
 
-<br>
-<table class="table table-light table-striped">
-    <thead class="thead">
-    <tr class="table text-center bg-inventariocolor">
-        <th class="border border-3">Id</th>
-        <th class="border border-3">Descripción</th>
-        <th class="border border-3">Cantidad</th>
-        <th class="border border-3">Precio</th>
-        <th class="border border-3">Importe</th>
-    </tr>
-    </thead>
-    <tbody>
-    @if (venta.ventasDetalle is not null)
-    {
-        @foreach (var item in venta.ventasDetalle)
-        {
-            <tr class="text-center">
-                <td>@item.ProductoId</td>
-                <td>@item.Cantidad</td>
-                <td>RD$ @item.Importe</td>
-                <td>
-                </td>
-            </tr>
-        }
-    }
-    </tbody>
-</table>
-<hr>
-                
+                <br>
+                <table class="table table-light table-striped">
+                    <thead class="thead">
+                        <tr class="table text-center bg-inventariocolor">
+                            <th class="border border-3">Id</th>
+                            <th class="border border-3">Descripción</th>
+                            <th class="border border-3">Cantidad</th>
+                            <th class="border border-3">Precio</th>
+                            <th class="border border-3">Importe</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (venta.ventasDetalle is not null)
+                        {
+                            @foreach (var item in venta.ventasDetalle)
+                            {
+                                <tr class="text-center">
+                                    <td>@item.ProductoId</td>
+                                    <td>@item.Cantidad</td>
+                                    <td>RD$ @item.Importe</td>
+                                    <td>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                <hr>
+
             </div>
 
             @*Botones*@
