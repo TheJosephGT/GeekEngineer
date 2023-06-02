@@ -1,12 +1,12 @@
 .group {
   position: relative;
-}
+  }
 
 .input {
   font-size: 16px;
   padding: 10px 10px 10px 5px;
   display: block;
-  width: 56%;
+  width: 100%;
   border: none;
   border-bottom: 2px solid #000000;
   background: transparent;
@@ -16,7 +16,7 @@
   font-size: 16px;
   padding: 10px 10px 10px 5px;
   display: block;
-  width: 150px;
+  width: 100%;
   border: none;
   border-bottom: 2px solid #000000;
   background: transparent;
@@ -27,7 +27,7 @@
   font-size: 16px;
   padding: 5px 5px 5px 5px;
   display: block;
-  width: 100px;
+  width: 100%;
   border: none;
   border-bottom: 2px solid rgb(0, 0, 0);
   background: transparent;
@@ -60,7 +60,7 @@ label {
 .bar {
   position: relative;
   display: block;
-  width: 500px;
+  width: 100%;
 }
 
 .bar:before,
@@ -155,16 +155,17 @@ label {
 /*Botones*/
 #boton {
   display: flex;
-  margin-left: 120px;
+  margin-left: 65%;
   position: relative;
-  top: -40px;
-  width: 100px;
+  top: -30px;
+  width: 100%;
+  height: 40px;
   border-radius: 10px;
 }
 
 .btn {
-  width: 140px;
-  height: 50px;
+  width: 10%;
+  height: 70%;
   background: linear-gradient(to top, #053F5C, #12376e, #23487f);
   color: #fff;
   border-radius: 10px;
