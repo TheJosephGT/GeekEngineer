@@ -4,76 +4,64 @@
 
 <EditForm Model="inventario" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
-
-    <div class="shadow">
-        <div class="modal-header">
-            <h1><strong>Registro de inventario</strong></h1>
-        </div>
-        <br>
-        <br>
-        <div class="accordion-body">
-            <div class="row">
-                <div class="col-md-2">
-                    <div class="input-group">
+    <div class="card col-lg-7 mx-auto">
+        <div class="shadow">
+            <div class="card-header">
+                <h1 class="text-center"><strong>Registro de Inventario</strong></h1>
+            </div>
+            <br>
+            <br>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
                             <InputNumber required="" @bind-Value="inventario.InventarioId" class="input" id="id" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>No. ID</label>
-                            <button type="button" class="btn" @onclick="Buscar" id="boton">
-                                <span class="btn-text-one">Buscar</span>
-                                <span style="color: white;" class="btn-text-two">Buscar</span>
-                            </button>
                         </div>
-
+                        <button type="button" class="btn" @onclick="Buscar" id="boton">
+                            <span class="btn-text-one" style="color: white;">Buscar</span>
+                        </button>
                     </div>
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto"> </div>
 
                 </div>
-
+                <div class="row">
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputSelect required="" @bind-Value="inventario.ProductoId" class="input" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Producto ID</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputNumber required="" @bind-Value="inventario.Existencia" class="input" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Existencia</label>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
             </div>
 
-            <br>
-            <br>
-            <div class="col-md-1">
-                <div class="group">
-                    <InputNumber required="" @bind-Value="inventario.ProductoId" class="input" />
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>Producto ID</label>
+            @*Botones*@
+            <div class="card-footer">
+                <div class="form-group text-center" display: inline-block>
+                    <button type="button" class="btn btn-outline-primary" @onclick="Nuevo"><span
+                            class="oi oi-file"></span>
+                        Nuevo</button>
+                    <button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
+                        Guardar</button>
+                    <button type="button" class="btn btn-outline-danger" @onclick="Eliminar"><span
+                            class="oi oi-delete"></span>
+                        Eliminar</button>
                 </div>
             </div>
-            <br>
-            <br>
-            <div class="col-md-6">
-                <div class="group">
-                    <InputNumber required="" @bind-Value="inventario.Existencia" class="input" />
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>Existencia</label>
-                </div>
-            </div>
-
-            <aside id="cuadrado">
-
-            </aside>
-
-            <aside id="cuadradito">
-
-            </aside>
-
-        </div>
-
-        @*Botones*@
-        <hr>
-        <div class="text-center">
-            <button type="button" class="btn btn-outline-primary" @onclick="Nuevo"><span class="oi oi-file"></span>
-                Nuevo</button>
-            <button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
-                Guardar</button>
-            <button type="button" class="btn btn-outline-danger" @onclick="Eliminar"><span class="oi oi-delete"></span>
-                Eliminar</button>
-            <br>
-            <br>
         </div>
     </div>
 </EditForm>
