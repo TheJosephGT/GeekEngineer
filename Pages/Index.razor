@@ -1,2 +1,47 @@
 ﻿@page "/"
+@using ChartJs.Blazor.PieChart
 
+<h1 class="text-center">Grafica de productos de productos mas vendidos por categoria</h1>
+
+<Chart Config="_configuracionPastel"></Chart>
+
+@code {
+    private PieConfig? _configuracionPastel;
+
+    protected override void OnInitialized()
+    {
+        RealizarConfiguracionPastel();
+    }
+
+    private void RealizarConfiguracionPastel()
+    {
+        _configuracionPastel = new PieConfig();
+
+        _configuracionPastel.Options = new PieOptions
+        {
+            Responsive = true,
+            Title = new OptionsTitle
+            {
+                Display = true,
+                Text = "Mas vendidos"
+            }
+        };
+
+        foreach (var item in new[] {"Opcion 1", "Opcion 2", "Opcion 3"})
+        {
+            _configuracionPastel.Data.Labels.Add(item);
+        }
+
+        PieDataset<int> dataset = new PieDataset<int>(new[] {35, 50, 15})
+        {
+            BackgroundColor = new[]
+            {
+                ColorUtil.ColorHexString(255,0,0), //Rojo
+                ColorUtil.ColorHexString(0,0,255), //Azul
+                ColorUtil.ColorHexString(255,255,0) //Amarillo
+            }
+        };
+
+        _configuracionPastel.Data.Datasets.Add(dataset);
+    }
+}
