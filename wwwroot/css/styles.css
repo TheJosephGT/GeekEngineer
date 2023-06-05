@@ -59,7 +59,7 @@ label {
 
 .bar {
   position: relative;
-  display:flex;
+  display: flex;
   width: 100%;
 }
 
@@ -114,42 +114,12 @@ label {
   }
 }
 
-#cuadrado {
-  display: inline;
-  float: right;
-  margin: 1em;
-  padding: .3em;
-  border: 2px solid #555;
-  width: 25%;
-  height: 965px;
-  font: 1em Arial, Helvetica, sans-serif;
-  position: relative;
-  top: -856px;
-  margin-right: -20px;
-  border-radius: 30px;
-  background-color: #053F5C;
-}
-
-#cuadradito {
-  display: inline;
-  float: right;
-  margin: 1em;
-  padding: .3em;
-  width: 50px;
-  height: 80px;
-  font: 1em Arial, Helvetica, sans-serif;
-  position: relative;
-  top: -450px;
-  margin-right: -40px;
-  border-radius: 5px;
-  background-color: #F7AD19;
-}
 
 .shadow {
   width: 100%;
   border-radius: 0px;
   height: 10%;
-  
+
 }
 
 /*Botones*/
@@ -214,8 +184,22 @@ button:active {
   margin-right: 10px;
 }
 
-.tamano{
+.tamano {
   width: 500px;
   height: 500px;
-  margin-left: 44%;  
+  margin-left: 44%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.cover {
+  height: 400px;
+  background-image: url("../Images/GeekEngineer.png"); 
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  
 }
