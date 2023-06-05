@@ -59,7 +59,7 @@ label {
 
 .bar {
   position: relative;
-  display: block;
+  display:flex;
   width: 100%;
 }
 
@@ -165,7 +165,7 @@ label {
 .btn {
   width: 150px;
   height: 50px;
-  background: linear-gradient(to top, #128ecc, #128ecc, #128ecc);
+  background: linear-gradient(to top, #071820, #071820, #071820);
   color: #fff;
   border-radius: 10px;
   border: none;
@@ -212,4 +212,10 @@ button:active {
 
 #titulo {
   margin-right: 10px;
+}
+
+.tamano{
+  width: 500px;
+  height: 500px;
+  margin-left: 44%;  
 }

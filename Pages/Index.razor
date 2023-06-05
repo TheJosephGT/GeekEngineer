@@ -1,9 +1,16 @@
 ﻿@page "/"
-@using ChartJs.Blazor.PieChart
+
+
+
+
+@* @using ChartJs.Blazor.PieChart
 
 <h1 class="text-center">Grafica de productos de productos mas vendidos por categoria</h1>
+<div class="tamano">
+<Chart Config="_configuracionPastel" Width="100" Height="100" ></Chart>
 
-<Chart Config="_configuracionPastel"></Chart>
+</div>
+
 
 @code {
     private PieConfig? _configuracionPastel;
@@ -44,4 +51,4 @@
 
         _configuracionPastel.Data.Datasets.Add(dataset);
     }
-}
+} *@
