@@ -190,16 +190,13 @@ button:active {
   margin-left: 44%;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-}
 
 .cover {
-  height: 400px;
+  height: 600px;
   background-image: url("../Images/GeekEngineer.png"); 
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
-  
+  position: relative;
+  top: -24px;
 }

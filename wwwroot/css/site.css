@@ -4,7 +4,8 @@ html, body {
     font-family: 'Rokkitt', serif;
     background-image: url("../Images/5026563.jpg");
     background-repeat: no-repeat;
-    background-size: cover;  
+    background-size: cover;
+    background-attachment: fixed;
     
 }
 
@@ -28,6 +29,7 @@ a, .btn-link {
 
 .content {
     padding-top: 1.1rem;
+    display: inline;
 }
 
 .valid.modified:not([type=checkbox]) {
