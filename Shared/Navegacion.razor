@@ -63,8 +63,15 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Sobre Nosotros</a>
+                    <a class="nav-link active" aria-current="page" href="sobreNosotros">Sobre Nosotros</a>
                 </li>
+
+                <form method="post" action="Identity/Account/Logout">
+                    <span class="nav-link" onclick="this.parentNode.submit();"
+                        style="cursor: pointer; position: fixed; top: 10px; right: 10px;">
+                        <span class="oi oi-account-logout"></span>
+                    </span>
+                </form>
             </ul>
         </div>
     </div>
