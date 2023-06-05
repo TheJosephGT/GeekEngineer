@@ -20,4 +20,9 @@ public class Productos
     [Range(1, int.MaxValue, ErrorMessage = "Ingrese la cantidad del producto.")]
     public int Cantidad { get; set; }
     public int ProveedorId { get; set; }
+     [Required(ErrorMessage = "Seleccione la posición del producto.")]
+    public string PosicionProducto { get; set; } = string.Empty;
+    [Required(ErrorMessage = "Campo descuento es obligatorio.")]
+    [Range(minimum: 1, maximum: float.MaxValue, ErrorMessage = "Seleccione el % del descuento.")]
+    public double Descuento { get; set; }
 }

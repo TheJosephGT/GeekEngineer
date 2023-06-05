@@ -21,7 +21,7 @@
                             <label>No. ID</label>
                         </div>
                         <button type="button" class="btn" @onclick="Buscar" id="boton">
-                            <span class="btn-text-one" style="color: white;">Buscar</span>
+                            <span class="btn-text-one" style="color: white;" title='Buscar producto'>Buscar</span>
                         </button>
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto"> </div>
@@ -104,7 +104,30 @@
                             <span class="bar"></span>
                             <label>Proveedor</label>
                         </div>
+                    </div>
 
+                </div>
+
+                <br>
+                <br>
+
+                <div class="row">
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputText required="" @bind-Value="producto.PosicionProducto" class="input" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Posición Almacén</label>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputNumber required="" @bind-Value="producto.Descuento" class="input" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Descuento</label>
+                        </div>
                     </div>
                 </div>
 
