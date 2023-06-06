@@ -50,10 +50,19 @@
                 <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputNumber required="" @bind-Value="producto.PrecioCompra" class="input" />
+                            <InputNumber required="" @bind-Value="producto.Precio" class="input" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <label>Precio de compra</label>
+                            <label>Precio</label>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputNumber required="" @bind-Value="producto.Costo" class="input" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Costo</label>
                         </div>
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
@@ -130,6 +139,7 @@
                         </div>
                     </div>
                 </div>
+                
 
             </div>
 
