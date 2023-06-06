@@ -187,25 +187,25 @@ button:active {
 .tamano {
   width: 800px;
   height: 800px;
-  margin-left: 31%;
+  margin-left: 3%;
 }
 
 
 .cover {
-  height: 1000px;
-  width: 100%;
-  background-image: url("../Images/GeekEngineer.png"); 
+  height: 550px;
+  box-shadow: 5px 5px 5px #888888;
+  background-image: url("../Images/GeekEngineer.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
   position: relative;
   top: -24px;
-  background-attachment: fixed;
-
 }
 
-.text-index_
-{
-  padding-right:80%;
-  position: relative;
-  top: -390px;
+.text-index_ {
   color: white;
+  padding-left: 60%;
+  position: relative;
+  top: -140px;
+  font-family: 'Courier New', monospace;
 }
-
