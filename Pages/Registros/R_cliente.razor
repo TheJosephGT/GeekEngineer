@@ -1,11 +1,16 @@
 @page "/r_cliente"
 @page "/cliente/{clienteId:int}"
-
-
+<div class="apartado-rep">
+    <a href="">Productos por acabarse</a>
+    <a href="">Total vendido p/categoria</a>
+</div>
 <EditForm Model="cliente" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
+
     <div class="card col-lg-7 mx-auto">
+
         <div class="shadow">
+
             <div class="card-header">
                 <h1 class="text-center"><strong>Registro de Cliente</strong></h1>
             </div>

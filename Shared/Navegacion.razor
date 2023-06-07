@@ -57,17 +57,24 @@
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="facturasDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Ventas
-                    </a>
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ventas</a>
                     <ul class="dropdown-menu" aria-labelledby="facturasDropdown">
                         <li><a class="dropdown-item" href="r_venta">Registrar Venta</a></li>
                         <li><a class="dropdown-item" href="c_venta">Consultar Ventas</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="reportes">Reportes</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="facturasDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reporte</a>
+                    <ul class="dropdown-menu" aria-labelledby="facturasDropdown">
+                        <li><a class="dropdown-item" href="#">Producto que más vendieron en el ult/mes</a></li>
+                        <li><a class="dropdown-item" href="#">Análisis de rentabilidad</a></li>
+                        <li><a class="dropdown-item" href="#">Productos que menos se vendieron en el ult/mes</a></li>
+                        <li><a class="dropdown-item" href="#">Cliente que más gastaron en el último mes</a></li>
+                        <li><a class="dropdown-item" href="#">Análisis de venta diaria</a></li>
+                    </ul>
                 </li>
+
 
                 <form method="post" action="Identity/Account/Logout">
                     <span class="nav-link" onclick="this.parentNode.submit();"

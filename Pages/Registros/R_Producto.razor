@@ -1,14 +1,15 @@
 @page "/r_producto"
 @page "/producto/{productoId:int}"
 
-<div class="apartado-rep">
-    <a href="">Productos por acabarse<i class="oi oi-document"></i></a>
-    <a href="">Total vendido p/categoria<i class="oi oi-document"></i></a>
-</div>
+        <div class="apartado-rep">
+            <a href="">Productos por acabarse</a>
+            <a href="">Total vendido p/categoria</a>
+        </div>
 
 <EditForm Model="producto" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
     <div class="card col-lg-7 mx-auto">
+
         <div class="shadow">
             <div class="card-header">
                 <h1 class="text-center"><strong>Registro de Producto</strong></h1>
