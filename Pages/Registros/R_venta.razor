@@ -4,7 +4,7 @@
 
 <EditForm Model="venta" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
-    <div class="card col-lg-7 mx-auto">
+    <div class="card col-lg-8 mx-auto">
         <div class="shadow">
             <div class="card-header">
                 <h1 class="text-center"><strong>Registro de Venta</strong></h1>
@@ -36,7 +36,7 @@
                             <label>Fecha</label>
                         </div>
                     </div>
-                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                    <div class="col-sm- col-md-4 mb-2 mx-auto">
                         <div class="group">
                             <InputSelect required="" @bind-Value="venta.ClienteId" class="input" />
                             @foreach (var item in ClienteList)
@@ -51,8 +51,10 @@
                 </div>
                 <br>
                 <br>
+                <br>
+                <br>
                 <div class="row">
-                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                    <div class="col-sm-2 col-md-3 mb-2 mx-auto">
                         <div class="group">
                             <InputSelect required="" @bind-Value="venta.ProductoId" class="input" />
                             @foreach (var item in ProductoList)
@@ -66,7 +68,7 @@
                     </div>
                     <br>
                     <br>
-                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                    <div class="col-sm-2 col-md-2 mb-2 mx-auto">
                         <div class="group">
                             <InputNumber required="" @bind-Value="detalle.Cantidad" class="input" />
                             <span class="highlight"></span>
@@ -74,14 +76,20 @@
                             <label>Cantidad</label>
                         </div>
                     </div>
+
+                    @*...................... Boton Add ......................*@
+
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <button type="button" class="btn btn-primary" title="Añadir detalle de venta">
+                            <span class="oi oi-plus"> Agregar</span>
+                        </button>
+                    </div>
                 </div>
 
-                @*...................... Boton Add ......................*@
+                <br>
+                <br>
+                <br>
 
-                <br>
-                <br>
-
-                <br>
                 <table class="table table-light table-striped">
                     <thead class="thead">
                         <tr class="table text-center bg-inventariocolor">
@@ -110,6 +118,46 @@
                 <hr>
 
             </div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">SubTotal</span>
+                                </div>
+                                <input type="number" class="input" value="@venta.SubTotal" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">ITBIS</span>
+                                </div>
+                                <input type="number" class="input" value="@venta.ITBIS" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Total</span>
+                                </div>
+                                <input type="number" class="input" value="@venta.Total" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <br>
 
             @*Botones*@
             <div class="card-footer">
