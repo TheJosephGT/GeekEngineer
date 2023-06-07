@@ -68,7 +68,7 @@
                     <br>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputNumber required="" @bind-Value="detalle.Cantidad" class="input" />
+                            <InputNumber required="" @bind-Value="detalle.Cantidad" class="input"/>
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Cantidad</label>
@@ -110,6 +110,46 @@
                 <hr>
 
             </div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">SubTotal</span>
+                                </div>
+                                <input type="number" class="input" value="@venta.SubTotal" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">ITBIS</span>
+                                </div>
+                                <input type="number" class="input" value="@venta.ITBIS" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Total</span>
+                                </div>
+                                <input type="number" class="input" value="@venta.Total" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <br>
 
             @*Botones*@
             <div class="card-footer">
