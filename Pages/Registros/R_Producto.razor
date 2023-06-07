@@ -69,6 +69,11 @@
                             <label>Costo</label>
                         </div>
                     </div>
+                </div>
+                <br>
+                <br>
+                <div class="row">
+
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
                             <InputNumber required="" @bind-Value="producto.ITBIS" class="input" />
@@ -77,10 +82,7 @@
                             <label>ITBIS</label>
                         </div>
                     </div>
-                </div>
-                <br>
-                <br>
-                <div class="row">
+
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
                             <InputSelect required="" @bind-Value="producto.CategoriaId" class="input" />
@@ -89,6 +91,11 @@
                             <label>Categoría</label>
                         </div>
                     </div>
+                </div>
+                <br>
+                <br>
+                <div class="row">
+
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
                             <InputSelect required="" @bind-Value="producto.EstaEmpacado" class="input" />
@@ -97,10 +104,7 @@
                             <label>Esta empacado</label>
                         </div>
                     </div>
-                </div>
-                <br>
-                <br>
-                <div class="row">
+
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
                             <InputNumber required="" @bind-Value="producto.Cantidad" class="input" />
@@ -109,12 +113,26 @@
                             <label>Cantidad</label>
                         </div>
                     </div>
+                </div>
+
+                <br>
+                <br>
+
+                <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
                             <InputSelect required="" @bind-Value="producto.ProductoId" class="input" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Proveedor</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputText required="" @bind-Value="producto.CodigoBarra" class="input" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Código de Barra</label>
                         </div>
                     </div>
                 </div>

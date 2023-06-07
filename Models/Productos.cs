@@ -28,4 +28,8 @@ public class Productos
     [Required(ErrorMessage = "Campo descuento es obligatorio.")]
     [Range(minimum: 1, maximum: float.MaxValue, ErrorMessage = "Seleccione el % del descuento.")]
     public double Descuento { get; set; }
+    [Required(ErrorMessage = "Ingrese el código de barra.")]
+    [RegularExpression(@"^\d{3}[- ]?\d{7}[- ]?\d{1}$", ErrorMessage = "Formato inválido 0000000")]
+    public string CodigoBarra { get; set; } = string.Empty; 
+
 }
