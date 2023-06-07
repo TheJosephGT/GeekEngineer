@@ -196,7 +196,7 @@ button:active {
 
 
 .cover {
-  height: 550px;
+  height: 590px;
   box-shadow: 5px 5px 5px #888888;
   background-image: url("../Images/GeekEngineer.png");
   background-repeat: no-repeat;
@@ -212,4 +212,30 @@ button:active {
   position: relative;
   top: -140px;
   font-family: 'Courier New', monospace;
+}
+
+
+.apartado-rep {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.apartado-rep a {
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.4);
+  font-size: 20px;
+  font-weight: 600;
+  text-decoration: none;
+  display: block;
+  margin: 5px;
+  padding: 20px;
+  width: 320px;
+  text-align: right;
+  border-radius: 50px;
+  
 }
