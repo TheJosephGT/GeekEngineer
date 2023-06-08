@@ -1,0 +1,30 @@
+@page "/r_reporte_clienteConMasCompras"
+
+<PageTitle>Consulta clientes</PageTitle>
+
+
+<h1 class="text-center">Clientes que mas han gastado en el ultimo mes</h1>
+
+<button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
+Generar reporte</button>
+
+@* <div class="card col-lg-8 mx-auto"> *@
+        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+            FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4" PagerHorizontalAlign="HorizontalAlign.Left" AllowSorting="true" Data="@listaClientes"
+            ColumnWidth="180px">
+            <Columns>
+                <RadzenGridColumn TItem="string" Property="ClienteId" Title="ID" />
+                <RadzenGridColumn TItem="string" Property="Nombre" Title="Nombre" />
+                <RadzenGridColumn TItem="string" Property="Cedula" Title="Cédula" />
+                <RadzenGridColumn TItem="string" Property="Telefono" Title="Teléfono" />
+                <RadzenGridColumn TItem="string" Property="Dirección" Title="Dirección" />
+                <RadzenGridColumn TItem="string" Property="Correo" Title="Correo" />
+                <RadzenGridColumn TItem="string" Property="Fecha" Title="Fecha" >
+                </RadzenGridColumn>
+            </Columns>
+        </RadzenGrid>
+@* </div> *@
+
+@code {
+    List<string> listaClientes = new List<string>();
+}

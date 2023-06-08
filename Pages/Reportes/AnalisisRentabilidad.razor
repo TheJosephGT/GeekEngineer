@@ -1,0 +1,31 @@
+@page "/r_reporte_rentabilidad"
+
+<PageTitle>Aanlisis de rentabilidad</PageTitle>
+
+
+<h1 class="text-center">Rentabilidad de productos</h1>
+
+<button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
+Imprimir</button>
+
+@* <div class="card col-lg-8 mx-auto"> *@
+        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+            FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4" PagerHorizontalAlign="HorizontalAlign.Left" AllowSorting="true" Data="@listaClientes"
+            ColumnWidth="140px">
+
+            <Columns>
+                <RadzenGridColumn TItem="string" Title="ID" />
+                <RadzenGridColumn TItem="string" Title="Categoria" />
+                <RadzenGridColumn TItem="string" Title="Producto" />
+                <RadzenGridColumn TItem="string" Title="Precio" />
+                <RadzenGridColumn TItem="string" Title="Total gastado" />
+                <RadzenGridColumn TItem="string" Title="Total ganado" />
+                <RadzenGridColumn TItem="string" Title="Existencia" >
+                </RadzenGridColumn>
+            </Columns>
+        </RadzenGrid>
+@* </div> *@
+
+@code {
+    List<string> listaClientes = new List<string>();
+}

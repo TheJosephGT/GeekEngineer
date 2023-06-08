@@ -1,0 +1,31 @@
+@page "/r_reporte_VentasPorDia"
+
+<PageTitle>Consulta ventas</PageTitle>
+
+
+<h1 class="text-center">Ventas por dia</h1>
+
+<button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
+Generar reporte</button>
+
+@* <div class="card col-lg-8 mx-auto"> *@
+        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+            FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4" PagerHorizontalAlign="HorizontalAlign.Left" AllowSorting="true" Data="@listaClientes"
+            ColumnWidth="180px">
+
+            <Columns>
+                <RadzenGridColumn TItem="string" Title="ID" />
+                <RadzenGridColumn TItem="string" Title="Cliente" />
+                <RadzenGridColumn TItem="string" Title="Producto" />
+                <RadzenGridColumn TItem="string" Title="Fecha" />
+                <RadzenGridColumn TItem="string" Title="Precio" />
+                <RadzenGridColumn TItem="string" Title="Cantidad" />
+                <RadzenGridColumn TItem="string" Title="Total">
+                </RadzenGridColumn>
+            </Columns>
+        </RadzenGrid>
+@* </div> *@
+
+@code {
+    List<string> listaClientes = new List<string>();
+}
