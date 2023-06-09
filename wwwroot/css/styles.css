@@ -196,7 +196,7 @@ button:active {
 
 
 .cover {
-  height: 590px;
+  height: 690px;
   box-shadow: 5px 5px 5px #888888;
   background-image: url("../Images/GeekEngineer.png");
   background-repeat: no-repeat;
@@ -245,8 +245,7 @@ button:active {
   grid-gap: 30px;
 }
 
-.cardBox .card
-{
+.cardBox .card {
   position: relative;
   padding: 30px;
   border-radius: 20px;
@@ -256,28 +255,24 @@ button:active {
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.3);
 }
 
-.cardBox .card .numbers
-{
+.cardBox .card .numbers {
   position: relative;
   font-weight: 500;
   font-size: 1.5rem;
   color: #071820;
 }
 
-.cardBox .card .cardName
-{
+.cardBox .card .cardName {
   color: #999;
   font-size: 1.0rem;
 }
 
-.cardBox .card .iconBx
-{
+.cardBox .card .iconBx {
   font-size: 3.5rem;
   flex-direction: row-reverse;
 }
 
-.details-board
-{
+.details-board {
   position: relative;
   width: 100%;
   padding: 20px;
@@ -287,8 +282,7 @@ button:active {
   /* margin-top: 10px; */
 }
 
-.details-board .recentOrders
-{
+.details-board .recentOrders {
   position: relative;
   display: grid;
   min-height: 500px;
@@ -298,21 +292,18 @@ button:active {
   border-radius: 20px;
 }
 
-.cardHeader
-{
+.cardHeader {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
 
-.cardHeader h2
-{
+.cardHeader h2 {
   font-weight: 600;
   color: #071820;
 }
 
-.btn-board
-{
+.btn-board {
   position: relative;
   padding: 0px 10px;
   background: #071820;
@@ -321,46 +312,38 @@ button:active {
   border-radius: 6px;
 }
 
-.details-board table
-{
+.details-board table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 10px;
 }
 
-.details-board table thead td
-{
+.details-board table thead td {
   font-weight: 600;
 }
 
-.details-board .recentOrders table thead tr
-{
+.details-board .recentOrders table thead tr {
   color: #222;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.details-board .recentOrders table tr td
-{
+.details-board .recentOrders table tr td {
   padding: 10px;
 }
 
-.details-board .recentOrders table tr td:last-child
-{
+.details-board .recentOrders table tr td:last-child {
   text-align: end;
 }
 
-.details-board .recentOrders table tr td:nth-child(2)
-{
+.details-board .recentOrders table tr td:nth-child(2) {
   text-align: end;
 }
 
-.details-board .recentOrders table tr td:nth-child(3)
-{
+.details-board .recentOrders table tr td:nth-child(3) {
   text-align: center;
 }
 
-.Grafic
-{
+.Grafic {
   position: relative;
   display: grid;
   min-height: 500px;
@@ -370,7 +353,94 @@ button:active {
   border-radius: 20px;
 }
 
-#icons-s
-{
+#icons-s {
   padding-left: 80%;
+  position: relative;
+  top: -40px;
+  font-size: 50px;
+}
+
+.card-desh {
+  width: 80%;
+  height: 80%;
+  border-radius: 20px;
+  background: #f5f5f5;
+  position: relative;
+  padding: 1.8rem;
+  border: 2px solid #c3c6ce;
+  transition: 0.5s ease-out;
+  overflow: visible;
+}
+
+.card-desh-details {
+  color: black;
+  height: 100%;
+  gap: .5em;
+  display: grid;
+  place-content: center;
+}
+
+.card-desh-button {
+  transform: translate(-50%, 125%);
+  width: 60%;
+  border-radius: 1rem;
+  border: none;
+  background-color: #008bf8;
+  color: #fff;
+  font-size: 1rem;
+  padding: .5rem 1rem;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  opacity: 0;
+  transition: 0.3s ease-out;
+}
+
+.text-body {
+  color: rgb(134, 134, 134);
+}
+
+/*Text*/
+.text-title {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+/*Hover*/
+.card-desh:hover {
+  border-color: #008bf8;
+  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+}
+
+.card-desh:hover .card-desh-button {
+  transform: translate(-50%, 50%);
+  opacity: 1;
+}
+
+@media (max-width: 991px) {
+
+  .cardBox {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+@media (max-width: 768px) {
+  .details-board {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .recentOrders {
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .cardBox {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cardHeader h2 {
+    font-size: 20px;
+  }
 }
