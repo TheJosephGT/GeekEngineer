@@ -235,3 +235,137 @@ button:active {
   height: 70px;
 }
 
+.cardBox {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-flow: column;
+  grid-gap: 30px;
+}
+
+.cardBox .card
+{
+  position: relative;
+  padding: 30px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.3);
+}
+
+.cardBox .card .numbers
+{
+  position: relative;
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: #071820;
+}
+
+.cardBox .card .cardName
+{
+  color: #999;
+  font-size: 1.0rem;
+}
+
+.cardBox .card .iconBx
+{
+  font-size: 3.5rem;
+  flex-direction: row-reverse;
+}
+
+.details-board
+{
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 30px;
+  /* margin-top: 10px; */
+}
+
+.details-board .recentOrders
+{
+  position: relative;
+  display: grid;
+  min-height: 500px;
+  background: #fff;
+  padding: 20px;
+  box-sizing: 0 7px 25px rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+}
+
+.cardHeader
+{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.cardHeader h2
+{
+  font-weight: 600;
+  color: #071820;
+}
+
+.btn-board
+{
+  position: relative;
+  padding: 0px 10px;
+  background: #071820;
+  text-decoration: none;
+  color: #fff;
+  border-radius: 6px;
+}
+
+.details-board table
+{
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+}
+
+.details-board table thead td
+{
+  font-weight: 600;
+}
+
+.details-board .recentOrders table thead tr
+{
+  color: #222;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.details-board .recentOrders table tr td
+{
+  padding: 10px;
+}
+
+.details-board .recentOrders table tr td:last-child
+{
+  text-align: end;
+}
+
+.details-board .recentOrders table tr td:nth-child(2)
+{
+  text-align: end;
+}
+
+.details-board .recentOrders table tr td:nth-child(3)
+{
+  text-align: center;
+}
+
+.Grafic
+{
+  position: relative;
+  display: grid;
+  min-height: 500px;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+}
