@@ -1,6 +1,11 @@
 @page "/r_proveedor"
 @page "/proveedor/{proveedorId:int}"
 
+<div class="apartado-rep">
+    <a href="">Productos por acabarse</a>
+    <a href="">Total vendido p/categoria</a>
+</div>
+
 <EditForm Model="proveedor" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
     <div class="card col-lg-7 mx-auto">
