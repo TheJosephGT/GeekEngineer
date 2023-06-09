@@ -369,3 +369,8 @@ button:active {
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.3);
   border-radius: 20px;
 }
+
+#icons-s
+{
+  padding-left: 80%;
+}
