@@ -444,3 +444,22 @@ button:active {
     font-size: 20px;
   }
 }
+
+.botonMas {
+  margin-left: 60%;
+  position: relative;
+  top: -20px;
+}
+.botonMenos {
+  margin-left: 75%;
+  position: relative;
+  top: -70px;
+  
+}
+#letra
+{
+ font-size:40px;
+ position: relative;
+ top: 16px;
+ color: white;
+}

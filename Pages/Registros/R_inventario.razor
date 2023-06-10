@@ -29,23 +29,72 @@
                 <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
+                            <InputDate required="" @bind-Value="inventario.Fecha" class="input" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Fecha</label>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto"> </div>
+
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputSelect required="" @bind-Value="inventario.ProveedorId" class="input" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Proveedor</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
                             <InputSelect required="" @bind-Value="inventario.ProductoId" class="input" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Producto ID</label>
                         </div>
                     </div>
-                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
-                        <div class="group">
-                            <InputNumber required="" @bind-Value="inventario.Existencia" class="input" />
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <label>Existencia</label>
-                        </div>
-                    </div>
                 </div>
                 <br>
                 <br>
+                <div class="row">
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputNumber required="" @bind-Value="inventario.Cantidad" class="input" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Cantidad actual</label>
+                        </div>
+                    </div>
+
+                </div>
+                <br>
+                <br>
+                <div class="row">
+
+                </div>
+                <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                    <div class="group">
+                        <InputNumber required="" @bind-Value="inventario.Cantidad" class="input" />
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Cantidad</label>
+                    </div>
+                </div>
+
+                <div class="botonMas">
+                    <button type="button" class="btn" @onclick="Buscar" id="boton">
+                        <span class="btn-text-one" title='Buscar inventario' id="letra">+</span>
+                    </button>
+                </div>
+                <div class="botonMenos">
+                    <button type="button" class="btn" @onclick="Buscar" id="boton">
+                        <span class="btn-text-one" title='Buscar inventario' id="letra">-</span>
+                    </button>
+                </div>
             </div>
 
             @*Botones*@
