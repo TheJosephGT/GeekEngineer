@@ -1,0 +1,139 @@
+@page "/dashboard"
+@using ChartJs.Blazor.PieChart
+
+<body class="body-board">
+    <div class="cardBox">
+        <div class="card">
+            <div>
+                <div class="numbers">1,500</div>
+                <div class="cardName">Vistas diarias</div>
+            </div>
+            <div class="iconBx">
+                <ion-icon name="eye-outline"></ion-icon>
+            </div>
+        </div>
+        <div class="card">
+            <div>
+                <div class="numbers">500</div>
+                <div class="cardName">Clientes</div>
+            </div>
+            <div class="iconBx">
+                <ion-icon name="people-outline"></ion-icon>
+            </div>
+        </div>
+        <div class="card">
+            <div>
+                <div class="numbers">80</div>
+                <div class="cardName">Ventas</div>
+            </div>
+            <div class="iconBx">
+                <ion-icon name="bar-chart-outline"></ion-icon>
+            </div>
+        </div>
+        <div class="card">
+            <div>
+                <div class="numbers">15,000</div>
+                <div class="cardName">Ganancias</div>
+            </div>
+            <div class="iconBx">
+                <ion-icon name="cash-outline"></ion-icon>
+            </div>
+        </div>
+    </div>
+
+    <div class="details-board">
+        <div class="recentOrders">
+            <div class="cardHeader">
+                <h2>Productos a punto de terminarse</h2>
+                <a href="" class="btn-board">Ver todo</a>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <td>Id</td>
+                        <td>Producto</td>
+                        <td>Categoría</td>
+                        <td>Existencia</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>5</td>
+                        <td>Lápices</td>
+                        <td>Utiles</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Lápices</td>
+                        <td>Útiles</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Lápices</td>
+                        <td>Útiles</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Lápices</td>
+                        <td>Útiles</td>
+                        <td>3</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        @* ChartJS *@
+        <div class="Grafic">
+            <div class="cardHeader">
+                <h2>Top productos más vendidos p/categoría</h2>
+            </div>
+
+            <Chart Config="_configuracionPastel"></Chart>
+        </div>
+    </div>
+
+</body>
+
+@code {
+    private PieConfig? _configuracionPastel;
+
+    protected override void OnInitialized()
+    {
+        RealizarConfiguracionPastel();
+    }
+
+    private void RealizarConfiguracionPastel()
+    {
+        _configuracionPastel = new PieConfig();
+
+        _configuracionPastel.Options = new PieOptions
+        {
+            Responsive = true,
+            Title = new OptionsTitle
+            {
+                Display = true,
+                Text = "Mas vendidos"
+            }
+        };
+
+        foreach (var item in new[] {"Opcion 1", "Opcion 2", "Opcion 3"})
+        {
+            _configuracionPastel.Data.Labels.Add(item);
+        }
+
+        PieDataset<int> dataset = new PieDataset<int>(new[] {35, 50, 15})
+        {
+            BackgroundColor = new[]
+            {
+                ColorUtil.ColorHexString(255,0,0), //Rojo
+                ColorUtil.ColorHexString(0,0,255), //Azul
+                ColorUtil.ColorHexString(255,255,0) //Amarillo
+            }
+        };
+
+        _configuracionPastel.Data.Datasets.Add(dataset);
+    }
+}

@@ -1,10 +1,6 @@
 @page "/r_producto"
 @page "/producto/{productoId:int}"
 
-        <div class="apartado-rep">
-            <a href="">Productos por acabarse</a>
-            <a href="">Total vendido p/categoria</a>
-        </div>
 
 <EditForm Model="producto" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
@@ -108,10 +104,10 @@
 
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputNumber required="" @bind-Value="producto.Cantidad" class="input" />
+                            <InputNumber required="" @bind-Value="producto.Existencia" class="input" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <label>Cantidad</label>
+                            <label>Existencia</label>
                         </div>
                     </div>
                 </div>

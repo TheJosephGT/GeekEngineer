@@ -21,7 +21,7 @@ public class Productos
     public string EstaEmpacado { get; set; } = string.Empty;
     [Required]
     [Range(1, int.MaxValue, ErrorMessage = "Ingrese la cantidad del producto.")]
-    public int Cantidad { get; set; }
+    public int Existencia { get; set; }
     public int ProveedorId { get; set; }
      [Required(ErrorMessage = "Seleccione la posición del producto.")]
     public string PosicionProducto { get; set; } = string.Empty;
@@ -31,5 +31,6 @@ public class Productos
     [Required(ErrorMessage = "Ingrese el código de barra.")]
     [RegularExpression(@"^\d{3}[- ]?\d{7}[- ]?\d{1}$", ErrorMessage = "Formato inválido 0000000")]
     public string CodigoBarra { get; set; } = string.Empty; 
-
+    public bool Status { get; set; } = false;
+    
 }
