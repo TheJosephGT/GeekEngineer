@@ -1,6 +1,6 @@
 @page "/r_producto"
 @page "/producto/{productoId:int}"
-
+@attribute [Authorize]
 
 <EditForm Model="producto" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />

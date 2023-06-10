@@ -1,6 +1,6 @@
 @page "/r_proveedor"
 @page "/proveedor/{proveedorId:int}"
-
+@attribute [Authorize]
 
 <EditForm Model="proveedor" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />

@@ -1,6 +1,6 @@
 @page "/r_inventario"
 @page "/inventario/{inventarioId:int}"
-
+@attribute [Authorize]
 <EditForm Model="inventario" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
     <div class="card col-lg-7 mx-auto">

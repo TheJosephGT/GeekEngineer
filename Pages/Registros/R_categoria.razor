@@ -1,6 +1,6 @@
 @page "/r_categoria"
 @page "/categoria/{categoriaId:int}"
-
+@attribute [Authorize]
 
 
 <EditForm Model="categoria" OnValidSubmit="Guardar">
@@ -70,6 +70,7 @@
         </div>
     </div>
 </EditForm>
+
 
 @code
 {
