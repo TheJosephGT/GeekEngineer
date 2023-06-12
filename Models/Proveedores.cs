@@ -16,7 +16,7 @@ public class Proveedores
     [Required(ErrorMessage = "El email es requerido.")]
     [RegularExpression("\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*",ErrorMessage = "Formato inválido. name@gmail.com")]
     public string Email { get; set; } = string.Empty;
-    [Required(ErrorMessage = "Ingrese un numero teléfonico.")]
+    [Required(ErrorMessage = "Ingrese un número teléfonico.")]
     [RegularExpression(@"^\d{3}[- ]?\d{3}[- ]?\d{4}$",ErrorMessage = "Formato inválido. 000-000-0000")]
     public string Telefono { get; set; } = string.Empty;
     public bool EsVisible { get; set; } = false;
