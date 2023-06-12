@@ -12,10 +12,11 @@ public class ProveedorBLL
         contexto = _contexto;
     }
 
-    private bool Existe(int proveedorId)
+    public bool Existe(int proveedorId)
     {
         return contexto.proveedor.Any(p => p.ProveedorId == proveedorId);
     }
+    
     public Proveedores ExisteNombreProveedor(string Nombre)
     {
         Proveedores existe;
