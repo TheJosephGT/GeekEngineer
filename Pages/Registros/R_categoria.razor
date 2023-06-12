@@ -42,10 +42,10 @@
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputText required="" @bind-Value="categoria.Descripcion" class="input" />
+                            <InputText required="" @bind-Value="categoria.Nombre" class="input" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <label>Descripción</label>
+                            <label>Nombre</label>
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
 {
     [Parameter]
     public int categoriaId { get; set; }
-    public Categoria categoria { get; set; } = new Categoria();
+    public Categorias categoria { get; set; } = new Categorias();
 
     public void Guardar()
     {

@@ -1,5 +1,7 @@
 @page "/r_proveedor"
 @page "/proveedor/{proveedorId:int}"
+@inject ProveedorBLL ProveedorBLL
+@inject NotificationService notify
 @attribute [Authorize]
 
 <EditForm Model="proveedor" OnValidSubmit="Guardar">
@@ -15,7 +17,7 @@
                 <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputNumber required="" @bind-Value="proveedor.ProductoId" class="input" id="id" />
+                            <InputNumber required="" @bind-Value="proveedor.ProveedorId" class="input" id="id" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>No. ID</label>
@@ -34,6 +36,7 @@
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Fecha</label>
+                            <ValidationMessage For="@(() => proveedor.Fecha)" />
                         </div>
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
@@ -42,6 +45,7 @@
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Nombre</label>
+                            <ValidationMessage For="@(() => proveedor.Nombre)" />
                         </div>
                     </div>
                 </div>
@@ -50,40 +54,21 @@
                 <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputText required="" @bind-Value="proveedor.NombreEmpresa" class="input" />
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <label>Nombre Empresa</label>
-                        </div>
-                    </div>
-                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
-                        <div class="group">
-                            <InputText required="" @bind-Value="proveedor.RNCEmpresa" class="input" />
+                            <InputText required="" @bind-Value="proveedor.RNC" class="input" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>RNC</label>
+                            <ValidationMessage For="@(() => proveedor.RNC)" />
                         </div>
                     </div>
-                </div>
-                <br>
-                <br>
-                <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputText required="" @bind-Value="proveedor.NCFEmpresa" class="input" />
+                            <InputText required="" @bind-Value="proveedor.NCF" class="input" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>NCF</label>
+                            <ValidationMessage For="@(() => proveedor.NCF)" />
                         </div>
-                    </div>
-                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
-                        <div class="group">
-                            <InputSelect required="" @bind-Value="proveedor.ProductoId" class="input" />
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <label>Producto</label>
-                        </div>
-
                     </div>
                 </div>
                 <br>
@@ -95,6 +80,7 @@
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Dirección</label>
+                            <ValidationMessage For="@(() => proveedor.Direccion)" />
                         </div>
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
@@ -103,8 +89,17 @@
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Teléfono</label>
+                            <ValidationMessage For="@(() => proveedor.Telefono)" />
                         </div>
-
+                    </div>
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputText required="" @bind-Value="proveedor.Telefono" class="input" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Email</label>
+                            <ValidationMessage For="@(() => proveedor.Email)" />
+                        </div>
                     </div>
                 </div>
 
@@ -127,27 +122,77 @@
     </div>
 </EditForm>
 
-@code
-{
+@code {
     [Parameter]
-    public int proveedorId { get; set; }
+    public int ProveedorId { get; set; }
     public Proveedores proveedor { get; set; } = new Proveedores();
 
-    public void Guardar()
+    protected override void OnInitialized()
     {
-
+        if (ProveedorId > 0)
+        {
+            this.proveedor.ProveedorId = ProveedorId;
+            this.Buscar();
+        }
     }
-    public void Eliminar()
-    {
 
-    }
     public void Nuevo()
     {
-
+        proveedor = new Proveedores();
     }
 
-    public void Buscar()
+    bool Validar()
     {
+        bool validar = true;
+        if (proveedor!.ProveedorId < 0)
+        {
+            notify.ShowNotification("El ID debe ser mayor que 0.", NotificationSeverity.Error);
+            validar = false;
+        }
 
+        return validar;
+    }
+
+
+    void Guardar()
+    {
+        if (!Validar()) { return; }
+
+        if (ProveedorBLL.Guardar(this.proveedor))
+        {
+            notify.ShowNotification("Se ha guardado con éxito", NotificationSeverity.Success);
+            this.Nuevo();
+        }
+    }
+
+    private void Buscar()
+    {
+        if (proveedor!.ProveedorId > 0)
+        {
+            var encontrado = ProveedorBLL.Buscar(proveedor.ProveedorId);
+            if (encontrado != null)
+            {
+                notify.ShowNotification("Se ha encontrado con éxito", NotificationSeverity.Info);
+                this.proveedor = encontrado;
+            }
+            else
+            {
+                notify.ShowNotification("El ID ingresado no ha sido encontrado", NotificationSeverity.Error);
+            }
+        }
+    }
+
+    public void Eliminar()
+    {
+        if (ProveedorBLL.Eliminar(proveedor.ProveedorId))
+        {
+            notify.ShowNotification("Se ha eliminado con éxito", NotificationSeverity.Info);
+            Nuevo();
+        }
+        else
+        {
+            notify.ShowNotification("No hay elementos para borrar", NotificationSeverity.Info);
+            return;
+        }
     }
 }

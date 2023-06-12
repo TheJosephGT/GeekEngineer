@@ -3,14 +3,17 @@ public class Ventas
 {
     [Key]
     public int VentaId { get; set; }
+    [Required(ErrorMessage = "El campo cliente es necesario")]
     public int ClienteId { get; set; }
+    [Required(ErrorMessage = "El campo producto es necesario")]
     public int ProductoId { get; set; }
-    public string ListaProducto { get; set; } = string.Empty; //Falta poner el tipo de dato que sea una lista.
     [DataType(DataType.Date)] 
     public DateOnly Fecha { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+    [Range(minimum: 1, maximum: double.MaxValue, ErrorMessage = "Ingrese un % de ITBIS valido")]
     public double ITBIS { get; set; }
     public double SubTotal { get; set; }
     public double Total { get; set; }
+    public bool EsVisible { get; set; } = false;
     
 
     [ForeignKey("VentaId")]
