@@ -1,12 +1,13 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using GeekEngineer.Data;
 
 public class ProveedorBLL
 {
     #nullable disable
-    private Contexto contexto;
-
-    public ProveedorBLL(Contexto _contexto)
+    private ApplicationDbContext contexto;
+    public ProveedorBLL(ApplicationDbContext _contexto)
     {
         contexto = _contexto;
     }
