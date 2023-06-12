@@ -34,7 +34,7 @@ namespace GeekEngineer.Migrations.ContextoMigrations
 
                     b.HasKey("CategoriaId");
 
-                    b.ToTable("Categorias");
+                    b.ToTable("categoria");
                 });
 
             modelBuilder.Entity("Clientes", b =>
@@ -71,7 +71,7 @@ namespace GeekEngineer.Migrations.ContextoMigrations
 
                     b.HasKey("ClienteId");
 
-                    b.ToTable("Clientes");
+                    b.ToTable("cliente");
                 });
 
             modelBuilder.Entity("Inventarios", b =>
@@ -101,7 +101,7 @@ namespace GeekEngineer.Migrations.ContextoMigrations
 
                     b.HasKey("InventarioId");
 
-                    b.ToTable("Inventarios");
+                    b.ToTable("inventario");
                 });
 
             modelBuilder.Entity("Productos", b =>
@@ -154,7 +154,7 @@ namespace GeekEngineer.Migrations.ContextoMigrations
 
                     b.HasKey("ProductoId");
 
-                    b.ToTable("Productos");
+                    b.ToTable("producto");
                 });
 
             modelBuilder.Entity("Proveedores", b =>
@@ -195,7 +195,7 @@ namespace GeekEngineer.Migrations.ContextoMigrations
 
                     b.HasKey("ProveedorId");
 
-                    b.ToTable("Proveedores");
+                    b.ToTable("proveedor");
                 });
 
             modelBuilder.Entity("Ventas", b =>
@@ -227,7 +227,7 @@ namespace GeekEngineer.Migrations.ContextoMigrations
 
                     b.HasKey("VentaId");
 
-                    b.ToTable("Ventas");
+                    b.ToTable("venta");
                 });
 
             modelBuilder.Entity("VentasDetalle", b =>

@@ -156,12 +156,37 @@
 
     void Guardar()
     {
+
         if (!Validar()) { return; }
 
-        if (ProveedorBLL.Guardar(this.proveedor))
+        var proveedor2 = ProveedorBLL.ExisteNombreProveedor(proveedor.Nombre);
+
+        if (proveedor2 == null) 
         {
-            notify.ShowNotification("Se ha guardado con éxito", NotificationSeverity.Success);
-            this.Nuevo();
+            if (ProveedorBLL.Guardar(proveedor))
+            {
+                notify.ShowNotification("Fue guardado correctamente.");
+                proveedor = new Proveedores();
+            }
+            else
+                notify.ShowNotification("No fue guardado, intentar nuevamente.", NotificationSeverity.Error);
+        }
+        else 
+        {
+            if (proveedor2.Nombre.ToLower() == proveedor.Nombre.ToLower() && proveedor2.ProveedorId == proveedor.ProveedorId)
+            {
+                if (ProveedorBLL.Guardar(proveedor))
+                {
+                    notify.ShowNotification("Fue guardado correctamente.");
+                    proveedor = new Proveedores();
+                }
+                else
+                    notify.ShowNotification("No fue guardado, intentar nuevamente.", NotificationSeverity.Error);
+            }
+            else
+            {
+                notify.ShowNotification("Ya está registrado.", NotificationSeverity.Warning);
+            }
         }
     }
 
@@ -191,7 +216,7 @@
         }
         else
         {
-            notify.ShowNotification("No hay elementos para borrar", NotificationSeverity.Info);
+            notify.ShowNotification("No hay elementos para borrar", NotificationSeverity.Warning);
             return;
         }
     }

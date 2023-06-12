@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 public class ProveedorBLL
 {
+    #nullable disable
     private Contexto contexto;
 
     public ProveedorBLL(Contexto _contexto)
@@ -12,18 +13,37 @@ public class ProveedorBLL
 
     private bool Existe(int proveedorId)
     {
-        return contexto.Proveedores.Any(p => p.ProveedorId == proveedorId);
+        return contexto.proveedor.Any(p => p.ProveedorId == proveedorId);
+    }
+    public Proveedores ExisteNombreProveedor(string Nombre)
+    {
+        Proveedores existe;
+
+        try
+        {
+            existe = contexto.proveedor              
+            .Where( p => p.Nombre
+            .ToLower() == Nombre.ToLower())
+            .AsNoTracking()
+            .SingleOrDefault();
+
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+        return existe;
     }
 
     private bool Insertar(Proveedores proveedor)
     {
-        contexto.Proveedores.Add(proveedor);
+        contexto.proveedor.Add(proveedor);
         return contexto.SaveChanges() > 0;
     }
 
     private bool Modificar(Proveedores proveedor)
     {
-        var existe = contexto.Proveedores.Find(proveedor.ProveedorId);
+        var existe = contexto.proveedor.Find(proveedor.ProveedorId);
 
         if (existe != null)
         {
@@ -44,7 +64,7 @@ public class ProveedorBLL
 
     public bool Eliminar(int proveedorId)
     {
-        var eliminado = contexto.Proveedores.Where(p => p.ProveedorId == proveedorId).SingleOrDefault();
+        var eliminado = contexto.proveedor.Where(p => p.ProveedorId == proveedorId).SingleOrDefault();
 
         if (eliminado != null)
         {
@@ -55,13 +75,13 @@ public class ProveedorBLL
         return false;
     }
 
-    public Proveedores? Buscar(int proveedorId)
+    public Proveedores Buscar(int proveedorId)
     {
-        return contexto.Proveedores.Where(p => p.ProveedorId == proveedorId).AsNoTracking().SingleOrDefault();
+        return contexto.proveedor.Where(p => p.ProveedorId == proveedorId).AsNoTracking().SingleOrDefault();
     }
 
     public List<Proveedores> GetList(Expression<Func<Proveedores, bool>> criterio)
     {
-        return contexto.Proveedores.AsNoTracking().Where(criterio).ToList();
+        return contexto.proveedor.AsNoTracking().Where(criterio).ToList();
     }
 }

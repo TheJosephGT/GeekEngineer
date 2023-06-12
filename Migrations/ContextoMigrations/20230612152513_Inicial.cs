@@ -12,7 +12,7 @@ namespace GeekEngineer.Migrations.ContextoMigrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Categorias",
+                name: "categoria",
                 columns: table => new
                 {
                     CategoriaId = table.Column<int>(type: "INTEGER", nullable: false)
@@ -23,11 +23,11 @@ namespace GeekEngineer.Migrations.ContextoMigrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categorias", x => x.CategoriaId);
+                    table.PrimaryKey("PK_categoria", x => x.CategoriaId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Clientes",
+                name: "cliente",
                 columns: table => new
                 {
                     ClienteId = table.Column<int>(type: "INTEGER", nullable: false)
@@ -42,11 +42,11 @@ namespace GeekEngineer.Migrations.ContextoMigrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Clientes", x => x.ClienteId);
+                    table.PrimaryKey("PK_cliente", x => x.ClienteId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Inventarios",
+                name: "inventario",
                 columns: table => new
                 {
                     InventarioId = table.Column<int>(type: "INTEGER", nullable: false)
@@ -60,11 +60,11 @@ namespace GeekEngineer.Migrations.ContextoMigrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Inventarios", x => x.InventarioId);
+                    table.PrimaryKey("PK_inventario", x => x.InventarioId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Productos",
+                name: "producto",
                 columns: table => new
                 {
                     ProductoId = table.Column<int>(type: "INTEGER", nullable: false)
@@ -85,11 +85,11 @@ namespace GeekEngineer.Migrations.ContextoMigrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Productos", x => x.ProductoId);
+                    table.PrimaryKey("PK_producto", x => x.ProductoId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Proveedores",
+                name: "proveedor",
                 columns: table => new
                 {
                     ProveedorId = table.Column<int>(type: "INTEGER", nullable: false)
@@ -105,11 +105,11 @@ namespace GeekEngineer.Migrations.ContextoMigrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Proveedores", x => x.ProveedorId);
+                    table.PrimaryKey("PK_proveedor", x => x.ProveedorId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Ventas",
+                name: "venta",
                 columns: table => new
                 {
                     VentaId = table.Column<int>(type: "INTEGER", nullable: false)
@@ -124,7 +124,7 @@ namespace GeekEngineer.Migrations.ContextoMigrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ventas", x => x.VentaId);
+                    table.PrimaryKey("PK_venta", x => x.VentaId);
                 });
 
             migrationBuilder.CreateTable(
@@ -144,9 +144,9 @@ namespace GeekEngineer.Migrations.ContextoMigrations
                 {
                     table.PrimaryKey("PK_VentasDetalle", x => x.DetalleId);
                     table.ForeignKey(
-                        name: "FK_VentasDetalle_Ventas_VentaId",
+                        name: "FK_VentasDetalle_venta_VentaId",
                         column: x => x.VentaId,
-                        principalTable: "Ventas",
+                        principalTable: "venta",
                         principalColumn: "VentaId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -161,25 +161,25 @@ namespace GeekEngineer.Migrations.ContextoMigrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Categorias");
+                name: "categoria");
 
             migrationBuilder.DropTable(
-                name: "Clientes");
+                name: "cliente");
 
             migrationBuilder.DropTable(
-                name: "Inventarios");
+                name: "inventario");
 
             migrationBuilder.DropTable(
-                name: "Productos");
+                name: "producto");
 
             migrationBuilder.DropTable(
-                name: "Proveedores");
+                name: "proveedor");
 
             migrationBuilder.DropTable(
                 name: "VentasDetalle");
 
             migrationBuilder.DropTable(
-                name: "Ventas");
+                name: "venta");
         }
     }
 }
