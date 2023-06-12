@@ -1,6 +1,8 @@
 @page "/r_venta"
 @page "/venta/{ventaId:int}"
-@attribute [Authorize]
+@* @attribute [Authorize] *@
+
+
 <EditForm Model="venta" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
     <div class="card col-lg-8 mx-auto">

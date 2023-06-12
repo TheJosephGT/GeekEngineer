@@ -1,6 +1,8 @@
 @page "/r_inventario"
 @page "/inventario/{inventarioId:int}"
-@attribute [Authorize]
+@* @attribute [Authorize] *@
+
+
 <EditForm Model="inventario" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
     <div class="card col-lg-7 mx-auto">
@@ -54,7 +56,7 @@
                             <InputSelect required="" @bind-Value="inventario.ProductoId" class="input" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <label>Producto ID</label>
+                            <label>Producto</label>
                         </div>
                     </div>
                 </div>
@@ -69,32 +71,34 @@
                             <label>Cantidad actual</label>
                         </div>
                     </div>
-
-                </div>
-                <br>
-                <br>
-                <div class="row">
-
-                </div>
-                <div class="col-sm-2 col-md-4 mb-2 mx-auto">
-                    <div class="group">
-                        <InputNumber required="" @bind-Value="inventario.Cantidad" class="input" />
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label>Cantidad</label>
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputNumber required="" @bind-Value="inventario.Cantidad" class="input" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Codigo de barra</label>
+                        </div>
                     </div>
+
+                </div>
+                <br>
+                <br>
+
+                <div class="input-group">
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputNumber required="" @bind-Value="inventario.Cantidad" class="input" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Cantidad actual</label>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-secondary" type="button" style="background: green;"><ion-icon
+                            name="add-outline"></ion-icon></button>
+                    <button class="btn btn-outline-secondary" type="button" style="background: red;"><ion-icon
+                            name="remove-outline"></ion-icon></button>
                 </div>
 
-                <div class="botonMas">
-                    <button type="button" class="btn" @onclick="Buscar" id="boton">
-                        <span class="btn-text-one" title='Buscar inventario' id="letra">+</span>
-                    </button>
-                </div>
-                <div class="botonMenos">
-                    <button type="button" class="btn" @onclick="Buscar" id="boton">
-                        <span class="btn-text-one" title='Buscar inventario' id="letra">-</span>
-                    </button>
-                </div>
             </div>
 
             @*Botones*@
@@ -118,7 +122,7 @@
 {
     [Parameter]
     public int InventarioId { get; set; }
-    public Inventario inventario { get; set; } = new Inventario();
+    public Inventarios inventario { get; set; } = new Inventarios();
 
     public void Guardar()
     {

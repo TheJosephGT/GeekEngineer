@@ -8,29 +8,28 @@ public class Productos
     [DataType(DataType.Date)]
     public DateOnly Fecha { get; set; } = DateOnly.FromDateTime(DateTime.Now);
     [Required]
-    [Range(minimum: 1, maximum: float.MaxValue, ErrorMessage = "Ingrese un costo mayor a 0.")]
+    [Range(minimum: 1, maximum: double.MaxValue, ErrorMessage = "Ingrese un costo mayor a 0.")]
     public double Costo { get; set; }
     [Required]
-    [Range(minimum: 1, maximum: float.MaxValue, ErrorMessage = "Ingrese un precio mayor a 0.")]
+    [Range(minimum: 1, maximum: double.MaxValue, ErrorMessage = "Ingrese un precio mayor a 0.")]
     public double Precio { get; set; }
-    [Required(ErrorMessage = "Campo ITBIS es obligatorio.")]
-    [Range(minimum: 1, maximum: float.MaxValue, ErrorMessage = "Seleccione el % de ITBIS.")]
+    [Required]
+    [Range(minimum: 1, maximum: double.MaxValue, ErrorMessage = "Ingrese un % de ITBIS valido")]
     public double ITBIS { get; set; }
+    [Required(ErrorMessage = "Seleccione la categoria")]
     public int CategoriaId { get; set; }
     [Required(ErrorMessage = "Seleccione si esta empacado.")]
-    public string EstaEmpacado { get; set; } = string.Empty;
+    public bool EstaEmpacado { get; set; }
     [Required]
-    [Range(1, int.MaxValue, ErrorMessage = "Ingrese la cantidad del producto.")]
+    [Range(1, int.MaxValue, ErrorMessage = "Ingrese la existencia del producto.")]
     public int Existencia { get; set; }
+    [Required(ErrorMessage = "Seleccione el proveedor del producto.")]
     public int ProveedorId { get; set; }
-     [Required(ErrorMessage = "Seleccione la posición del producto.")]
-    public string PosicionProducto { get; set; } = string.Empty;
-    [Required(ErrorMessage = "Campo descuento es obligatorio.")]
-    [Range(minimum: 1, maximum: float.MaxValue, ErrorMessage = "Seleccione el % del descuento.")]
+     [Required(ErrorMessage = "Seleccione la ubicación del producto.")]
+    public string Ubicacion { get; set; } = string.Empty;
     public double Descuento { get; set; }
     [Required(ErrorMessage = "Ingrese el código de barra.")]
-    [RegularExpression(@"^\d{3}[- ]?\d{7}[- ]?\d{1}$", ErrorMessage = "Formato inválido 0000000")]
     public string CodigoBarra { get; set; } = string.Empty; 
-    public bool Status { get; set; } = false;
+    public bool EsVisible { get; set; } = false;
     
 }
