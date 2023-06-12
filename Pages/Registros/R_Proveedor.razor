@@ -140,6 +140,7 @@
     public void Nuevo()
     {
         proveedor = new Proveedores();
+        notify.ShowNotification("Nueva plantilla creada correctamente.", NotificationSeverity.Success);
     }
 
     bool Validar()
@@ -151,7 +152,7 @@
             notify.ShowNotification("El ID debe ser mayor que 0.", NotificationSeverity.Error);
             validar = false;
         }
-        else if(ProveedorBLL.Existe(proveedor.ProveedorId))
+        if(ProveedorBLL.Existe(proveedor.ProveedorId))
         {
             notify.ShowNotification("No se puede modificar el ID." , NotificationSeverity.Warning);
             validar = false;  
@@ -209,7 +210,7 @@
             }
             else
             {
-                notify.ShowNotification("El ID ingresado no ha sido encontrado", NotificationSeverity.Error);
+                notify.ShowNotification("El ID ingresado no ha sido encontrado.", NotificationSeverity.Error);
             }
         }
     }
@@ -218,12 +219,12 @@
     {
         if (ProveedorBLL.Eliminar(proveedor.ProveedorId))
         {
-            notify.ShowNotification("Se ha eliminado con éxito", NotificationSeverity.Info);
+            notify.ShowNotification("Se ha eliminado con éxito.", NotificationSeverity.Info);
             Nuevo();
         }
         else
         {
-            notify.ShowNotification("No hay elementos para borrar", NotificationSeverity.Warning);
+            notify.ShowNotification("No hay elementos para borrar.", NotificationSeverity.Warning);
             return;
         }
     }
