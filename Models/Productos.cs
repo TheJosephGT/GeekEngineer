@@ -14,9 +14,9 @@ public class Productos
     [Range(minimum: 1, maximum: double.MaxValue, ErrorMessage = "Ingrese un precio mayor a 0.")]
     public double Precio { get; set; }
     [Required]
-    [Range(minimum: 1, maximum: double.MaxValue, ErrorMessage = "Ingrese un % de ITBIS valido")]
+    [Range(minimum: 1, maximum: double.MaxValue, ErrorMessage = "Ingrese un % de ITBIS válido.")]
     public double ITBIS { get; set; }
-    [Required(ErrorMessage = "Seleccione la categoria")]
+    [Required(ErrorMessage = "Seleccione la categoría")]
     public int CategoriaId { get; set; }
     [Required(ErrorMessage = "Seleccione si esta empacado.")]
     public bool EstaEmpacado { get; set; }

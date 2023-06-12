@@ -20,7 +20,8 @@ namespace GeekEngineer
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             var ConStr = builder.Configuration.GetConnectionString("ConStr");
-            builder.Services.AddDbContext<Contexto>(options => options.UseSqlite(ConStr));
+            builder.Services.AddDbContext<Contexto>(options => 
+                options.UseSqlite(ConStr));
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();

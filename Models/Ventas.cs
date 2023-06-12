@@ -9,7 +9,6 @@ public class Ventas
     public int ProductoId { get; set; }
     [DataType(DataType.Date)] 
     public DateOnly Fecha { get; set; } = DateOnly.FromDateTime(DateTime.Now);
-    [Range(minimum: 1, maximum: double.MaxValue, ErrorMessage = "Ingrese un % de ITBIS valido")]
     public double ITBIS { get; set; }
     public double SubTotal { get; set; }
     public double Total { get; set; }
