@@ -13,5 +13,5 @@ public class Inventarios
     public string CodigoBarra { get; set; } = string.Empty;
     [Required(ErrorMessage = "El campo fecha es requerido.")]
     public DateOnly Fecha { get; set; } = DateOnly.FromDateTime(DateTime.Now);
-    public bool EsVisible { get; set; } = false;
+    public bool EsVisible { get; set; } = true;
 }

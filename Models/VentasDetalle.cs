@@ -8,5 +8,5 @@ public class VentasDetalle{
     public double Cantidad { get; set; }
     public float PrecioProducto { get; set; }
     public float Importe { get; set; }
-    public bool EsVisible { get; set; } = false;
+    public bool EsVisible { get; set; } = true;
 }

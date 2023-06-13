@@ -12,7 +12,7 @@ public class Ventas
     public double ITBIS { get; set; }
     public double SubTotal { get; set; }
     public double Total { get; set; }
-    public bool EsVisible { get; set; } = false;
+    public bool EsVisible { get; set; } = true;
     
 
     [ForeignKey("VentaId")]

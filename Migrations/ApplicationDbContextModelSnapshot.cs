@@ -35,7 +35,7 @@ namespace GeekEngineer.Migrations
 
                     b.HasKey("CategoriaId");
 
-                    b.ToTable("categoria");
+                    b.ToTable("Categorias");
                 });
 
             modelBuilder.Entity("Clientes", b =>
@@ -72,7 +72,7 @@ namespace GeekEngineer.Migrations
 
                     b.HasKey("ClienteId");
 
-                    b.ToTable("cliente");
+                    b.ToTable("Clientes");
                 });
 
             modelBuilder.Entity("Inventarios", b =>
@@ -102,7 +102,7 @@ namespace GeekEngineer.Migrations
 
                     b.HasKey("InventarioId");
 
-                    b.ToTable("inventario");
+                    b.ToTable("Inventarios");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -351,7 +351,7 @@ namespace GeekEngineer.Migrations
 
                     b.HasKey("ProductoId");
 
-                    b.ToTable("producto");
+                    b.ToTable("Productos");
                 });
 
             modelBuilder.Entity("Proveedores", b =>
@@ -392,7 +392,7 @@ namespace GeekEngineer.Migrations
 
                     b.HasKey("ProveedorId");
 
-                    b.ToTable("proveedor");
+                    b.ToTable("Proveedores");
                 });
 
             modelBuilder.Entity("Ventas", b =>
@@ -424,7 +424,7 @@ namespace GeekEngineer.Migrations
 
                     b.HasKey("VentaId");
 
-                    b.ToTable("venta");
+                    b.ToTable("Ventas");
                 });
 
             modelBuilder.Entity("VentasDetalle", b =>

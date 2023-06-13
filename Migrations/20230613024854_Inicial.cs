@@ -51,7 +51,7 @@ namespace GeekEngineer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "categoria",
+                name: "Categorias",
                 columns: table => new
                 {
                     CategoriaId = table.Column<int>(type: "INTEGER", nullable: false)
@@ -62,11 +62,11 @@ namespace GeekEngineer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_categoria", x => x.CategoriaId);
+                    table.PrimaryKey("PK_Categorias", x => x.CategoriaId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "cliente",
+                name: "Clientes",
                 columns: table => new
                 {
                     ClienteId = table.Column<int>(type: "INTEGER", nullable: false)
@@ -81,11 +81,11 @@ namespace GeekEngineer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_cliente", x => x.ClienteId);
+                    table.PrimaryKey("PK_Clientes", x => x.ClienteId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "inventario",
+                name: "Inventarios",
                 columns: table => new
                 {
                     InventarioId = table.Column<int>(type: "INTEGER", nullable: false)
@@ -99,11 +99,11 @@ namespace GeekEngineer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_inventario", x => x.InventarioId);
+                    table.PrimaryKey("PK_Inventarios", x => x.InventarioId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "producto",
+                name: "Productos",
                 columns: table => new
                 {
                     ProductoId = table.Column<int>(type: "INTEGER", nullable: false)
@@ -124,11 +124,11 @@ namespace GeekEngineer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_producto", x => x.ProductoId);
+                    table.PrimaryKey("PK_Productos", x => x.ProductoId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "proveedor",
+                name: "Proveedores",
                 columns: table => new
                 {
                     ProveedorId = table.Column<int>(type: "INTEGER", nullable: false)
@@ -144,11 +144,11 @@ namespace GeekEngineer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_proveedor", x => x.ProveedorId);
+                    table.PrimaryKey("PK_Proveedores", x => x.ProveedorId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "venta",
+                name: "Ventas",
                 columns: table => new
                 {
                     VentaId = table.Column<int>(type: "INTEGER", nullable: false)
@@ -163,7 +163,7 @@ namespace GeekEngineer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_venta", x => x.VentaId);
+                    table.PrimaryKey("PK_Ventas", x => x.VentaId);
                 });
 
             migrationBuilder.CreateTable(
@@ -289,9 +289,9 @@ namespace GeekEngineer.Migrations
                 {
                     table.PrimaryKey("PK_VentasDetalle", x => x.DetalleId);
                     table.ForeignKey(
-                        name: "FK_VentasDetalle_venta_VentaId",
+                        name: "FK_VentasDetalle_Ventas_VentaId",
                         column: x => x.VentaId,
-                        principalTable: "venta",
+                        principalTable: "Ventas",
                         principalColumn: "VentaId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -358,19 +358,19 @@ namespace GeekEngineer.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "categoria");
+                name: "Categorias");
 
             migrationBuilder.DropTable(
-                name: "cliente");
+                name: "Clientes");
 
             migrationBuilder.DropTable(
-                name: "inventario");
+                name: "Inventarios");
 
             migrationBuilder.DropTable(
-                name: "producto");
+                name: "Productos");
 
             migrationBuilder.DropTable(
-                name: "proveedor");
+                name: "Proveedores");
 
             migrationBuilder.DropTable(
                 name: "VentasDetalle");
@@ -382,7 +382,7 @@ namespace GeekEngineer.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "venta");
+                name: "Ventas");
         }
     }
 }

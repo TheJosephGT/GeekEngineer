@@ -14,38 +14,37 @@ public class ProveedorBLL
 
     public bool Existe(int proveedorId)
     {
-        return contexto.proveedor.Any(p => p.ProveedorId == proveedorId);
+        return contexto.Proveedores.Any(p => p.ProveedorId == proveedorId);
     }
     
-    public Proveedores ExisteNombreProveedor(string Nombre)
+    public bool ExisteNombreProveedor(Proveedores proveedor)
     {
-        Proveedores existe;
+        var modificado = contexto.Proveedores.Find(proveedor.ProveedorId);
 
-        try
+        if(modificado == null)
         {
-            existe = contexto.proveedor              
-            .Where( p => p.Nombre
-            .ToLower() == Nombre.ToLower())
-            .AsNoTracking()
-            .SingleOrDefault();
-
+            var existe = contexto.Proveedores.Any(p => p.Nombre.ToLower() == proveedor.Nombre.ToLower());
+            if(existe == true)
+                return false;
+            else
+                return true;
+            
         }
-        catch (Exception)
+        else
         {
-            throw;
+            return true;
         }
-        return existe;
     }
 
     private bool Insertar(Proveedores proveedor)
     {
-        contexto.proveedor.Add(proveedor);
+        contexto.Proveedores.Add(proveedor);
         return contexto.SaveChanges() > 0;
     }
 
     private bool Modificar(Proveedores proveedor)
     {
-        var existe = contexto.proveedor.Find(proveedor.ProveedorId);
+        var existe = contexto.Proveedores.Find(proveedor.ProveedorId);
 
         if (existe != null)
         {
@@ -66,24 +65,26 @@ public class ProveedorBLL
 
     public bool Eliminar(int proveedorId)
     {
-        var eliminado = contexto.proveedor.Where(p => p.ProveedorId == proveedorId).SingleOrDefault();
-
-        if (eliminado != null)
+        var eliminado = contexto.Proveedores.Where(p => p.ProveedorId == proveedorId).SingleOrDefault();
+        if(eliminado != null)
         {
-            contexto.Entry(eliminado).State = EntityState.Deleted;
+            eliminado.EsVisible = false;
             return contexto.SaveChanges() > 0;
         }
-
+        
         return false;
     }
 
     public Proveedores Buscar(int proveedorId)
     {
-        return contexto.proveedor.Where(p => p.ProveedorId == proveedorId).AsNoTracking().SingleOrDefault();
+        if(contexto.Proveedores.Any(p => p.EsVisible == true))
+            return contexto.Proveedores.Where(p => p.ProveedorId == proveedorId).AsNoTracking().SingleOrDefault();
+        else
+            return null;
     }
 
     public List<Proveedores> GetList(Expression<Func<Proveedores, bool>> criterio)
     {
-        return contexto.proveedor.AsNoTracking().Where(criterio).ToList();
+        return contexto.Proveedores.AsNoTracking().Where(criterio).ToList();
     }
 }
