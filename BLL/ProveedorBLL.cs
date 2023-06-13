@@ -23,7 +23,7 @@ public class ProveedorBLL
 
         if(modificado == null)
         {
-            var existe = contexto.Proveedores.Any(p => p.Nombre.ToLower() == proveedor.Nombre.ToLower());
+            var existe = contexto.Proveedores.Any(p => p.Nombre.ToLower() == proveedor.Nombre.ToLower() && p.EsVisible == true);
             if(existe == true)
                 return false;
             else
@@ -35,6 +35,45 @@ public class ProveedorBLL
             return true;
         }
     }
+
+    public bool ExisteRNC(Proveedores proveedor)
+    {
+        var modificado = contexto.Proveedores.Find(proveedor.ProveedorId);
+
+        if(modificado == null)
+        {
+            var existe = contexto.Proveedores.Any(p => p.RNC == proveedor.RNC);
+            if(existe == true)
+                return false;
+            else
+                return true;
+            
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    public bool ExisteNCF(Proveedores proveedor)
+    {
+        var modificado = contexto.Proveedores.Find(proveedor.ProveedorId);
+
+        if(modificado == null)
+        {
+            var existe = contexto.Proveedores.Any(p => p.NCF == proveedor.NCF);
+            if(existe == true)
+                return false;
+            else
+                return true;
+            
+        }
+        else
+        {
+            return true;
+        }
+    }
+    
 
     private bool Insertar(Proveedores proveedor)
     {

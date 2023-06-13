@@ -152,6 +152,16 @@
             notify.ShowNotification("El ID debe ser mayor que 0.", NotificationSeverity.Error);
             validar = false;
         }
+        @* if (ProveedorBLL.ExisteRNC(proveedor) == true)
+        {
+            notify.ShowNotification("El RNC ingresado ya esta registrado.", NotificationSeverity.Error);
+            validar = false;
+        }
+        if (ProveedorBLL.ExisteNCF(proveedor) == true)
+        {
+            notify.ShowNotification("El NCF ingresado ya esta registrado.", NotificationSeverity.Error);
+            validar = false;
+        } *@
         @* if(ProveedorBLL.Existe(proveedor.ProveedorId))
         {
             notify.ShowNotification("No se puede modificar el ID." , NotificationSeverity.Warning);
