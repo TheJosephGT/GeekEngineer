@@ -103,7 +103,10 @@ public class ProveedorBLL
 
     public bool Eliminar(int proveedorId)
     {
-        var eliminado = contexto.Proveedores.Where(p => p.ProveedorId == proveedorId).SingleOrDefault();
+        var eliminado = contexto.Proveedores
+        .Where(p => p.ProveedorId == proveedorId)
+        .SingleOrDefault();
+
         if(eliminado != null)
         {
             eliminado.EsVisible = false;
@@ -116,13 +119,19 @@ public class ProveedorBLL
     public Proveedores? Buscar(int proveedorId)
     {
         if(contexto.Proveedores.Any(p => p.EsVisible == true))
-            return contexto.Proveedores.Where(p => p.ProveedorId == proveedorId).AsNoTracking().SingleOrDefault();
+            return contexto.Proveedores
+            .Where(p => p.ProveedorId == proveedorId)
+            .AsNoTracking()
+            .SingleOrDefault();
         else
             return null;
     }
 
     public List<Proveedores> GetList(Expression<Func<Proveedores, bool>> criterio)
     {
-        return contexto.Proveedores.AsNoTracking().Where(criterio).ToList();
+        return contexto.Proveedores
+        .AsNoTracking()
+        .Where(criterio)
+        .ToList();
     }
 }
