@@ -13,83 +13,93 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">Inicio</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="clientesDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Clientes
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="clientesDropdown">
-                        <li><a class="dropdown-item" href="r_cliente">Registrar Cliente</a></li>
-                        <li><a class="dropdown-item" href="c_cliente">Consultar Clientes</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="productosDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Productos
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="productosDropdown">
-                        <li><a class="dropdown-item" href="r_producto">Registrar Producto</a></li>
-                        <li><a class="dropdown-item" href="c_producto">Consultar Productos</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="facturasDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Proveedores
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="facturasDropdown">
-                        <li><a class="dropdown-item" href="r_proveedor">Registrar Proveedor</a></li>
-                        <li><a class="dropdown-item" href="c_proveedor">Consultar Proveedores</a></li>
-                    </ul>
-                </li>
+                <AuthorizeView>
+                    <Authorized>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="clientesDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Clientes
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="clientesDropdown">
+                                <li><a class="dropdown-item" href="r_cliente">Registrar Cliente</a></li>
+                                <li><a class="dropdown-item" href="c_cliente">Consultar Clientes</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="productosDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Productos
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="productosDropdown">
+                                <li><a class="dropdown-item" href="r_producto">Registrar Producto</a></li>
+                                <li><a class="dropdown-item" href="c_producto">Consultar Productos</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="facturasDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Proveedores
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="facturasDropdown">
+                                <li><a class="dropdown-item" href="r_proveedor">Registrar Proveedor</a></li>
+                                <li><a class="dropdown-item" href="c_proveedor">Consultar Proveedores</a></li>
+                            </ul>
+                        </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="facturasDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Inventarios
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="facturasDropdown">
-                        <li><a class="dropdown-item" href="r_inventario">Registrar Inventario</a></li>
-                        <li><a class="dropdown-item" href="c_inventario">Consultar Inventario</a></li>
-                    </ul>
-                </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="facturasDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Inventarios
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="facturasDropdown">
+                                <li><a class="dropdown-item" href="r_inventario">Registrar Inventario</a></li>
+                                <li><a class="dropdown-item" href="c_inventario">Consultar Inventario</a></li>
+                            </ul>
+                        </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="facturasDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ventas</a>
-                    <ul class="dropdown-menu" aria-labelledby="facturasDropdown">
-                        <li><a class="dropdown-item" href="r_venta">Registrar Venta</a></li>
-                        <li><a class="dropdown-item" href="c_venta">Consultar Ventas</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="facturasDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categoría</a>
-                    <ul class="dropdown-menu" aria-labelledby="facturasDropdown">
-                        <li><a class="dropdown-item" href="r_categoria">Registrar Categoría</a></li>
-                        <li><a class="dropdown-item" href="c_categoria">Consultar Categoría</a></li>
-                    </ul>
-                </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="facturasDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ventas</a>
+                            <ul class="dropdown-menu" aria-labelledby="facturasDropdown">
+                                <li><a class="dropdown-item" href="r_venta">Registrar Venta</a></li>
+                                <li><a class="dropdown-item" href="c_venta">Consultar Ventas</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="facturasDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categoría</a>
+                            <ul class="dropdown-menu" aria-labelledby="facturasDropdown">
+                                <li><a class="dropdown-item" href="r_categoria">Registrar Categoría</a></li>
+                                <li><a class="dropdown-item" href="c_categoria">Consultar Categoría</a></li>
+                            </ul>
+                        </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="facturasDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reporte</a>
-                    <ul class="dropdown-menu" aria-labelledby="facturasDropdown">
-                        <li><a class="dropdown-item" href="r_reporte_productosVendidos">Productos que más vendieron en
-                                el últ/mes</a></li>
-                        <li><a class="dropdown-item" href="r_reporte_rentabilidad">Rentabilidad</a></li>
-                        <li><a class="dropdown-item" href="r_reporte_productosMenosVendidos">Productos que menos se
-                                vendieron en el últ/mes</a></li>
-                        <li><a class="dropdown-item" href="r_reporte_clienteConMasCompras">Clientes que más gastaron en
-                                el último mes</a></li>
-                        <li><a class="dropdown-item" href="r_reporte_VentasPorDia">Ventas por día</a></li>
-                    </ul>
-                </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="facturasDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reporte</a>
+                            <ul class="dropdown-menu" aria-labelledby="facturasDropdown">
+                                <li><a class="dropdown-item" href="r_reporte_productosVendidos">Productos que más vendieron en
+                                        el últ/mes</a></li>
+                                <li><a class="dropdown-item" href="r_reporte_rentabilidad">Rentabilidad</a></li>
+                                <li><a class="dropdown-item" href="r_reporte_productosMenosVendidos">Productos que menos se
+                                        vendieron en el últ/mes</a></li>
+                                <li><a class="dropdown-item" href="r_reporte_clienteConMasCompras">Clientes que más gastaron en
+                                        el último mes</a></li>
+                                <li><a class="dropdown-item" href="r_reporte_VentasPorDia">Ventas por día</a></li>
+                            </ul>
+                        </li>
 
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="dashboard">Dashboard</a>
-                </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="dashboard">Dashboard</a>
+                        </li>
+                    </Authorized>
+                    <NotAuthorized>
+                        <div style="text-align: center; color: white" >
+                            <h6> Iniciar Sesión</h6>
+                        </div>
+                    </NotAuthorized>
+                </AuthorizeView>
+                
 
 
                 <form method="post" action="Identity/Account/Logout">
