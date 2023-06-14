@@ -128,14 +128,14 @@
         _configuracionPastel = new PieConfig();
 
         _configuracionPastel.Options = new PieOptions
+        {
+            Responsive = true,
+            Title = new OptionsTitle
             {
-                Responsive = true,
-                Title = new OptionsTitle
-                {
-                    Display = true,
-                    Text = "Mas vendidos"
-                }
-            };
+                Display = true,
+                Text = "Mas vendidos"
+            }
+        };
 
         foreach (var item in new[] { "Opcion 1", "Opcion 2", "Opcion 3" })
         {
@@ -143,14 +143,14 @@
         }
 
         PieDataset<int> dataset = new PieDataset<int>(new[] { 35, 50, 15 })
+        {
+            BackgroundColor = new[]
             {
-                BackgroundColor = new[]
-            {
-ColorUtil.ColorHexString(255,0,0), //Rojo
-ColorUtil.ColorHexString(0,0,255), //Azul
-ColorUtil.ColorHexString(255,255,0) //Amarillo
-}
-            };
+                ColorUtil.ColorHexString(255,0,0), //Rojo
+                ColorUtil.ColorHexString(0,0,255), //Azul
+                ColorUtil.ColorHexString(255,255,0) //Amarillo
+            }
+        };
 
         _configuracionPastel.Data.Datasets.Add(dataset);
     }
