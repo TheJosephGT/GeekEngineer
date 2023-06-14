@@ -64,7 +64,10 @@ public class CategoriaBLL
 
     public bool Eliminar(int categoriaId)
     {
-        var eliminado = contexto.Categorias.Where(p => p.CategoriaId == categoriaId).SingleOrDefault();
+        var eliminado = contexto.Categorias
+        .Where(p => p.CategoriaId == categoriaId)
+        .SingleOrDefault();
+
         if(eliminado != null)
         {
             eliminado.EsVisible = false;
@@ -77,13 +80,19 @@ public class CategoriaBLL
     public Categorias? Buscar(int categoriaId)
     {
         if(contexto.Categorias.Any(p => p.EsVisible == true))
-            return contexto.Categorias.Where(p => p.CategoriaId == categoriaId).AsNoTracking().SingleOrDefault();
+            return contexto.Categorias
+            .Where(p => p.CategoriaId == categoriaId)
+            .AsNoTracking()
+            .SingleOrDefault();
         else
             return null;
     }
 
     public List<Categorias> GetList(Expression<Func<Categorias, bool>> criterio)
     {
-        return contexto.Categorias.AsNoTracking().Where(criterio).ToList();
+        return contexto.Categorias
+        .AsNoTracking()
+        .Where(criterio)
+        .ToList();
     }
 }

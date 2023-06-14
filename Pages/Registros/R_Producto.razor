@@ -1,11 +1,13 @@
 @page "/r_producto"
 @page "/producto/{productoId:int}"
+@inject ProductoBLL ProductoBLL
+@inject NotificationService notify
 @* @attribute [Authorize] *@
 
 <EditForm Model="producto" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
+    
     <div class="card col-lg-7 mx-auto">
-
         <div class="shadow">
             <div class="card-header">
                 <h1 class="text-center"><strong>Registro de Producto</strong></h1>
@@ -82,10 +84,15 @@
 
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputSelect required="" @bind-Value="producto.CategoriaId" class="input" />
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <label>Categoría</label>
+                            <InputSelect required="" @bind-Value="producto.CategoriaId" class="input">
+                                @foreach (var item in CategoriaList)
+                                {
+                                    <option value="@item.CategoriaId">@item.Nombre</option>
+                                }
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Categoría</label>
+                            </InputSelect>
                         </div>
                     </div>
                 </div>
@@ -94,7 +101,10 @@
                 <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputSelect required="" @bind-Value="producto.EstaEmpacado" class="input" />
+                            <InputSelect required="@true" @bind-Value="producto.EstaEmpacado" class="input">
+                                <option value="@true">Sí</option>
+                                <option value="@false">No</option>
+                            </InputSelect>
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>¿Está empacado?</label>
@@ -115,10 +125,15 @@
                 <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputSelect required="" @bind-Value="producto.ProductoId" class="input" />
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <label>Proveedor</label>
+                            <InputSelect required="" @bind-Value="producto.ProductoId" class="input">
+                                @foreach (var item in ProveedorList)
+                                {
+                                    <option value="@item.ProveedorId">@item.Nombre</option>
+                                }
+                                 <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Proveedor</label>
+                            </InputSelect>
                         </div>
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
@@ -174,22 +189,92 @@
     [Parameter]
     public int productoId { get; set; }
     public Productos producto { get; set; } = new Productos();
+    List<Categorias> CategoriaList = new List<Categorias>();
+    List<Proveedores> ProveedorList = new List<Proveedores>();
 
-    public void Guardar()
+    protected override void OnInitialized()
     {
-
+        if (productoId > 0)
+        {
+            this.producto.ProductoId = productoId;
+            this.Buscar();
+        }
     }
-    public void Eliminar()
-    {
 
-    }
     public void Nuevo()
     {
-
+        producto = new Productos();
+        notify.ShowNotification("Nueva plantilla creada correctamente.", NotificationSeverity.Success);
     }
 
-    public void Buscar()
+    bool Validar()
+    {
+        bool validar = true;
+
+        if (producto!.ProductoId < 0)
+        {
+            notify.ShowNotification("El ID debe ser mayor que 0.", NotificationSeverity.Warning);
+            validar = false;
+        }
+         if (ProductoBLL.ExisteNombre(producto) == false) 
+        {
+            notify.ShowNotification("Ya hay un producto registrado con ese nombre, intente de nuevo.", NotificationSeverity.Warning);
+            validar = false;
+        }
+        if (ProductoBLL.ExisteCodigoBarra(producto) == false)
+        {
+            notify.ShowNotification("Ya está registrado ese código de barra, intente de nuevo", NotificationSeverity.Warning);
+            validar = false;
+        }
+
+        return validar;
+    }
+
+    void Guardar()
     {
 
+        if (!Validar()) { return; }
+        
+        if (ProductoBLL.Guardar(producto))
+        {
+            notify.ShowNotification("Fue guardado correctamente.");
+            producto = new Productos();
+        }
+        else
+        {
+            notify.ShowNotification("No fue guardado, intentar nuevamente.", NotificationSeverity.Error);
+        }
+               
+    }
+
+    private void Buscar()
+    {
+        if (producto!.ProductoId > 0)
+        {
+            var encontrado = ProductoBLL.Buscar(producto.ProductoId);
+            if (encontrado != null)
+            {
+                notify.ShowNotification("Se ha encontrado con éxito", NotificationSeverity.Info);
+                this.producto = encontrado;
+            }
+            else
+            {
+                notify.ShowNotification("El ID ingresado no ha sido encontrado.", NotificationSeverity.Error);
+            }
+        }
+    }
+
+    public void Eliminar()
+    {
+        if (ProductoBLL.Eliminar(producto.ProductoId))
+        {
+            notify.ShowNotification("Se ha eliminado con éxito.", NotificationSeverity.Info);
+            producto = new Productos();
+        }
+        else
+        {
+            notify.ShowNotification("No hay elementos para borrar.", NotificationSeverity.Warning);
+            return;
+        }
     }
 }

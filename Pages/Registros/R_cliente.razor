@@ -1,15 +1,15 @@
 @page "/r_cliente"
 @page "/cliente/{clienteId:int}"
-@attribute [Authorize]
+@inject ClienteBLL ClienteBLL
+@inject NotificationService notify
+@*@attribute [Authorize]*@
 
 
 <EditForm Model="cliente" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
 
     <div class="card col-lg-7 mx-auto">
-
         <div class="shadow">
-
             <div class="card-header">
                 <h1 class="text-center"><strong>Registro de Cliente</strong></h1>
             </div>
@@ -117,21 +117,96 @@
     public int clienteId { get; set; }
     public Clientes cliente { get; set; } = new Clientes();
 
-    public void Guardar()
+   protected override void OnInitialized()
     {
-
+        if (clienteId > 0)
+        {
+            this.cliente.ClienteId = clienteId;
+            this.Buscar();
+        }
     }
-    public void Eliminar()
-    {
 
-    }
     public void Nuevo()
     {
-
+        cliente = new Clientes();
+        notify.ShowNotification("Nueva plantilla creada correctamente.", NotificationSeverity.Success);
     }
 
-    public void Buscar()
+    bool Validar()
+    {
+        bool validar = true;
+
+        if (cliente!.ClienteId < 0)
+        {
+            notify.ShowNotification("El ID debe ser mayor que 0.", NotificationSeverity.Warning);
+            validar = false;
+        }
+        if (ClienteBLL.ExisteEmail(cliente) == false) 
+        {
+            notify.ShowNotification("Ya está registrado ese email, intente de nuevo.", NotificationSeverity.Warning);
+            validar = false;
+        }
+        if (ClienteBLL.ExisteTelefono(cliente) == false) 
+        {
+            notify.ShowNotification("Ya está registrado ese número de teléfono, intente de nuevo.", NotificationSeverity.Warning);
+            validar = false;
+        }
+        if (ClienteBLL.ExisteCedula(cliente) == true)
+        {
+            notify.ShowNotification("Ya está registrado esa cédula, intente de nuevo.", NotificationSeverity.Warning);
+            validar = false;
+        }
+
+        return validar;
+    }
+
+
+    void Guardar()
     {
 
+        if (!Validar()) { return; }
+
+        if (ClienteBLL.Guardar(cliente))
+        {
+            notify.ShowNotification("Fue guardado correctamente.");
+            cliente = new Clientes();
+        }
+        else
+        {
+            notify.ShowNotification("No fue guardado, intentar nuevamente.", NotificationSeverity.Error);
+        }
+             
+    }
+
+    private void Buscar()
+    {
+        if (cliente!.ClienteId > 0)
+        {
+            var encontrado = ClienteBLL.Buscar(cliente.ClienteId);
+            
+            if (encontrado != null)
+            {
+                notify.ShowNotification("Se ha encontrado con éxito", NotificationSeverity.Info);
+                this.cliente = encontrado;
+            }
+            else
+            {
+                notify.ShowNotification("El ID ingresado no ha sido encontrado.", NotificationSeverity.Error);
+            }
+        }
+    }
+
+    public void Eliminar()
+    {
+        if (ClienteBLL.Eliminar(cliente.ClienteId))
+        {
+            notify.ShowNotification("Se ha eliminado con éxito.", NotificationSeverity.Info);
+            cliente = new Clientes();
+        }
+        else
+        {
+            notify.ShowNotification("No hay elementos para borrar.", NotificationSeverity.Warning);
+            return;
+        }
     }
 }
