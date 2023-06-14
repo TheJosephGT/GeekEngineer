@@ -216,7 +216,7 @@
         if (ProveedorBLL.Eliminar(proveedor.ProveedorId))
         {
             notify.ShowNotification("Se ha eliminado con éxito.", NotificationSeverity.Info);
-            Nuevo();
+            proveedor = new Proveedores();
         }
         else
         {
