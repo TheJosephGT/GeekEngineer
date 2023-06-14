@@ -25,7 +25,7 @@ public class Productos
     public int Existencia { get; set; }
     [Required(ErrorMessage = "Seleccione el proveedor del producto.")]
     public int ProveedorId { get; set; }
-     [Required(ErrorMessage = "Seleccione la ubicación del producto.")]
+    [Required(ErrorMessage = "Ingrese la ubicación del producto.")]
     public string Ubicacion { get; set; } = string.Empty;
     public double Descuento { get; set; }
     [Required(ErrorMessage = "Ingrese el código de barra.")]
