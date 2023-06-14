@@ -5,7 +5,6 @@ using GeekEngineer.Data;
 
 public class ProveedorBLL
 {
-    #nullable disable
     private ApplicationDbContext contexto;
     public ProveedorBLL(ApplicationDbContext _contexto)
     {
@@ -114,7 +113,7 @@ public class ProveedorBLL
         return false;
     }
 
-    public Proveedores Buscar(int proveedorId)
+    public Proveedores? Buscar(int proveedorId)
     {
         if(contexto.Proveedores.Any(p => p.EsVisible == true))
             return contexto.Proveedores.Where(p => p.ProveedorId == proveedorId).AsNoTracking().SingleOrDefault();

@@ -1,6 +1,8 @@
 @page "/r_categoria"
 @page "/categoria/{categoriaId:int}"
-@attribute [Authorize]
+@inject CategoriaBLL CategoriaBLL
+@inject NotificationService notify
+@* @attribute [Authorize] *@
 
 
 <EditForm Model="categoria" OnValidSubmit="Guardar">
@@ -38,6 +40,7 @@
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Fecha</label>
+                            <ValidationMessage For="@(() => categoria.Fecha)" />
                         </div>
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
@@ -46,6 +49,7 @@
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Nombre</label>
+                            <ValidationMessage For="@(() => categoria.Nombre)" />
                         </div>
                     </div>
                 </div>
@@ -72,27 +76,90 @@
 </EditForm>
 
 
-@code
-{
+@code {
     [Parameter]
-    public int categoriaId { get; set; }
+    public int CategoriaId { get; set; }
     public Categorias categoria { get; set; } = new Categorias();
+    
 
-    public void Guardar()
+    protected override void OnInitialized()
     {
-
+        if (CategoriaId > 0)
+        {
+            this.categoria.CategoriaId = CategoriaId;
+            this.Buscar();
+        }
     }
-    public void Eliminar()
-    {
 
-    }
     public void Nuevo()
     {
-
+        categoria = new Categorias();
+        notify.ShowNotification("Nueva plantilla creada correctamente.", NotificationSeverity.Success);
     }
 
-    public void Buscar()
+    bool Validar()
+    {
+        bool validar = true;
+
+        if (categoria!.CategoriaId < 0)
+        {
+            notify.ShowNotification("El ID debe ser mayor que 0.", NotificationSeverity.Error);
+            validar = false;
+        }
+        return validar;
+    }
+
+
+    void Guardar()
     {
 
+        if (!Validar()) { return; }
+
+
+        if (CategoriaBLL.ExisteNombreCategoria(categoria) == true) 
+        {
+            if (CategoriaBLL.Guardar(categoria))
+            {
+                notify.ShowNotification("Fue guardado correctamente.");
+                categoria = new Categorias();
+            }
+            else
+                notify.ShowNotification("No fue guardado, intentar nuevamente.", NotificationSeverity.Error);
+        }
+        else 
+        {
+            notify.ShowNotification("Ya hay una categoria registrada con ese nombre.", NotificationSeverity.Warning);
+        }
+    }
+
+    private void Buscar()
+    {
+        if (categoria!.CategoriaId > 0)
+        {
+            var encontrado = CategoriaBLL.Buscar(categoria.CategoriaId);
+            if (encontrado != null)
+            {
+                notify.ShowNotification("Se ha encontrado con éxito", NotificationSeverity.Info);
+                this.categoria = encontrado;
+            }
+            else
+            {
+                notify.ShowNotification("El ID ingresado no ha sido encontrado.", NotificationSeverity.Error);
+            }
+        }
+    }
+
+    public void Eliminar()
+    {
+        if (CategoriaBLL.Eliminar(categoria.CategoriaId))
+        {
+            notify.ShowNotification("Se ha eliminado con éxito.", NotificationSeverity.Info);
+            categoria = new Categorias();
+        }
+        else
+        {
+            notify.ShowNotification("No hay elementos para borrar.", NotificationSeverity.Warning);
+            return;
+        }
     }
 }

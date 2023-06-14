@@ -31,6 +31,7 @@ namespace GeekEngineer
             builder.Services.AddScoped<NotificationService>();
             builder.Services.AddScoped<TooltipService>();
             builder.Services.AddScoped<ContextMenuService>();
+            builder.Services.AddScoped<CategoriaBLL>();
             builder.Services.AddScoped<ProveedorBLL>();
             var app = builder.Build();
 
