@@ -104,6 +104,12 @@
             notify.ShowNotification("El ID debe ser mayor que 0.", NotificationSeverity.Error);
             validar = false;
         }
+        if (CategoriaBLL.ExisteNombreCategoria(categoria) == false)
+        {
+            notify.ShowNotification("Ya hay una categoría registrada con ese nombre.", NotificationSeverity.Warning);
+            validar = false;
+        }
+
         return validar;
     }
 
@@ -113,21 +119,16 @@
 
         if (!Validar()) { return; }
 
-
-        if (CategoriaBLL.ExisteNombreCategoria(categoria) == true) 
+        if (CategoriaBLL.Guardar(categoria))
         {
-            if (CategoriaBLL.Guardar(categoria))
-            {
-                notify.ShowNotification("Fue guardado correctamente.");
-                categoria = new Categorias();
-            }
-            else
-                notify.ShowNotification("No fue guardado, intentar nuevamente.", NotificationSeverity.Error);
+            notify.ShowNotification("Fue guardado correctamente.");
+            categoria = new Categorias();
         }
-        else 
+        else
         {
-            notify.ShowNotification("Ya hay una categoría registrada con ese nombre.", NotificationSeverity.Warning);
+            notify.ShowNotification("No fue guardado, intentar nuevamente.", NotificationSeverity.Error);
         }
+             
     }
 
     private void Buscar()
@@ -135,6 +136,7 @@
         if (categoria!.CategoriaId > 0)
         {
             var encontrado = CategoriaBLL.Buscar(categoria.CategoriaId);
+            
             if (encontrado != null)
             {
                 notify.ShowNotification("Se ha encontrado con éxito", NotificationSeverity.Info);

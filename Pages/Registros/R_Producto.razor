@@ -221,30 +221,30 @@
             notify.ShowNotification("Ya hay un producto registrado con ese nombre, intente de nuevo.", NotificationSeverity.Warning);
             validar = false;
         }
+        if (ProductoBLL.ExisteCodigoBarra(producto) == false)
+        {
+            notify.ShowNotification("Ya está registrado ese código de barra, intente de nuevo", NotificationSeverity.Warning);
+            validar = false;
+        }
+
         return validar;
     }
-
 
     void Guardar()
     {
 
         if (!Validar()) { return; }
-
-
-        if (ProductoBLL.ExisteCodigoBarra(producto) == true)
+        
+        if (ProductoBLL.Guardar(producto))
         {
-            if (ProductoBLL.Guardar(producto))
-            {
-                notify.ShowNotification("Fue guardado correctamente.");
-                producto = new Productos();
-            }
-            else
-                notify.ShowNotification("No fue guardado, intentar nuevamente.", NotificationSeverity.Error);
+            notify.ShowNotification("Fue guardado correctamente.");
+            producto = new Productos();
         }
         else
         {
-            notify.ShowNotification("Ya está registrado ese código de barra, intente de nuevo", NotificationSeverity.Warning);
+            notify.ShowNotification("No fue guardado, intentar nuevamente.", NotificationSeverity.Error);
         }
+               
     }
 
     private void Buscar()

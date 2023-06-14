@@ -151,6 +151,12 @@
             notify.ShowNotification("Ya está registrado ese número de teléfono, intente de nuevo.", NotificationSeverity.Warning);
             validar = false;
         }
+        if (ClienteBLL.ExisteCedula(cliente) == true)
+        {
+            notify.ShowNotification("Ya está registrado esa cédula, intente de nuevo.", NotificationSeverity.Warning);
+            validar = false;
+        }
+
         return validar;
     }
 
@@ -160,21 +166,16 @@
 
         if (!Validar()) { return; }
 
-
-        if (ClienteBLL.ExisteCedula(cliente) == true) 
+        if (ClienteBLL.Guardar(cliente))
         {
-            if (ClienteBLL.Guardar(cliente))
-            {
-                notify.ShowNotification("Fue guardado correctamente.");
-                cliente = new Clientes();
-            }
-            else
-                notify.ShowNotification("No fue guardado, intentar nuevamente.", NotificationSeverity.Error);
+            notify.ShowNotification("Fue guardado correctamente.");
+            cliente = new Clientes();
         }
-        else 
+        else
         {
-            notify.ShowNotification("Ya está registrado esa cédula, intente de nuevo.", NotificationSeverity.Warning);
+            notify.ShowNotification("No fue guardado, intentar nuevamente.", NotificationSeverity.Error);
         }
+             
     }
 
     private void Buscar()
@@ -182,6 +183,7 @@
         if (cliente!.ClienteId > 0)
         {
             var encontrado = ClienteBLL.Buscar(cliente.ClienteId);
+            
             if (encontrado != null)
             {
                 notify.ShowNotification("Se ha encontrado con éxito", NotificationSeverity.Info);
