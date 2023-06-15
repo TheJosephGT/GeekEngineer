@@ -34,18 +34,20 @@
                 <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputText required="" @bind-Value="cliente.Nombre" class="input" />
+                            <InputText @bind-Value="cliente.Nombre" class="input" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Nombre</label>
+                            <ValidationMessage For="@(() => cliente.Nombre)" />
                         </div>
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputDate required="" @bind-Value="cliente.Fecha" class="input" id="fecha" />
+                            <InputDate @bind-Value="cliente.Fecha" class="input" id="fecha" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Fecha</label>
+                            <ValidationMessage For="@(() => cliente.Fecha)" />
                         </div>
                     </div>
                 </div>
@@ -54,20 +56,22 @@
                 <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputText required="" @bind-Value="cliente.Cedula" class="input" />
+                            <InputText @bind-Value="cliente.Cedula" class="input" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Cédula</label>
+                            <ValidationMessage For="@(() => cliente.Cedula)" />
                         </div>
                     </div>
                     <br>
                     <br>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputText required="" @bind-Value="cliente.Direccion" class="input" />
+                            <InputText @bind-Value="cliente.Direccion" class="input" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Dirección</label>
+                            <ValidationMessage For="@(() => cliente.Direccion)" />
                         </div>
                     </div>
                 </div>
@@ -77,18 +81,20 @@
                 <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputText required="" @bind-Value="cliente.Telefono" class="input" />
+                            <InputText @bind-Value="cliente.Telefono" class="input" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Teléfono</label>
+                            <ValidationMessage For="@(() => cliente.Telefono)" />
                         </div>
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputText required="" @bind-Value="cliente.Email" class="input" />
+                            <InputText @bind-Value="cliente.Email" class="input" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Email</label>
+                            <ValidationMessage For="@(() => cliente.Email)" />
                         </div>
                     </div>
                 </div>

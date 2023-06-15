@@ -78,12 +78,15 @@
                             <a class="nav-link dropdown-toggle" href="#" id="facturasDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reporte</a>
                             <ul class="dropdown-menu" aria-labelledby="facturasDropdown">
-                                <li><a class="dropdown-item" href="r_reporte_productosVendidos">Productos que más vendieron en
+                                <li><a class="dropdown-item" href="r_reporte_productosVendidos">Productos que más
+                                        vendieron en
                                         el últ/mes</a></li>
                                 <li><a class="dropdown-item" href="r_reporte_rentabilidad">Rentabilidad</a></li>
-                                <li><a class="dropdown-item" href="r_reporte_productosMenosVendidos">Productos que menos se
+                                <li><a class="dropdown-item" href="r_reporte_productosMenosVendidos">Productos que menos
+                                        se
                                         vendieron en el últ/mes</a></li>
-                                <li><a class="dropdown-item" href="r_reporte_clienteConMasCompras">Clientes que más gastaron en
+                                <li><a class="dropdown-item" href="r_reporte_clienteConMasCompras">Clientes que más
+                                        gastaron en
                                         el último mes</a></li>
                                 <li><a class="dropdown-item" href="r_reporte_VentasPorDia">Ventas por día</a></li>
                             </ul>
@@ -92,22 +95,28 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="dashboard">Dashboard</a>
                         </li>
+                        <form method="post" action="Identity/Account/Logout">
+                            <span class="nav-link" onclick="this.parentNode.submit();"
+                                style="cursor: pointer; position: fixed; top: 10px; right: 10px;">
+                                <span class="oi oi-account-logout" title='Cerrar sesión'></span>
+                                <p></p>
+                            </span>
+                        </form>
                     </Authorized>
                     <NotAuthorized>
-                        <div style="text-align: center; color: white" >
-                            <h6> Iniciar Sesión</h6>
-                        </div>
+                        <form method="post" action="Identity/Account/Logout">
+                            <span class="nav-link" onclick="this.parentNode.submit();"
+                                style="cursor: pointer; position: fixed; top: 10px; right: 10px;">
+                                Iniciar sesion 
+                                <span class="oi oi-account-logout" title='Cerrar sesión'></span>
+                                <p></p>
+                            </span>
+                        </form>
                     </NotAuthorized>
                 </AuthorizeView>
-                
 
 
-                <form method="post" action="Identity/Account/Logout">
-                    <span class="nav-link" onclick="this.parentNode.submit();"
-                        style="cursor: pointer; position: fixed; top: 10px; right: 10px;">
-                        <span class="oi oi-account-logout" title='Cerrar sesión'></span>
-                    </span>
-                </form>
+
             </ul>
         </div>
     </div>

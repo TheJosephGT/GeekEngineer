@@ -6,6 +6,7 @@ using GeekEngineer.Data;
 public class ClienteBLL
 {
     private ApplicationDbContext contexto;
+    
     public ClienteBLL(ApplicationDbContext _contexto)
     {
         contexto = _contexto;
