@@ -6,6 +6,7 @@ using GeekEngineer.Data;
 public class ClienteBLL
 {
     private ApplicationDbContext contexto;
+    
     public ClienteBLL(ApplicationDbContext _contexto)
     {
         contexto = _contexto;
@@ -22,7 +23,7 @@ public class ClienteBLL
 
         if(modificado == null)
         {
-            var existe = contexto.Clientes.Any(p => p.Cedula == cliente.Cedula);
+            var existe = contexto.Clientes.Any(p => p.Cedula == cliente.Cedula && p.EsVisible == true);
             if(existe == true)
                 return false;
             else
@@ -41,7 +42,7 @@ public class ClienteBLL
 
         if(modificado == null)
         {
-            var existe = contexto.Clientes.Any(p => p.Email == cliente.Email);
+            var existe = contexto.Clientes.Any(p => p.Email == cliente.Email && p.EsVisible == true);
             if(existe == true)
                 return false;
             else
@@ -60,7 +61,7 @@ public class ClienteBLL
 
         if(modificado == null)
         {
-            var existe = contexto.Clientes.Any(p => p.Telefono == cliente.Telefono);
+            var existe = contexto.Clientes.Any(p => p.Telefono == cliente.Telefono && p.EsVisible == true);
             if(existe == true)
                 return false;
             else
