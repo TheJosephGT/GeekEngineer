@@ -22,7 +22,7 @@ public class ClienteBLL
 
         if(modificado == null)
         {
-            var existe = contexto.Clientes.Any(p => p.Cedula == cliente.Cedula);
+            var existe = contexto.Clientes.Any(p => p.Cedula == cliente.Cedula && p.EsVisible == true);
             if(existe == true)
                 return false;
             else
@@ -41,7 +41,7 @@ public class ClienteBLL
 
         if(modificado == null)
         {
-            var existe = contexto.Clientes.Any(p => p.Email == cliente.Email);
+            var existe = contexto.Clientes.Any(p => p.Email == cliente.Email && p.EsVisible == true);
             if(existe == true)
                 return false;
             else
@@ -60,7 +60,7 @@ public class ClienteBLL
 
         if(modificado == null)
         {
-            var existe = contexto.Clientes.Any(p => p.Telefono == cliente.Telefono);
+            var existe = contexto.Clientes.Any(p => p.Telefono == cliente.Telefono && p.EsVisible == true);
             if(existe == true)
                 return false;
             else
@@ -115,15 +115,24 @@ public class ClienteBLL
         return false;
     }
 
-    public Clientes? Buscar(int clienteId)
+    public Clientes? Buscar(Clientes cliente)
     {
-        if(contexto.Clientes.Any(p => p.EsVisible == true))
+        
+        var valor =  contexto.Clientes.Find(cliente.ClienteId);
+
+        if(valor != null)
+        {
+            if(valor.EsVisible == true)
             return contexto.Clientes
-            .Where(p => p.ClienteId == clienteId)
+            .Where(p => p.ClienteId == valor.ClienteId)
             .AsNoTracking()
             .SingleOrDefault();
         else
             return null;
+        }
+        
+        return null;
+        
     }
 
     public List<Clientes> GetList(Expression<Func<Clientes, bool>> criterio)

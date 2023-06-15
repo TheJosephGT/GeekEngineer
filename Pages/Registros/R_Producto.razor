@@ -251,7 +251,7 @@
     {
         if (producto!.ProductoId > 0)
         {
-            var encontrado = ProductoBLL.Buscar(producto.ProductoId);
+            var encontrado = ProductoBLL.Buscar(producto);
             if (encontrado != null)
             {
                 notify.ShowNotification("Se ha encontrado con éxito", NotificationSeverity.Info);

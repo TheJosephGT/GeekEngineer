@@ -41,7 +41,7 @@ public class ProveedorBLL
 
         if(modificado == null)
         {
-            var existe = contexto.Proveedores.Any(p => p.RNC == proveedor.RNC);
+            var existe = contexto.Proveedores.Any(p => p.RNC == proveedor.RNC && p.EsVisible == true);
             if(existe == true)
                 return false;
             else
@@ -60,7 +60,46 @@ public class ProveedorBLL
 
         if(modificado == null)
         {
-            var existe = contexto.Proveedores.Any(p => p.NCF == proveedor.NCF);
+            var existe = contexto.Proveedores.Any(p => p.NCF == proveedor.NCF && p.EsVisible == true);
+            if(existe == true)
+                return false;
+            else
+                return true;
+            
+        }
+        else
+        {
+            return true;
+        }
+    }
+    
+    public bool ExisteEmail(Proveedores proveedor)
+    {
+        var modificado = contexto.Proveedores.Find(proveedor.ProveedorId);
+
+        if(modificado == null)
+        {
+            var existe = contexto.Proveedores.Any(p => p.Email == proveedor.Email && p.EsVisible == true);
+
+            if(existe == true)
+                return false;
+            else
+                return true;
+            
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    public bool ExisteTelefono(Proveedores proveedor)
+    {
+        var modificado = contexto.Proveedores.Find(proveedor.ProveedorId);
+
+        if(modificado == null)
+        {
+            var existe = contexto.Clientes.Any(p => p.Telefono == proveedor.Telefono && p.EsVisible == true);
             if(existe == true)
                 return false;
             else
@@ -116,15 +155,22 @@ public class ProveedorBLL
         return false;
     }
 
-    public Proveedores? Buscar(int proveedorId)
+    public Proveedores? Buscar(Proveedores proveedor)
     {
-        if(contexto.Proveedores.Any(p => p.EsVisible == true))
+        var valor =  contexto.Proveedores.Find(proveedor.ProveedorId);
+
+        if(valor != null)
+        {
+            if(valor.EsVisible == true)
             return contexto.Proveedores
-            .Where(p => p.ProveedorId == proveedorId)
+            .Where(p => p.ProveedorId == valor.ProveedorId)
             .AsNoTracking()
             .SingleOrDefault();
         else
             return null;
+        }
+        
+        return null;
     }
 
     public List<Proveedores> GetList(Expression<Func<Proveedores, bool>> criterio)

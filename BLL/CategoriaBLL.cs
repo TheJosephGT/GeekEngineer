@@ -77,15 +77,22 @@ public class CategoriaBLL
         return false;
     }
 
-    public Categorias? Buscar(int categoriaId)
+    public Categorias? Buscar(Categorias categoria)
     {
-        if(contexto.Categorias.Any(p => p.EsVisible == true))
+         var valor =  contexto.Categorias.Find(categoria.CategoriaId);
+
+        if(valor != null)
+        {
+            if(valor.EsVisible == true)
             return contexto.Categorias
-            .Where(p => p.CategoriaId == categoriaId)
+            .Where(p => p.CategoriaId == valor.CategoriaId)
             .AsNoTracking()
             .SingleOrDefault();
         else
             return null;
+        }
+        
+        return null;
     }
 
     public List<Categorias> GetList(Expression<Func<Categorias, bool>> criterio)

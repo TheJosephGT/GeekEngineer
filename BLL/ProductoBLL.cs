@@ -22,7 +22,7 @@ public class ProductoBLL
 
         if(modificado == null)
         {
-            var existe = contexto.Productos.Any(p => p.CodigoBarra == producto.CodigoBarra);
+            var existe = contexto.Productos.Any(p => p.CodigoBarra == producto.CodigoBarra && p.EsVisible == true);
             if(existe == true)
                 return false;
             else
@@ -41,7 +41,7 @@ public class ProductoBLL
 
         if(modificado == null)
         {
-            var existe = contexto.Productos.Any(p => p.Nombre == producto.Nombre);
+            var existe = contexto.Productos.Any(p => p.Nombre == producto.Nombre && p.EsVisible == true);
             if(existe == true)
                 return false;
             else
@@ -95,15 +95,22 @@ public class ProductoBLL
         return false;
     }
 
-    public Productos? Buscar(int productoId)
+    public Productos? Buscar(Productos producto)
     {
-        if(contexto.Productos.Any(p => p.EsVisible == true))
+        var valor =  contexto.Productos.Find(producto.ProductoId);
+
+        if(valor != null)
+        {
+            if(valor.EsVisible == true)
             return contexto.Productos
-            .Where(p => p.ProductoId == productoId)
+            .Where(p => p.ProductoId == valor.ProductoId)
             .AsNoTracking()
             .SingleOrDefault();
         else
             return null;
+        }
+        
+        return null;
     }
 
     public List<Productos> GetList(Expression<Func<Productos, bool>> criterio)

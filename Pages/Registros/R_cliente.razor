@@ -151,7 +151,7 @@
             notify.ShowNotification("Ya está registrado ese número de teléfono, intente de nuevo.", NotificationSeverity.Warning);
             validar = false;
         }
-        if (ClienteBLL.ExisteCedula(cliente) == true)
+        if (ClienteBLL.ExisteCedula(cliente) == false)
         {
             notify.ShowNotification("Ya está registrado esa cédula, intente de nuevo.", NotificationSeverity.Warning);
             validar = false;
@@ -182,7 +182,7 @@
     {
         if (cliente!.ClienteId > 0)
         {
-            var encontrado = ClienteBLL.Buscar(cliente.ClienteId);
+            var encontrado = ClienteBLL.Buscar(cliente);
             
             if (encontrado != null)
             {

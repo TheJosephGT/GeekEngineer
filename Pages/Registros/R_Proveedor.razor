@@ -154,17 +154,27 @@
         }
         if (ProveedorBLL.ExisteRNC(proveedor) == false)
         {
-            notify.ShowNotification("El RNC ingresado ya está registrado.", NotificationSeverity.Error);
+            notify.ShowNotification("El RNC ingresado ya está registrado.", NotificationSeverity.Warning);
             validar = false;
         }
         if (ProveedorBLL.ExisteNCF(proveedor) == false)
         {
-            notify.ShowNotification("El NCF ingresado ya está registrado.", NotificationSeverity.Error);
+            notify.ShowNotification("El NCF ingresado ya está registrado.", NotificationSeverity.Warning);
             validar = false;
         }
         if (ProveedorBLL.ExisteNombreProveedor(proveedor) == false)
         {
             notify.ShowNotification("Ya hay un proveedor registrado con ese nombre.", NotificationSeverity.Warning);
+            validar = false;
+        }
+        if (ProveedorBLL.ExisteEmail(proveedor) == false) 
+        {
+            notify.ShowNotification("Ya está registrado ese email, intente de nuevo.", NotificationSeverity.Warning);
+            validar = false;
+        }
+        if (ProveedorBLL.ExisteTelefono(proveedor) == false) 
+        {
+            notify.ShowNotification("Ya está registrado ese número de teléfono, intente de nuevo.", NotificationSeverity.Warning);
             validar = false;
         }
 
@@ -191,7 +201,7 @@
     {
         if (proveedor!.ProveedorId > 0)
         {
-            var encontrado = ProveedorBLL.Buscar(proveedor.ProveedorId);
+            var encontrado = ProveedorBLL.Buscar(proveedor);
 
             if (encontrado != null)
             {
