@@ -159,7 +159,7 @@
                             <InputText required="" @bind-Value="producto.Ubicacion" class="input" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <label>Posición Almacén o ubicación</label>
+                            <label>Posición Almacén o Ubicación</label>
                             <ValidationMessage For="@(() => producto.Ubicacion)" />
                         </div>
                     </div>
@@ -283,7 +283,7 @@
     {
         if (ProductoBLL.Eliminar(producto.ProductoId))
         {
-            notify.ShowNotification("Se ha eliminado con éxito.", NotificationSeverity.Info);
+            notify.ShowNotification("Se ha eliminado con éxito.", NotificationSeverity.Success);
             producto = new Productos();
         }
         else

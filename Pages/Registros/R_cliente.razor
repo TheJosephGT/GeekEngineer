@@ -206,7 +206,7 @@
     {
         if (ClienteBLL.Eliminar(cliente.ClienteId))
         {
-            notify.ShowNotification("Se ha eliminado con éxito.", NotificationSeverity.Info);
+            notify.ShowNotification("Se ha eliminado con éxito.", NotificationSeverity.Success);
             cliente = new Clientes();
         }
         else

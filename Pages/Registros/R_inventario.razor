@@ -224,7 +224,7 @@
     {
         if (InventarioBLL.Eliminar(inventario.InventarioId))
         {
-            notify.ShowNotification("Se ha eliminado con éxito.", NotificationSeverity.Info);
+            notify.ShowNotification("Se ha eliminado con éxito.", NotificationSeverity.Success);
             inventario = new Inventarios();
         }
         else
