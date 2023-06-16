@@ -35,6 +35,7 @@ namespace GeekEngineer
             builder.Services.AddScoped<ProveedorBLL>();
             builder.Services.AddScoped<ProductoBLL>();
             builder.Services.AddScoped<ClienteBLL>();
+            builder.Services.AddScoped<InventarioBLL>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

@@ -1,5 +1,9 @@
 @page "/r_inventario"
 @page "/inventario/{inventarioId:int}"
+@inject ProductoBLL ProductoBLL
+@inject ProveedorBLL ProveedorBLL
+@inject InventarioBLL InventarioBLL
+@inject NotificationService notify
 @attribute [Authorize]
 
 
@@ -45,18 +49,36 @@
                 <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputSelect required="" @bind-Value="inventario.ProveedorId" class="input" />
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <label>Proveedor</label>
+                            <InputSelect required="" @bind-Value="inventario.ProveedorId" class="input">
+                                @if (ProveedorList != null)
+                                {
+                                    @foreach (var item in ProveedorList)
+                                    {
+                                        <option value="@item.ProveedorId">@item.Nombre</option>
+                                    }
+                                }
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Proveedor</label>
+                                <ValidationMessage For="@(() => inventario.ProveedorId)" />
+                            </InputSelect>
                         </div>
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputSelect required="" @bind-Value="inventario.ProductoId" class="input" />
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <label>Producto</label>
+                            <InputSelect required="" @bind-Value="inventario.ProductoId" class="input">
+                                @if (ProductoList != null)
+                                {
+                                    @foreach (var item in ProductoList)
+                                    {
+                                        <option value="@item.ProductoId">@item.Nombre</option>
+                                    }
+                                }
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Producto</label>
+                                <ValidationMessage For="@(() => inventario.ProductoId)" />
+                            </InputSelect>
                         </div>
                     </div>
                 </div>
@@ -73,10 +95,19 @@
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputText required="" @bind-Value="inventario.CodigoBarra" class="input" />
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <label>Codigo de barra</label>
+                            <InputSelect required="" @bind-Value="inventario.CodigoBarra" class="input">
+                                @if (ProductoList != null)
+                                {
+                                    @foreach (var item in ProductoList)
+                                    {
+                                        <option value="@item.CodigoBarra">@item.CodigoBarra</option>
+                                    }
+                                }
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Codigo de barra</label>
+                                <ValidationMessage For="@(() => inventario.CodigoBarra)" />
+                            </InputSelect>
                         </div>
                     </div>
 
@@ -84,21 +115,20 @@
                 <br>
                 <br>
 
-                <div class="input-group">
-                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
-                        <div class="group">
-                            <InputNumber required="" @bind-Value="inventario.Cantidad" class="input" />
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <label>Cantidad actual</label>
-                        </div>
-                    </div>
-                    <button class="btn btn-outline-secondary" type="button" style="background: green;"><ion-icon
-                            name="add-outline"></ion-icon></button>
-                    <button class="btn btn-outline-secondary" type="button" style="background: red;"><ion-icon
-                            name="remove-outline"></ion-icon></button>
+                @* <div class="input-group">
+                <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                <div class="group">
+                <InputNumber required="" @bind-Value="inventario.Cantidad" class="input" />
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Cantidad actual</label>
                 </div>
-
+                </div>
+                <button class="btn btn-outline-secondary" type="button" style="background: green;"><ion-icon
+                name="add-outline"></ion-icon></button>
+                <button class="btn btn-outline-secondary" type="button" style="background: red;"><ion-icon
+                name="remove-outline"></ion-icon></button>
+                </div> *@
             </div>
 
             @*Botones*@
@@ -121,24 +151,86 @@
 @code
 {
     [Parameter]
-    public int InventarioId { get; set; }
+    public int inventarioId { get; set; }
     public Inventarios inventario { get; set; } = new Inventarios();
+    List<Productos> ProductoList = new List<Productos>();
+    List<Proveedores> ProveedorList = new List<Proveedores>();
 
-    public void Guardar()
+    protected override void OnInitialized()
     {
-
+        if (inventarioId > 0)
+        {
+            this.inventario.InventarioId = inventarioId;
+            this.Buscar();
+        }
+        ProductoList = ProductoBLL.GetList(p => true && p.EsVisible == true);
+        ProveedorList = ProveedorBLL.GetList(p => true && p.EsVisible == true);
     }
-    public void Eliminar()
-    {
 
-    }
     public void Nuevo()
     {
+        inventario = new Inventarios();
+        notify.ShowNotification("Nueva plantilla creada correctamente.", NotificationSeverity.Success);
+    }
+
+    bool Validar()
+    {
+        bool validar = true;
+
+        if (inventario!.InventarioId < 0)
+        {
+            notify.ShowNotification("El ID debe ser mayor que 0.", NotificationSeverity.Warning);
+            validar = false;
+        }
+
+        return validar;
+    }
+
+    void Guardar()
+    {
+
+        if (!Validar()) { return; }
+
+        if (InventarioBLL.Guardar(inventario))
+        {
+            notify.ShowNotification("Fue guardado correctamente.");
+            inventario = new Inventarios();
+        }
+        else
+        {
+            notify.ShowNotification("No fue guardado, intentar nuevamente.", NotificationSeverity.Error);
+        }
 
     }
 
-    public void Buscar()
+    private void Buscar()
     {
+        if (inventario!.InventarioId > 0)
+        {
+            var encontrado = InventarioBLL.Buscar(inventario);
+            if (encontrado != null)
+            {
+                notify.ShowNotification("Se ha encontrado con éxito", NotificationSeverity.Info);
+                this.inventario = encontrado;
+            }
+            else
+            {
+                notify.ShowNotification("El ID ingresado no ha sido encontrado.", NotificationSeverity.Error);
+            }
+        }
+    }
 
+    public void Eliminar()
+    {
+        if (InventarioBLL.Eliminar(inventario.InventarioId))
+        {
+            notify.ShowNotification("Se ha eliminado con éxito.", NotificationSeverity.Info);
+            inventario = new Inventarios();
+        }
+        else
+        {
+            notify.ShowNotification("No hay elementos para borrar.", NotificationSeverity.Warning);
+            return;
+        }
     }
 }

@@ -6,6 +6,7 @@ using GeekEngineer.Data;
 public class ProductoBLL
 {
     private ApplicationDbContext contexto;
+    
     public ProductoBLL(ApplicationDbContext _contexto)
     {
         contexto = _contexto;
@@ -22,7 +23,7 @@ public class ProductoBLL
 
         if(modificado == null)
         {
-            var existe = contexto.Productos.Any(p => p.CodigoBarra == producto.CodigoBarra && p.EsVisible == true);
+            var existe = contexto.Productos.Any(p => p.CodigoBarra.ToLower() == producto.CodigoBarra.ToLower() && p.EsVisible == true);
             if(existe == true)
                 return false;
             else
@@ -41,7 +42,7 @@ public class ProductoBLL
 
         if(modificado == null)
         {
-            var existe = contexto.Productos.Any(p => p.Nombre == producto.Nombre && p.EsVisible == true);
+            var existe = contexto.Productos.Any(p => p.Nombre.ToLower() == producto.Nombre.ToLower() && p.EsVisible == true);
             if(existe == true)
                 return false;
             else

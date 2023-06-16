@@ -1,12 +1,14 @@
 @page "/r_producto"
 @page "/producto/{productoId:int}"
 @inject ProductoBLL ProductoBLL
+@inject ProveedorBLL ProveedorBLL
+@inject CategoriaBLL CategoriaBLL
 @inject NotificationService notify
 @* @attribute [Authorize] *@
 
 <EditForm Model="producto" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
-    
+
     <div class="card col-lg-7 mx-auto">
         <div class="shadow">
             <div class="card-header">
@@ -37,6 +39,7 @@
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Fecha</label>
+                            <ValidationMessage For="@(() => producto.Fecha)" />
                         </div>
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
@@ -45,6 +48,7 @@
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Nombre</label>
+                            <ValidationMessage For="@(() => producto.Nombre)" />
                         </div>
                     </div>
                 </div>
@@ -57,6 +61,7 @@
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Precio</label>
+                            <ValidationMessage For="@(() => producto.Precio)" />
                         </div>
                     </div>
 
@@ -66,6 +71,7 @@
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Costo</label>
+                            <ValidationMessage For="@(() => producto.Costo)" />
                         </div>
                     </div>
                 </div>
@@ -79,19 +85,24 @@
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>ITBIS</label>
+                            <ValidationMessage For="@(() => producto.ITBIS)" />
                         </div>
                     </div>
 
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
                             <InputSelect required="" @bind-Value="producto.CategoriaId" class="input">
-                                @foreach (var item in CategoriaList)
+                                @if (CategoriaList != null)
                                 {
-                                    <option value="@item.CategoriaId">@item.Nombre</option>
+                                    @foreach (var item in CategoriaList)
+                                    {
+                                        <option value="@item.CategoriaId">@item.Nombre</option>
+                                    }
                                 }
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label>Categoría</label>
+                                <ValidationMessage For="@(() => producto.CategoriaId)" />
                             </InputSelect>
                         </div>
                     </div>
@@ -101,21 +112,11 @@
                 <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputSelect required="@true" @bind-Value="producto.EstaEmpacado" class="input">
-                                <option value="@true">Sí</option>
-                                <option value="@false">No</option>
-                            </InputSelect>
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <label>¿Está empacado?</label>
-                        </div>
-                    </div>
-                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
-                        <div class="group">
                             <InputNumber required="" @bind-Value="producto.Existencia" class="input" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Existencia</label>
+                            <ValidationMessage For="@(() => producto.Existencia)" />
                         </div>
                     </div>
                 </div>
@@ -125,14 +126,18 @@
                 <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputSelect required="" @bind-Value="producto.ProductoId" class="input">
-                                @foreach (var item in ProveedorList)
+                            <InputSelect required="" @bind-Value="producto.ProveedorId" class="input">
+                                @if (ProveedorList != null)
                                 {
-                                    <option value="@item.ProveedorId">@item.Nombre</option>
+                                    @foreach (var item in ProveedorList)
+                                    {
+                                        <option value="@item.ProveedorId">@item.Nombre</option>
+                                    }
                                 }
-                                 <span class="highlight"></span>
+                                <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label>Proveedor</label>
+                                <ValidationMessage For="@(() => producto.ProveedorId)" />
                             </InputSelect>
                         </div>
                     </div>
@@ -142,6 +147,7 @@
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Código de Barra</label>
+                            <ValidationMessage For="@(() => producto.CodigoBarra)" />
                         </div>
                     </div>
                 </div>
@@ -154,6 +160,7 @@
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Posición Almacén o ubicación</label>
+                            <ValidationMessage For="@(() => producto.Ubicacion)" />
                         </div>
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
@@ -199,6 +206,8 @@
             this.producto.ProductoId = productoId;
             this.Buscar();
         }
+        CategoriaList = CategoriaBLL.GetList(p => true && p.EsVisible == true);
+        ProveedorList = ProveedorBLL.GetList(p => true && p.EsVisible == true);
     }
 
     public void Nuevo()
@@ -216,14 +225,20 @@
             notify.ShowNotification("El ID debe ser mayor que 0.", NotificationSeverity.Warning);
             validar = false;
         }
-         if (ProductoBLL.ExisteNombre(producto) == false) 
+        if (ProductoBLL.ExisteNombre(producto) == false)
         {
-            notify.ShowNotification("Ya hay un producto registrado con ese nombre, intente de nuevo.", NotificationSeverity.Warning);
+            notify.ShowNotification("Ya hay un producto registrado con ese nombre, intente de nuevo.",
+            NotificationSeverity.Warning);
             validar = false;
         }
         if (ProductoBLL.ExisteCodigoBarra(producto) == false)
         {
             notify.ShowNotification("Ya está registrado ese código de barra, intente de nuevo", NotificationSeverity.Warning);
+            validar = false;
+        }
+        if (producto.Precio <= producto.Costo)
+        {
+            notify.ShowNotification("El precio no puede ser menor o igual que el costo", NotificationSeverity.Warning);
             validar = false;
         }
 
@@ -234,7 +249,7 @@
     {
 
         if (!Validar()) { return; }
-        
+
         if (ProductoBLL.Guardar(producto))
         {
             notify.ShowNotification("Fue guardado correctamente.");
@@ -244,7 +259,7 @@
         {
             notify.ShowNotification("No fue guardado, intentar nuevamente.", NotificationSeverity.Error);
         }
-               
+
     }
 
     private void Buscar()

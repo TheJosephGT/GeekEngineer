@@ -18,8 +18,6 @@ public class Productos
     public double ITBIS { get; set; }
     [Required(ErrorMessage = "Seleccione la categoría")]
     public int CategoriaId { get; set; }
-    [Required(ErrorMessage = "Seleccione si esta empacado.")]
-    public bool EstaEmpacado { get; set; }
     [Required]
     [Range(1, int.MaxValue, ErrorMessage = "Ingrese la existencia del producto.")]
     public int Existencia { get; set; }

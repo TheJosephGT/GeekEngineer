@@ -97,9 +97,6 @@ public class CategoriaBLL
 
     public List<Categorias> GetList(Expression<Func<Categorias, bool>> criterio)
     {
-        return contexto.Categorias
-        .AsNoTracking()
-        .Where(criterio)
-        .ToList();
+        return contexto.Categorias.AsNoTracking().Where(criterio).ToList();
     }
 }
