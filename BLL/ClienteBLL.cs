@@ -23,7 +23,7 @@ public class ClienteBLL
 
         if(modificado == null)
         {
-            var existe = contexto.Clientes.Any(p => p.Cedula == cliente.Cedula && p.EsVisible == true);
+            var existe = contexto.Clientes.Any(p => p.Cedula == cliente.Cedula && p.Status == true);
             if(existe == true)
                 return false;
             else
@@ -42,7 +42,7 @@ public class ClienteBLL
 
         if(modificado == null)
         {
-            var existe = contexto.Clientes.Any(p => p.Email == cliente.Email && p.EsVisible == true);
+            var existe = contexto.Clientes.Any(p => p.Email == cliente.Email && p.Status == true);
             if(existe == true)
                 return false;
             else
@@ -61,7 +61,7 @@ public class ClienteBLL
 
         if(modificado == null)
         {
-            var existe = contexto.Clientes.Any(p => p.Telefono == cliente.Telefono && p.EsVisible == true);
+            var existe = contexto.Clientes.Any(p => p.Telefono == cliente.Telefono && p.Status == true);
             if(existe == true)
                 return false;
             else
@@ -109,7 +109,7 @@ public class ClienteBLL
 
         if(eliminado != null)
         {
-            eliminado.EsVisible = false;
+            eliminado.Status = false;
             return contexto.SaveChanges() > 0;
         }
         
@@ -123,7 +123,7 @@ public class ClienteBLL
 
         if(valor != null)
         {
-            if(valor.EsVisible == true)
+            if(valor.Status == true)
             return contexto.Clientes
             .Where(p => p.ClienteId == valor.ClienteId)
             .AsNoTracking()

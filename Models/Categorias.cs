@@ -6,5 +6,5 @@ public class Categorias
     public string Nombre { get; set; } = string.Empty;
     [Required(ErrorMessage = "Campo fecha es obligatorio.")]
     public DateOnly Fecha { get; set; } = DateOnly.FromDateTime(DateTime.Now);
-    public bool EsVisible { get; set; } = true;
+    public bool Status { get; set; } = true;
 }

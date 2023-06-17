@@ -163,8 +163,8 @@
             this.inventario.InventarioId = inventarioId;
             this.Buscar();
         }
-        ProductoList = ProductoBLL.GetList(p => true && p.EsVisible == true);
-        ProveedorList = ProveedorBLL.GetList(p => true && p.EsVisible == true);
+        ProductoList = ProductoBLL.GetList(p => true && p.Status == true);
+        ProveedorList = ProveedorBLL.GetList(p => true && p.Status == true);
     }
 
     public void Nuevo()

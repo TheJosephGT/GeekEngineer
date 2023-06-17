@@ -23,7 +23,7 @@ public class ProductoBLL
 
         if(modificado == null)
         {
-            var existe = contexto.Productos.Any(p => p.CodigoBarra.ToLower() == producto.CodigoBarra.ToLower() && p.EsVisible == true);
+            var existe = contexto.Productos.Any(p => p.CodigoBarra.ToLower() == producto.CodigoBarra.ToLower() && p.Status == true);
             if(existe == true)
                 return false;
             else
@@ -42,7 +42,7 @@ public class ProductoBLL
 
         if(modificado == null)
         {
-            var existe = contexto.Productos.Any(p => p.Nombre.ToLower() == producto.Nombre.ToLower() && p.EsVisible == true);
+            var existe = contexto.Productos.Any(p => p.Nombre.ToLower() == producto.Nombre.ToLower() && p.Status == true);
             if(existe == true)
                 return false;
             else
@@ -89,7 +89,7 @@ public class ProductoBLL
 
         if(eliminado != null)
         {
-            eliminado.EsVisible = false;
+            eliminado.Status = false;
             return contexto.SaveChanges() > 0;
         }
         
@@ -102,7 +102,7 @@ public class ProductoBLL
 
         if(valor != null)
         {
-            if(valor.EsVisible == true)
+            if(valor.Status == true)
             return contexto.Productos
             .Where(p => p.ProductoId == valor.ProductoId)
             .AsNoTracking()

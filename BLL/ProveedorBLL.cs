@@ -22,7 +22,7 @@ public class ProveedorBLL
 
         if(modificado == null)
         {
-            var existe = contexto.Proveedores.Any(p => p.Nombre.ToLower() == proveedor.Nombre.ToLower() && p.EsVisible == true);
+            var existe = contexto.Proveedores.Any(p => p.Nombre.ToLower() == proveedor.Nombre.ToLower() && p.Status == true);
             if(existe == true)
                 return false;
             else
@@ -41,7 +41,7 @@ public class ProveedorBLL
 
         if(modificado == null)
         {
-            var existe = contexto.Proveedores.Any(p => p.RNC == proveedor.RNC && p.EsVisible == true);
+            var existe = contexto.Proveedores.Any(p => p.RNC == proveedor.RNC && p.Status == true);
             if(existe == true)
                 return false;
             else
@@ -60,7 +60,7 @@ public class ProveedorBLL
 
         if(modificado == null)
         {
-            var existe = contexto.Proveedores.Any(p => p.NCF == proveedor.NCF && p.EsVisible == true);
+            var existe = contexto.Proveedores.Any(p => p.NCF == proveedor.NCF && p.Status == true);
             if(existe == true)
                 return false;
             else
@@ -79,7 +79,7 @@ public class ProveedorBLL
 
         if(modificado == null)
         {
-            var existe = contexto.Proveedores.Any(p => p.Email == proveedor.Email && p.EsVisible == true);
+            var existe = contexto.Proveedores.Any(p => p.Email == proveedor.Email && p.Status == true);
 
             if(existe == true)
                 return false;
@@ -99,7 +99,7 @@ public class ProveedorBLL
 
         if(modificado == null)
         {
-            var existe = contexto.Clientes.Any(p => p.Telefono == proveedor.Telefono && p.EsVisible == true);
+            var existe = contexto.Clientes.Any(p => p.Telefono == proveedor.Telefono && p.Status == true);
             if(existe == true)
                 return false;
             else
@@ -148,7 +148,7 @@ public class ProveedorBLL
 
         if(eliminado != null)
         {
-            eliminado.EsVisible = false;
+            eliminado.Status = false;
             return contexto.SaveChanges() > 0;
         }
         
@@ -161,7 +161,7 @@ public class ProveedorBLL
 
         if(valor != null)
         {
-            if(valor.EsVisible == true)
+            if(valor.Status == true)
             return contexto.Proveedores
             .Where(p => p.ProveedorId == valor.ProveedorId)
             .AsNoTracking()

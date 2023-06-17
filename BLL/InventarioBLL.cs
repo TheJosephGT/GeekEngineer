@@ -51,7 +51,7 @@ public class InventarioBLL
 
         if(eliminado != null)
         {
-            eliminado.EsVisible = false;
+            eliminado.Status = false;
             return contexto.SaveChanges() > 0;
         }
         
@@ -64,7 +64,7 @@ public class InventarioBLL
 
         if(valor != null)
         {
-            if(valor.EsVisible == true)
+            if(valor.Status == true)
             return contexto.Inventarios
             .Where(p => p.InventarioId == valor.InventarioId)
             .AsNoTracking()

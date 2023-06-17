@@ -206,8 +206,8 @@
             this.producto.ProductoId = productoId;
             this.Buscar();
         }
-        CategoriaList = CategoriaBLL.GetList(p => true && p.EsVisible == true);
-        ProveedorList = ProveedorBLL.GetList(p => true && p.EsVisible == true);
+        CategoriaList = CategoriaBLL.GetList(p => true && p.Status == true);
+        ProveedorList = ProveedorBLL.GetList(p => true && p.Status == true);
     }
 
     public void Nuevo()

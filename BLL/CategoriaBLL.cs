@@ -22,7 +22,7 @@ public class CategoriaBLL
 
         if(modificado == null)
         {
-            var existe = contexto.Categorias.Any(p => p.Nombre.ToLower() == categoria.Nombre.ToLower() && p.EsVisible == true);
+            var existe = contexto.Categorias.Any(p => p.Nombre.ToLower() == categoria.Nombre.ToLower() && p.Status == true);
             if(existe == true)
                 return false;
             else
@@ -70,7 +70,7 @@ public class CategoriaBLL
 
         if(eliminado != null)
         {
-            eliminado.EsVisible = false;
+            eliminado.Status = false;
             return contexto.SaveChanges() > 0;
         }
         
@@ -83,7 +83,7 @@ public class CategoriaBLL
 
         if(valor != null)
         {
-            if(valor.EsVisible == true)
+            if(valor.Status == true)
             return contexto.Categorias
             .Where(p => p.CategoriaId == valor.CategoriaId)
             .AsNoTracking()

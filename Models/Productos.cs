@@ -28,6 +28,6 @@ public class Productos
     public double Descuento { get; set; }
     [Required(ErrorMessage = "Ingrese el código de barra.")]
     public string CodigoBarra { get; set; } = string.Empty; 
-    public bool EsVisible { get; set; } = true;
+    public bool Status { get; set; } = true;
     
 }

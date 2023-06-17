@@ -21,5 +21,5 @@ public class Proveedores
     [Required(ErrorMessage = "Ingrese un número teléfonico.")]
     [RegularExpression(@"^\d{3}[- ]?\d{3}[- ]?\d{4}$",ErrorMessage = "Formato inválido. 000-000-0000")]
     public string Telefono { get; set; } = string.Empty;
-    public bool EsVisible { get; set; } = true;
+    public bool Status { get; set; } = true;
 }
