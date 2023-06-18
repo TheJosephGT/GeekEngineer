@@ -6,7 +6,7 @@ using GeekEngineer.Data;
 public class ProductoBLL
 {
     private ApplicationDbContext contexto;
-    
+
     public ProductoBLL(ApplicationDbContext _contexto)
     {
         contexto = _contexto;
@@ -21,37 +21,46 @@ public class ProductoBLL
     {
         var modificado = contexto.Productos.Find(producto.ProductoId);
 
-        if(modificado == null)
+        if (modificado == null)
         {
             var existe = contexto.Productos.Any(p => p.CodigoBarra.ToLower() == producto.CodigoBarra.ToLower() && p.Status == true);
-            if(existe == true)
+            if (existe == true)
                 return false;
             else
                 return true;
-            
+
         }
         else
         {
-            return true;
+
+            var existe = contexto.Productos.Any(p => p.CodigoBarra.ToLower() == producto.CodigoBarra.ToLower() && p.Status == true && p.ProductoId != modificado.ProductoId);
+            if (existe == true)
+                return false;
+            else
+                return true;
         }
     }
-    
-     public bool ExisteNombre(Productos producto)
+
+    public bool ExisteNombre(Productos producto)
     {
         var modificado = contexto.Productos.Find(producto.ProductoId);
 
-        if(modificado == null)
+        if (modificado == null)
         {
-            var existe = contexto.Productos.Any(p => p.Nombre.ToLower() == producto.Nombre.ToLower() && p.Status == true);
-            if(existe == true)
+            var existe = contexto.Productos.Any(p => p.Nombre.ToLower() == producto.Nombre.ToLower() && p.Status == true && p.ProductoId != producto.ProductoId);
+            if (existe == true)
                 return false;
             else
                 return true;
-            
+
         }
         else
         {
-            return true;
+            var existe = contexto.Productos.Any(p => p.Nombre.ToLower() == producto.Nombre.ToLower() && p.Status == true && p.ProductoId != modificado.ProductoId);
+            if (existe == true)
+                return false;
+            else
+                return true;
         }
     }
     private bool Insertar(Productos producto)
@@ -87,30 +96,30 @@ public class ProductoBLL
         .Where(p => p.ProductoId == productoId)
         .SingleOrDefault();
 
-        if(eliminado != null)
+        if (eliminado != null)
         {
             eliminado.Status = false;
             return contexto.SaveChanges() > 0;
         }
-        
+
         return false;
     }
 
     public Productos? Buscar(Productos producto)
     {
-        var valor =  contexto.Productos.Find(producto.ProductoId);
+        var valor = contexto.Productos.Find(producto.ProductoId);
 
-        if(valor != null)
+        if (valor != null)
         {
-            if(valor.Status == true)
-            return contexto.Productos
-            .Where(p => p.ProductoId == valor.ProductoId)
-            .AsNoTracking()
-            .SingleOrDefault();
-        else
-            return null;
+            if (valor.Status == true)
+                return contexto.Productos
+                .Where(p => p.ProductoId == valor.ProductoId)
+                .AsNoTracking()
+                .SingleOrDefault();
+            else
+                return null;
         }
-        
+
         return null;
     }
 

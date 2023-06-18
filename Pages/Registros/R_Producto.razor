@@ -88,7 +88,6 @@
                             <ValidationMessage For="@(() => producto.ITBIS)" />
                         </div>
                     </div>
-
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
                             <InputSelect required="" @bind-Value="producto.CategoriaId" class="input">
@@ -99,11 +98,11 @@
                                         <option value="@item.CategoriaId">@item.Nombre</option>
                                     }
                                 }
-                                <span class="highlight"></span>
-                                <span class="bar"></span>
-                                <label>Categoría</label>
                                 <ValidationMessage For="@(() => producto.CategoriaId)" />
                             </InputSelect>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Categoría</label>
                         </div>
                     </div>
                 </div>
@@ -126,7 +125,8 @@
                 <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputSelect required="" @bind-Value="producto.ProveedorId" class="input">
+                            <InputSelect required="" @bind-Value="producto.ProveedorId" class="input"
+                                placeholder="Proveedor">
                                 @if (ProveedorList != null)
                                 {
                                     @foreach (var item in ProveedorList)
@@ -134,11 +134,11 @@
                                         <option value="@item.ProveedorId">@item.Nombre</option>
                                     }
                                 }
-                                <span class="highlight"></span>
-                                <span class="bar"></span>
-                                <label>Proveedor</label>
                                 <ValidationMessage For="@(() => producto.ProveedorId)" />
                             </InputSelect>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Proveedor</label>
                         </div>
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">

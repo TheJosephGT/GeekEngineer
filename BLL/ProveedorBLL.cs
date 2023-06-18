@@ -20,18 +20,23 @@ public class ProveedorBLL
     {
         var modificado = contexto.Proveedores.Find(proveedor.ProveedorId);
 
-        if(modificado == null)
+        if (modificado == null)
         {
             var existe = contexto.Proveedores.Any(p => p.Nombre.ToLower() == proveedor.Nombre.ToLower() && p.Status == true);
-            if(existe == true)
+            if (existe == true)
                 return false;
             else
                 return true;
-            
+
         }
         else
         {
-            return true;
+
+            var existe = contexto.Proveedores.Any(p => p.Nombre.ToLower() == proveedor.Nombre.ToLower() && p.Status == true && p.ProveedorId != modificado.ProveedorId);
+            if (existe == true)
+                return false;
+            else
+                return true;
         }
     }
 
@@ -39,18 +44,23 @@ public class ProveedorBLL
     {
         var modificado = contexto.Proveedores.Find(proveedor.ProveedorId);
 
-        if(modificado == null)
+        if (modificado == null)
         {
-            var existe = contexto.Proveedores.Any(p => p.RNC == proveedor.RNC && p.Status == true);
-            if(existe == true)
+            var existe = contexto.Proveedores.Any(p => p.RNC.ToLower() == proveedor.RNC.ToLower() && p.Status == true);
+            if (existe == true)
                 return false;
             else
                 return true;
-            
+
         }
         else
         {
-            return true;
+
+            var existe = contexto.Proveedores.Any(p => p.RNC.ToLower() == proveedor.RNC.ToLower() && p.Status == true && p.ProveedorId != modificado.ProveedorId);
+            if (existe == true)
+                return false;
+            else
+                return true;
         }
     }
 
@@ -58,18 +68,23 @@ public class ProveedorBLL
     {
         var modificado = contexto.Proveedores.Find(proveedor.ProveedorId);
 
-        if(modificado == null)
+        if (modificado == null)
         {
-            var existe = contexto.Proveedores.Any(p => p.NCF == proveedor.NCF && p.Status == true);
-            if(existe == true)
+            var existe = contexto.Proveedores.Any(p => p.NCF.ToLower() == proveedor.NCF.ToLower() && p.Status == true);
+            if (existe == true)
                 return false;
             else
                 return true;
-            
+
         }
         else
         {
-            return true;
+
+            var existe = contexto.Proveedores.Any(p => p.NCF.ToLower() == proveedor.NCF.ToLower() && p.Status == true && p.ProveedorId != modificado.ProveedorId);
+            if (existe == true)
+                return false;
+            else
+                return true;
         }
     }
     
@@ -77,19 +92,23 @@ public class ProveedorBLL
     {
         var modificado = contexto.Proveedores.Find(proveedor.ProveedorId);
 
-        if(modificado == null)
+        if (modificado == null)
         {
-            var existe = contexto.Proveedores.Any(p => p.Email == proveedor.Email && p.Status == true);
-
-            if(existe == true)
+            var existe = contexto.Proveedores.Any(p => p.Email.ToLower() == proveedor.Email.ToLower() && p.Status == true);
+            if (existe == true)
                 return false;
             else
                 return true;
-            
+
         }
         else
         {
-            return true;
+
+            var existe = contexto.Proveedores.Any(p => p.Email.ToLower() == proveedor.Email.ToLower() && p.Status == true && p.ProveedorId != modificado.ProveedorId);
+            if (existe == true)
+                return false;
+            else
+                return true;
         }
     }
 
@@ -97,18 +116,23 @@ public class ProveedorBLL
     {
         var modificado = contexto.Proveedores.Find(proveedor.ProveedorId);
 
-        if(modificado == null)
+        if (modificado == null)
         {
-            var existe = contexto.Clientes.Any(p => p.Telefono == proveedor.Telefono && p.Status == true);
-            if(existe == true)
+            var existe = contexto.Proveedores.Any(p => p.Telefono.ToLower() == proveedor.Telefono.ToLower() && p.Status == true);
+            if (existe == true)
                 return false;
             else
                 return true;
-            
+
         }
         else
         {
-            return true;
+
+            var existe = contexto.Proveedores.Any(p => p.Telefono.ToLower() == proveedor.Telefono.ToLower() && p.Status == true && p.ProveedorId != modificado.ProveedorId);
+            if (existe == true)
+                return false;
+            else
+                return true;
         }
     }
     

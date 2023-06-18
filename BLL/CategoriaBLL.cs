@@ -18,20 +18,25 @@ public class CategoriaBLL
     
     public bool ExisteNombreCategoria(Categorias categoria)
     {
-        var modificado = contexto.Categorias.Find(categoria.CategoriaId);
+      var modificado = contexto.Categorias.Find(categoria.CategoriaId);
 
-        if(modificado == null)
+        if (modificado == null)
         {
             var existe = contexto.Categorias.Any(p => p.Nombre.ToLower() == categoria.Nombre.ToLower() && p.Status == true);
-            if(existe == true)
+            if (existe == true)
                 return false;
             else
                 return true;
-            
+
         }
         else
         {
-            return true;
+
+            var existe = contexto.Categorias.Any(p => p.Nombre.ToLower() == categoria.Nombre.ToLower() && p.Status == true && p.CategoriaId != modificado.CategoriaId);
+            if (existe == true)
+                return false;
+            else
+                return true;
         }
     }    
 

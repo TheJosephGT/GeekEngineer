@@ -19,58 +19,73 @@ public class ClienteBLL
 
     public bool ExisteCedula(Clientes cliente)
     {
-        var modificado = contexto.Clientes.Find(cliente.ClienteId);
+      var modificado = contexto.Clientes.Find(cliente.ClienteId);
 
-        if(modificado == null)
+        if (modificado == null)
         {
-            var existe = contexto.Clientes.Any(p => p.Cedula == cliente.Cedula && p.Status == true);
-            if(existe == true)
+            var existe = contexto.Clientes.Any(p => p.Cedula.ToLower() == cliente.Cedula.ToLower() && p.Status == true);
+            if (existe == true)
                 return false;
             else
                 return true;
-            
+
         }
         else
         {
-            return true;
+
+            var existe = contexto.Clientes.Any(p => p.Cedula.ToLower() == cliente.Cedula.ToLower() && p.Status == true && p.ClienteId != modificado.ClienteId);
+            if (existe == true)
+                return false;
+            else
+                return true;
         }
     }
 
     public bool ExisteEmail(Clientes cliente)
     {
-        var modificado = contexto.Clientes.Find(cliente.ClienteId);
+      var modificado = contexto.Clientes.Find(cliente.ClienteId);
 
-        if(modificado == null)
+        if (modificado == null)
         {
-            var existe = contexto.Clientes.Any(p => p.Email == cliente.Email && p.Status == true);
-            if(existe == true)
+            var existe = contexto.Clientes.Any(p => p.Email.ToLower() == cliente.Email.ToLower() && p.Status == true);
+            if (existe == true)
                 return false;
             else
                 return true;
-            
+
         }
         else
         {
-            return true;
+
+            var existe = contexto.Clientes.Any(p => p.Email.ToLower() == cliente.Email.ToLower() && p.Status == true && p.ClienteId != modificado.ClienteId);
+            if (existe == true)
+                return false;
+            else
+                return true;
         }
     }
 
     public bool ExisteTelefono(Clientes cliente)
     {
-        var modificado = contexto.Clientes.Find(cliente.ClienteId);
+      var modificado = contexto.Clientes.Find(cliente.ClienteId);
 
-        if(modificado == null)
+        if (modificado == null)
         {
-            var existe = contexto.Clientes.Any(p => p.Telefono == cliente.Telefono && p.Status == true);
-            if(existe == true)
+            var existe = contexto.Clientes.Any(p => p.Telefono.ToLower() == cliente.Telefono.ToLower() && p.Status == true);
+            if (existe == true)
                 return false;
             else
                 return true;
-            
+
         }
         else
         {
-            return true;
+
+            var existe = contexto.Clientes.Any(p => p.Telefono.ToLower() == cliente.Telefono.ToLower() && p.Status == true && p.ClienteId != modificado.ClienteId);
+            if (existe == true)
+                return false;
+            else
+                return true;
         }
     }
     
