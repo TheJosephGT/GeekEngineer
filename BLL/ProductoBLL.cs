@@ -66,7 +66,9 @@ public class ProductoBLL
     private bool Insertar(Productos producto)
     {
         contexto.Productos.Add(producto);
-        return contexto.SaveChanges() > 0;
+        bool salida = contexto.SaveChanges() > 0;
+        contexto.Entry(producto).State = EntityState.Detached;
+        return salida;
     }
 
     private bool Modificar(Productos producto)
@@ -76,7 +78,9 @@ public class ProductoBLL
         if (existe != null)
         {
             contexto.Entry(existe).CurrentValues.SetValues(producto);
-            return contexto.SaveChanges() > 0;
+            bool salida = contexto.SaveChanges() > 0;
+            contexto.Entry(producto).State = EntityState.Detached;
+            return salida;
         }
 
         return false;
@@ -99,7 +103,9 @@ public class ProductoBLL
         if (eliminado != null)
         {
             eliminado.Status = false;
-            return contexto.SaveChanges() > 0;
+            bool salida = contexto.SaveChanges() > 0;
+            contexto.Entry(eliminado).State = EntityState.Detached;
+            return salida;
         }
 
         return false;

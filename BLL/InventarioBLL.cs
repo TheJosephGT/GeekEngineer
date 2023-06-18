@@ -14,12 +14,14 @@ public class InventarioBLL
     public bool Existe(int inventarioId)
     {
         return contexto.Inventarios.Any(p => p.InventarioId == inventarioId);
-    }  
+    }
 
     private bool Insertar(Inventarios inventario)
     {
         contexto.Inventarios.Add(inventario);
-        return contexto.SaveChanges() > 0;
+        bool salida = contexto.SaveChanges() > 0;
+        contexto.Entry(inventario).State = EntityState.Detached;
+        return salida;
     }
 
     private bool Modificar(Inventarios inventario)
@@ -29,7 +31,9 @@ public class InventarioBLL
         if (existe != null)
         {
             contexto.Entry(existe).CurrentValues.SetValues(inventario);
-            return contexto.SaveChanges() > 0;
+            bool salida = contexto.SaveChanges() > 0;
+            contexto.Entry(inventario).State = EntityState.Detached;
+            return salida;
         }
 
         return false;
@@ -49,30 +53,32 @@ public class InventarioBLL
         .Where(p => p.InventarioId == inventarioId)
         .SingleOrDefault();
 
-        if(eliminado != null)
+        if (eliminado != null)
         {
             eliminado.Status = false;
-            return contexto.SaveChanges() > 0;
+            bool salida = contexto.SaveChanges() > 0;
+            contexto.Entry(eliminado).State = EntityState.Detached;
+            return salida;
         }
-        
+
         return false;
     }
 
     public Inventarios? Buscar(Inventarios inventario)
     {
-         var valor =  contexto.Inventarios.Find(inventario.InventarioId);
+        var valor = contexto.Inventarios.Find(inventario.InventarioId);
 
-        if(valor != null)
+        if (valor != null)
         {
-            if(valor.Status == true)
-            return contexto.Inventarios
-            .Where(p => p.InventarioId == valor.InventarioId)
-            .AsNoTracking()
-            .SingleOrDefault();
-        else
-            return null;
+            if (valor.Status == true)
+                return contexto.Inventarios
+                .Where(p => p.InventarioId == valor.InventarioId)
+                .AsNoTracking()
+                .SingleOrDefault();
+            else
+                return null;
         }
-        
+
         return null;
     }
 

@@ -43,7 +43,9 @@ public class CategoriaBLL
     private bool Insertar(Categorias categoria)
     {
         contexto.Categorias.Add(categoria);
-        return contexto.SaveChanges() > 0;
+        bool salida = contexto.SaveChanges() > 0;
+        contexto.Entry(categoria).State = EntityState.Detached;
+        return salida;
     }
 
     private bool Modificar(Categorias categoria)
@@ -53,7 +55,9 @@ public class CategoriaBLL
         if (existe != null)
         {
             contexto.Entry(existe).CurrentValues.SetValues(categoria);
-            return contexto.SaveChanges() > 0;
+            bool salida = contexto.SaveChanges() > 0;
+            contexto.Entry(categoria).State = EntityState.Detached;
+            return salida;
         }
 
         return false;
@@ -76,7 +80,9 @@ public class CategoriaBLL
         if(eliminado != null)
         {
             eliminado.Status = false;
-            return contexto.SaveChanges() > 0;
+            bool salida = contexto.SaveChanges() > 0;
+            contexto.Entry(eliminado).State = EntityState.Detached;
+            return salida;
         }
         
         return false;
