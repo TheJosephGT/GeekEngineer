@@ -1,0 +1,28 @@
+@page "/c_compra"
+@* @attribute [Authorize] *@
+
+<PageTitle>Consulta compras</PageTitle>
+
+
+<h1 class="text-center">Consulta compras</h1>
+
+<button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
+Generar reporte</button>
+
+@* <div class="card col-lg-8 mx-auto"> *@
+        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+            FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4" PagerHorizontalAlign="HorizontalAlign.Left" AllowSorting="true" Data="@listaClientes"
+            ColumnWidth="180px">
+            <Columns>
+                <RadzenGridColumn TItem="string" Property="CompraId" Title="ID" />
+                <RadzenGridColumn TItem="string" Property="ProveedorId " Title="Nombre" />
+                <RadzenGridColumn TItem="string" Property="ProductoId " Title="Cédula" />
+                <RadzenGridColumn TItem="string" Property="Fecha" Title="Fecha" >
+                </RadzenGridColumn>
+            </Columns>
+        </RadzenGrid>
+@* </div> *@
+
+@code {
+    List<string> listaClientes = new List<string>();
+}

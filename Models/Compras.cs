@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 public class Compras 
 {
     [Key]
@@ -14,4 +16,9 @@ public class Compras
     [Required(ErrorMessage = "El campo total es necesario")]
     public double Total { get; set; }
     public bool Status { get; set; } = true;
+    public double ITBIS { get; set; }
+
+
+    [ForeignKey("CompraId")]
+    public virtual List<ComprasDetalle> ComprasDetalles { get; set; } = new List<ComprasDetalle>();
 }

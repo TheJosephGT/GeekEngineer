@@ -49,36 +49,20 @@
                 <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputSelect required="" @bind-Value="inventario.ProveedorId" class="input">
-                                @if (ProveedorList != null)
-                                {
-                                    @foreach (var item in ProveedorList)
-                                    {
-                                        <option value="@item.ProveedorId">@item.Nombre</option>
-                                    }
-                                }
-                                <ValidationMessage For="@(() => inventario.ProveedorId)" />
-                            </InputSelect>
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <label>Proveedor</label>
+                            <RadzenDropDown class="w-100" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
+                                Data=@ProveedorList TextProperty="Nombre" Name="Producto" ValueProperty="ProveedorId"
+                                AllowClear="true" @bind-Value=@inventario.ProveedorId Placeholder="Select proveedor" />
+                            <ValidationMessage For="@(() => inventario.ProveedorId)" />
                         </div>
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputSelect required="" @bind-Value="inventario.ProductoId" class="input">
-                                @if (ProductoList != null)
-                                {
-                                    @foreach (var item in ProductoList)
-                                    {
-                                        <option value="@item.ProductoId">@item.Nombre</option>
-                                    }
-                                }
-                                <ValidationMessage For="@(() => inventario.ProductoId)" />
-                            </InputSelect>
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <label>Producto</label>
+                            <RadzenDropDown class="w-100" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
+                                Data=@ProductoList TextProperty="Nombre" Name="Producto" ValueProperty="ProductoId"
+                                AllowClear="true" @bind-Value=@inventario.ProductoId Placeholder="Select Producto" />
+                            <ValidationMessage For="@(() => inventario.ProductoId)" />
                         </div>
                     </div>
                 </div>
@@ -91,26 +75,18 @@
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Cantidad actual</label>
+                            <ValidationMessage For="@(() => inventario.Cantidad)" />
                         </div>
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputSelect required="" @bind-Value="inventario.CodigoBarra" class="input">
-                                @if (ProductoList != null)
-                                {
-                                    @foreach (var item in ProductoList)
-                                    {
-                                        <option value="@item.CodigoBarra">@item.CodigoBarra</option>
-                                    }
-                                }
-                                <ValidationMessage For="@(() => inventario.CodigoBarra)" />
-                            </InputSelect>
+                            <InputText required="" @bind-Value="inventario.CodigoBarra" class="input" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Codigo de barra</label>
+                            <ValidationMessage For="@(() => inventario.CodigoBarra)" />
                         </div>
                     </div>
-
                 </div>
                 <br>
                 <br>
