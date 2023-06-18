@@ -6,7 +6,7 @@ using GeekEngineer.Data;
 public class ClienteBLL
 {
     private ApplicationDbContext contexto;
-    
+
     public ClienteBLL(ApplicationDbContext _contexto)
     {
         contexto = _contexto;
@@ -19,7 +19,7 @@ public class ClienteBLL
 
     public bool ExisteCedula(Clientes cliente)
     {
-      var modificado = contexto.Clientes.Find(cliente.ClienteId);
+        var modificado = contexto.Clientes.Find(cliente.ClienteId);
 
         if (modificado == null)
         {
@@ -43,7 +43,7 @@ public class ClienteBLL
 
     public bool ExisteEmail(Clientes cliente)
     {
-      var modificado = contexto.Clientes.Find(cliente.ClienteId);
+        var modificado = contexto.Clientes.Find(cliente.ClienteId);
 
         if (modificado == null)
         {
@@ -67,7 +67,7 @@ public class ClienteBLL
 
     public bool ExisteTelefono(Clientes cliente)
     {
-      var modificado = contexto.Clientes.Find(cliente.ClienteId);
+        var modificado = contexto.Clientes.Find(cliente.ClienteId);
 
         if (modificado == null)
         {
@@ -88,11 +88,13 @@ public class ClienteBLL
                 return true;
         }
     }
-    
+
     private bool Insertar(Clientes cliente)
     {
         contexto.Clientes.Add(cliente);
-        return contexto.SaveChanges() > 0;
+        bool salida = contexto.SaveChanges() > 0;
+        contexto.Entry(cliente).State = EntityState.Detached;
+        return salida;
     }
 
     private bool Modificar(Clientes cliente)
@@ -102,7 +104,9 @@ public class ClienteBLL
         if (existe != null)
         {
             contexto.Entry(existe).CurrentValues.SetValues(cliente);
-            return contexto.SaveChanges() > 0;
+            bool salida = contexto.SaveChanges() > 0;
+            contexto.Entry(cliente).State = EntityState.Detached;
+            return salida;
         }
 
         return false;
@@ -122,33 +126,35 @@ public class ClienteBLL
         .Where(p => p.ClienteId == clienteId)
         .SingleOrDefault();
 
-        if(eliminado != null)
+        if (eliminado != null)
         {
             eliminado.Status = false;
-            return contexto.SaveChanges() > 0;
+            bool salida = contexto.SaveChanges() > 0;
+            contexto.Entry(eliminado).State = EntityState.Detached;
+            return salida;
         }
-        
+
         return false;
     }
 
     public Clientes? Buscar(Clientes cliente)
     {
-        
-        var valor =  contexto.Clientes.Find(cliente.ClienteId);
 
-        if(valor != null)
+        var valor = contexto.Clientes.Find(cliente.ClienteId);
+
+        if (valor != null)
         {
-            if(valor.Status == true)
-            return contexto.Clientes
-            .Where(p => p.ClienteId == valor.ClienteId)
-            .AsNoTracking()
-            .SingleOrDefault();
-        else
-            return null;
+            if (valor.Status == true)
+                return contexto.Clientes
+                .Where(p => p.ClienteId == valor.ClienteId)
+                .AsNoTracking()
+                .SingleOrDefault();
+            else
+                return null;
         }
-        
+
         return null;
-        
+
     }
 
     public List<Clientes> GetList(Expression<Func<Clientes, bool>> criterio)

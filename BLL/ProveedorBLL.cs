@@ -15,7 +15,7 @@ public class ProveedorBLL
     {
         return contexto.Proveedores.Any(p => p.ProveedorId == proveedorId);
     }
-    
+
     public bool ExisteNombreProveedor(Proveedores proveedor)
     {
         var modificado = contexto.Proveedores.Find(proveedor.ProveedorId);
@@ -87,7 +87,7 @@ public class ProveedorBLL
                 return true;
         }
     }
-    
+
     public bool ExisteEmail(Proveedores proveedor)
     {
         var modificado = contexto.Proveedores.Find(proveedor.ProveedorId);
@@ -135,12 +135,14 @@ public class ProveedorBLL
                 return true;
         }
     }
-    
+
 
     private bool Insertar(Proveedores proveedor)
     {
         contexto.Proveedores.Add(proveedor);
-        return contexto.SaveChanges() > 0;
+        bool salida = contexto.SaveChanges() > 0;
+        contexto.Entry(proveedor).State = EntityState.Detached;
+        return salida;
     }
 
     private bool Modificar(Proveedores proveedor)
@@ -150,7 +152,9 @@ public class ProveedorBLL
         if (existe != null)
         {
             contexto.Entry(existe).CurrentValues.SetValues(proveedor);
-            return contexto.SaveChanges() > 0;
+            bool salida = contexto.SaveChanges() > 0;
+            contexto.Entry(proveedor).State = EntityState.Detached;
+            return salida;
         }
 
         return false;
@@ -170,30 +174,32 @@ public class ProveedorBLL
         .Where(p => p.ProveedorId == proveedorId)
         .SingleOrDefault();
 
-        if(eliminado != null)
+        if (eliminado != null)
         {
             eliminado.Status = false;
-            return contexto.SaveChanges() > 0;
+            bool salida = contexto.SaveChanges() > 0;
+            contexto.Entry(eliminado).State = EntityState.Detached;
+            return salida;
         }
-        
+
         return false;
     }
 
     public Proveedores? Buscar(Proveedores proveedor)
     {
-        var valor =  contexto.Proveedores.Find(proveedor.ProveedorId);
+        var valor = contexto.Proveedores.Find(proveedor.ProveedorId);
 
-        if(valor != null)
+        if (valor != null)
         {
-            if(valor.Status == true)
-            return contexto.Proveedores
-            .Where(p => p.ProveedorId == valor.ProveedorId)
-            .AsNoTracking()
-            .SingleOrDefault();
-        else
-            return null;
+            if (valor.Status == true)
+                return contexto.Proveedores
+                .Where(p => p.ProveedorId == valor.ProveedorId)
+                .AsNoTracking()
+                .SingleOrDefault();
+            else
+                return null;
         }
-        
+
         return null;
     }
 
