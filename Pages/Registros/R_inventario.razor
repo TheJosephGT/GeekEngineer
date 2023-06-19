@@ -40,6 +40,10 @@
                             <label>Fecha</label>
                         </div>
                     </div>
+                </div>
+                <br>
+                <br>
+                <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="custom-group">
                             <RadzenDropDown class="custom-dropdown"
@@ -47,22 +51,9 @@
                                 FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
                                 Data=@ProductoList TextProperty="Nombre" Name="Producto" ValueProperty="ProductoId"
                                 AllowClear="true" @bind-Value=@inventario.ProductoId Placeholder="Producto"
-                                @onfocusin="ActualizarCodigoDeBarra" />
+                            @onfocusin="ActualizarCodigoDeBarra" />
                             <ValidationMessage For="@(() => inventario.ProductoId)" />
                             <span class="custom-bar"></span>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <br>
-                <div class="row">
-                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
-                        <div class="group">
-                            <InputNumber required="" @bind-Value="inventario.Cantidad" class="input" />
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <label>Cantidad</label>
-                            <ValidationMessage For="@(() => inventario.Cantidad)" />
                         </div>
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
@@ -77,24 +68,32 @@
                             <ValidationMessage For="@(() => inventario.CodigoBarra)" />
                         </div>
                     </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                            <div class="group">
+                                <InputNumber required="" @bind-Value="inventario.Cantidad" class="input" />
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Cantidad</label>
+                                <ValidationMessage For="@(() => inventario.Cantidad)" />
+                            </div>
+                            <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                                <div class="group">
+                                    <button class="btn btn-outline-secondary" type="button"
+                                        @onclick="Aumentar" style="background: green;"><ion-icon name="add-outline"></ion-icon></button>
+                                    <button class="btn btn-outline-secondary" type="button"
+                                        @onclick="Disminuir" style="background: red;"><ion-icon name="remove-outline"></ion-icon></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <br>
                 <br>
-
-                @* <div class="input-group">
-                <div class="col-sm-2 col-md-4 mb-2 mx-auto">
-                <div class="group">
-                <InputNumber required="" @bind-Value="inventario.Cantidad" class="input" />
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label>Cantidad actual</label>
-                </div>
-                </div>
-                <button class="btn btn-outline-secondary" type="button" style="background: green;"><ion-icon
-                name="add-outline"></ion-icon></button>
-                <button class="btn btn-outline-secondary" type="button" style="background: red;"><ion-icon
-                name="remove-outline"></ion-icon></button>
-                </div> *@
             </div>
 
             @*Botones*@
@@ -120,6 +119,7 @@
     public int inventarioId { get; set; }
     public Inventarios inventario { get; set; } = new Inventarios();
     List<Productos> ProductoList = new List<Productos>();
+    public int ExistenciaActual { get; set; } = 0;
     public Productos producto = new Productos();
 
 
@@ -138,6 +138,17 @@
     {
         inventario = new Inventarios();
         notify.ShowNotification("Nueva plantilla creada correctamente.", NotificationSeverity.Success);
+        ExistenciaActual = 0;
+    }
+
+    private void Aumentar()
+    {
+        inventario.Cantidad++;
+    }
+    private void Disminuir()
+    {
+        if(inventario.Cantidad > 0)
+            inventario.Cantidad--;
     }
 
     private void ActualizarCodigoDeBarra()
@@ -148,6 +159,7 @@
         if (productoSeleccionado != null)
         {
             inventario.CodigoBarra = productoSeleccionado.CodigoBarra;
+            ExistenciaActual = productoSeleccionado.Existencia;
         }
         else
         {
@@ -178,8 +190,8 @@
         {
             notify.ShowNotification("El código de barra no es válido.", NotificationSeverity.Warning);
             validar = false;
-        }      
-        
+        }
+
 
         return validar;
     }
