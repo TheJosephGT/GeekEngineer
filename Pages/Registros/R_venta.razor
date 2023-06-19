@@ -1,6 +1,7 @@
 @page "/r_venta"
 @page "/venta/{ventaId:int}"
-@attribute [Authorize]
+
+@*@attribute [Authorize]*@
 
 
 <EditForm Model="venta" OnValidSubmit="Guardar">
@@ -111,40 +112,39 @@
                     </tbody>
                 </table>
                 <hr>
-
             </div>
 
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">SubTotal</span>
+           <div class="custom-card-body">
+                <div class="custom-row">
+                    <div class="custom-col">
+                        <div class="custom-form-group">
+                            <div class="custom-input-group">
+                                <div class="custom-input-group-prepend">
+                                    <span class="custom-input-group-text">SubTotal</span>
                                 </div>
-                                <input type="number" class="input" value="@venta.SubTotal" readonly>
+                                <input type="number" class="custom-input" value="@venta.SubTotal" readonly>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">ITBIS</span>
+                    <div class="custom-col">
+                        <div class="custom-form-group">
+                            <div class="custom-input-group">
+                                <div class="custom-input-group-prepend">
+                                    <span class="custom-input-group-text">ITBIS</span>
                                 </div>
-                                <input type="number" class="input" value="@venta.ITBIS" readonly>
+                                <input type="number" class="custom-input" value="@venta.ITBIS" readonly>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Total</span>
+                    <div class="custom-col">
+                        <div class="custom-form-group">
+                            <div class="custom-input-group">
+                                <div class="custom-input-group-prepend">
+                                    <span class="custom-input-group-text">Total</span>
                                 </div>
-                                <input type="number" class="input" value="@venta.Total" readonly>
+                                <input type="number" class="custom-input" value="@venta.Total" readonly>
                             </div>
                         </div>
                     </div>

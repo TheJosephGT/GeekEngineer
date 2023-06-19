@@ -126,6 +126,60 @@
     top: -16px;
     color: #5264AE;
   }
+
+/* CSS de ventas y compras del detalle. */
+
+  .custom-card-body {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.custom-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -10px;
+}
+
+.custom-col {
+    flex: 1 0 0;
+    margin: 10px;
+}
+
+.custom-form-group {
+    margin-bottom: 0;
+}
+
+.custom-input-group {
+    display: flex;
+    align-items: center;
+}
+
+.custom-input-group-text {
+    background-color: #e9ecef;
+    color: #495057;
+    border: none;
+    padding: 8px 12px;
+    font-weight: bold;
+}
+
+.custom-input {
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+    color: #495057;
+    font-size: 14px;
+    line-height: 1.5;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    width: 100%;
+}
+
+.custom-input:read-only {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
+
   
   
   

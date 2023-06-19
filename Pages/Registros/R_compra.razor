@@ -40,7 +40,8 @@
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="custom-group">
-                            <RadzenDropDown class="custom-dropdown" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                            <RadzenDropDown class="custom-dropdown"
+                                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                 FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
                                 Data=@ProveedorList TextProperty="Nombre" Name="Producto" ValueProperty="ProveedorId"
                                 AllowClear="true" @bind-Value=@compra.ProveedorId Placeholder="Select proveedor" />
@@ -53,7 +54,8 @@
                 <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="custom-group">
-                            <RadzenDropDown class="custom-dropdown" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                            <RadzenDropDown class="custom-dropdown"
+                                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                 FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
                                 Data=@ProductoList TextProperty="Nombre" Name="Producto" ValueProperty="ProductoId"
                                 AllowClear="true" @bind-Value=@compra.ProductoId Placeholder="Select Producto" />
@@ -112,37 +114,37 @@
 
             </div>
 
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">SubTotal</span>
+            <div class="custom-card-body">
+                <div class="custom-row">
+                    <div class="custom-col">
+                        <div class="custom-form-group">
+                            <div class="custom-input-group">
+                                <div class="custom-input-group-prepend">
+                                    <span class="custom-input-group-text">SubTotal</span>
                                 </div>
-                                <input type="number" class="input" value="@compra.SubTotal" readonly>
+                                <input type="number" class="custom-input" value="@compra.SubTotal" readonly>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">ITBIS</span>
+                    <div class="custom-col">
+                        <div class="custom-form-group">
+                            <div class="custom-input-group">
+                                <div class="custom-input-group-prepend">
+                                    <span class="custom-input-group-text">ITBIS</span>
                                 </div>
-                                <input type="number" class="input" value="@compra.ITBIS" readonly>
+                                <input type="number" class="custom-input" value="@compra.ITBIS" readonly>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Total</span>
+                    <div class="custom-col">
+                        <div class="custom-form-group">
+                            <div class="custom-input-group">
+                                <div class="custom-input-group-prepend">
+                                    <span class="custom-input-group-text">Total</span>
                                 </div>
-                                <input type="number" class="input" value="@compra.Total" readonly>
+                                <input type="number" class="custom-input" value="@compra.Total" readonly>
                             </div>
                         </div>
                     </div>
@@ -170,7 +172,7 @@
 
 
 @code {
-    
+
     [Parameter]
     public int compraid { get; set; }
     public Compras compra { get; set; } = new Compras();
