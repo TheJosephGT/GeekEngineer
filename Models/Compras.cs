@@ -18,7 +18,6 @@ public class Compras
     public bool Status { get; set; } = true;
     public double ITBIS { get; set; }
 
-
     [ForeignKey("CompraId")]
     public virtual List<ComprasDetalle> ComprasDetalles { get; set; } = new List<ComprasDetalle>();
 }

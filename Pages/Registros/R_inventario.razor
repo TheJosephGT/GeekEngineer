@@ -167,7 +167,7 @@
 
         if (InventarioBLL.Guardar(inventario))
         {
-            this.inventario.InventariosDetalle.Add(this.detalle);
+            this.inventario.inventariosDetalle.Add(this.detalle);
             detalle = new InventarioDetalle();
             inventario = new Inventarios();
             notify.ShowNotification("Fue guardado correctamente.");

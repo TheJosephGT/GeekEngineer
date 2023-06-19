@@ -56,9 +56,9 @@ public class InventarioBLL
 
     private bool InsertarDetalle(Inventarios inventario)
     {
-        if (inventario.InventariosDetalle != null)
+        if (inventario.inventariosDetalle != null)
         {
-            foreach (var item in inventario.InventariosDetalle)
+            foreach (var item in inventario.inventariosDetalle)
             {
                 var producto = contexto.Productos.Find(item.ProductoId);
 
@@ -77,11 +77,11 @@ public class InventarioBLL
 
     private bool ModificarDetalle(Inventarios inventario)
     {
-        var DetalleAnterior = contexto.Inventarios.Where(o => o.InventarioId == inventario.InventarioId).Include(o => o.InventariosDetalle).AsNoTracking().SingleOrDefault();
+        var DetalleAnterior = contexto.Inventarios.Where(o => o.InventarioId == inventario.InventarioId).Include(o => o.inventariosDetalle).AsNoTracking().SingleOrDefault();
 
         if (DetalleAnterior != null)
         {
-            foreach (var item in inventario.InventariosDetalle)
+            foreach (var item in inventario.inventariosDetalle)
             {
                 var producto = contexto.Productos.Find(item.ProductoId);
 
@@ -97,7 +97,7 @@ public class InventarioBLL
 
         //Se deshacen los cambios al detalle anterior.
 
-        foreach (var item in inventario.InventariosDetalle)
+        foreach (var item in inventario.inventariosDetalle)
         {
             var producto = contexto.Productos.Find(item.ProductoId);
 
@@ -123,7 +123,7 @@ public class InventarioBLL
 
         if (eliminado != null)
         {
-            foreach (var item in eliminado.InventariosDetalle)
+            foreach (var item in eliminado.inventariosDetalle)
             {
                 var producto = contexto.Productos.Find(item.ProductoId);
 

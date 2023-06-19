@@ -12,5 +12,5 @@ public class Inventarios
     public bool Status { get; set; } = true;
 
     [ForeignKey("InventarioId")]
-    public virtual List<InventarioDetalle> InventariosDetalle { get; set; } = new List<InventarioDetalle>();
+    public virtual List<InventarioDetalle> inventariosDetalle { get; set; } = new List<InventarioDetalle>();
 }

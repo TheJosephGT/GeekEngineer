@@ -13,7 +13,6 @@ public class Ventas
     public double SubTotal { get; set; }
     public double Total { get; set; }
     public bool Status { get; set; } = true;
-    
 
     [ForeignKey("VentaId")]
     public virtual List<VentasDetalle> ventasDetalle { get; set; } = new List<VentasDetalle>();
