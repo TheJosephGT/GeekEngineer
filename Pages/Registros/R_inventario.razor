@@ -178,11 +178,6 @@
             notify.ShowNotification("El código de barra no es válido.", NotificationSeverity.Warning);
             validar = false;
         }      
-        else if (detalle.CodigoBarra != producto.CodigoBarra)
-        {
-            notify.ShowNotification("No se permite modificar el código de barra del producto.", NotificationSeverity.Warning);
-            validar = false;
-        }
 
         return validar;
     }
