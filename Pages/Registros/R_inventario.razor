@@ -30,7 +30,6 @@
                         </button>
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto"> </div>
-
                 </div>
                 <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
@@ -47,7 +46,8 @@
                                 FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                 FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
                                 Data=@ProductoList TextProperty="Nombre" Name="Producto" ValueProperty="ProductoId"
-                                AllowClear="true" @bind-Value=@detalle.ProductoId Placeholder="Producto" />
+                                AllowClear="true" @bind-Value=@detalle.ProductoId Placeholder="Producto"
+                                @onfocusin="ActualizarCodigoDeBarra" />
                             <ValidationMessage For="@(() => detalle.ProductoId)" />
                             <span class="custom-bar"></span>
                         </div>
@@ -67,8 +67,7 @@
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputText required="" @bind-Value="detalle.CodigoBarra" class="input"
-                                disabled="disabled" />
+                            <InputText required="" @bind-Value="detalle.CodigoBarra" class="input"/>
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Código de barra</label>
@@ -119,6 +118,7 @@
     public Inventarios inventario { get; set; } = new Inventarios();
     public InventarioDetalle detalle { get; set; } = new InventarioDetalle();
     List<Productos> ProductoList = new List<Productos>();
+    public Productos producto = new Productos();
 
 
     protected override void OnInitialized()
@@ -128,6 +128,7 @@
             this.inventario.InventarioId = inventarioId;
             this.Buscar();
         }
+
         ProductoList = ProductoBLL.GetList(p => true && p.Status == true);
     }
 
@@ -138,6 +139,21 @@
         notify.ShowNotification("Nueva plantilla creada correctamente.", NotificationSeverity.Success);
     }
 
+    private void ActualizarCodigoDeBarra()
+    {
+
+        var productoSeleccionado = ProductoList.FirstOrDefault(p => p.ProductoId == detalle.ProductoId);
+
+        if (productoSeleccionado != null)
+        {
+            detalle.CodigoBarra = productoSeleccionado.CodigoBarra;
+        }
+        else
+        {
+            detalle.CodigoBarra = string.Empty;
+        }
+    }
+    
     bool Validar()
     {
         bool validar = true;
@@ -152,11 +168,22 @@
             notify.ShowNotification("Debe de llenar el campo producto.", NotificationSeverity.Warning);
             validar = false;
         }
-        if (detalle.CodigoBarra == string.Empty)
+        if (inventario.Cantidad < 0)
         {
-            notify.ShowNotification("El codigo de barra no es valido.", NotificationSeverity.Warning);
+            notify.ShowNotification("La cantidad debe ser mayor a 0.", NotificationSeverity.Warning);
             validar = false;
         }
+        if (detalle.CodigoBarra == string.Empty)
+        {
+            notify.ShowNotification("El código de barra no es válido.", NotificationSeverity.Warning);
+            validar = false;
+        }      
+        else if (detalle.CodigoBarra != producto.CodigoBarra)
+        {
+            notify.ShowNotification("No se permite modificar el código de barra del producto.", NotificationSeverity.Warning);
+            validar = false;
+        }
+
         return validar;
     }
 
