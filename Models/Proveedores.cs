@@ -6,10 +6,10 @@ public class Proveedores
     [Required(ErrorMessage = "Ingrese el nombre del proveedor.")]
     public string Nombre { get; set; } = string.Empty;
     [Required(ErrorMessage = "Ingrese el RNC del proveedor.")]
-    [RegularExpression(@"^\d{3}[- ]?\d{7}[- ]?\d{1}$",ErrorMessage = "Formato inválido. 000-00000-0.")]
+    [RegularExpression(@"^\d{3}[- ]?\d{7}[- ]?\d{1}$",ErrorMessage = "Formato inválido. 000-000-000.")]
     public string RNC { get; set; } = string.Empty;
     [Required(ErrorMessage = "Ingrese el NCF del proveedor.")]
-    [RegularExpression(@"^\d{3}[- ]?\d{7}[- ]?\d{1}$",ErrorMessage = "Formato inválido. 0000-0000-0000-0")]
+    [RegularExpression(@"^\d{3}[- ]?\d{7}[- ]?\d{1}$",ErrorMessage = "Formato inválido. 0000-000-000")]
     public string NCF { get; set; } = string.Empty;
     [DataType(DataType.Date)]
     public DateOnly Fecha { get; set; } = DateOnly.FromDateTime(DateTime.Now);
