@@ -44,11 +44,35 @@
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
+                            <RadzenDropDown class="w-100" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
+                                Data=@CategoriaList TextProperty="Nombre" Name="Producto" ValueProperty="CategoriaId"
+                                AllowClear="true" @bind-Value=@producto.CategoriaId Placeholder="Categoría" />
+                            <ValidationMessage For="@(() => producto.CategoriaId)" />
+
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
                             <InputText required="" @bind-Value="producto.Nombre" class="input" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Nombre</label>
                             <ValidationMessage For="@(() => producto.Nombre)" />
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputNumber required="" @bind-Value="producto.Existencia" class="input" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Existencia</label>
+                            <ValidationMessage For="@(() => producto.Existencia)" />
                         </div>
                     </div>
                 </div>
@@ -64,7 +88,6 @@
                             <ValidationMessage For="@(() => producto.Precio)" />
                         </div>
                     </div>
-
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
                             <InputNumber required="" @bind-Value="producto.Costo" class="input" />
@@ -74,11 +97,6 @@
                             <ValidationMessage For="@(() => producto.Costo)" />
                         </div>
                     </div>
-                </div>
-                <br>
-                <br>
-                <div class="row">
-
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
                             <InputNumber required="" @bind-Value="producto.ITBIS" class="input" />
@@ -88,40 +106,16 @@
                             <ValidationMessage For="@(() => producto.ITBIS)" />
                         </div>
                     </div>
-                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
-                        <div class="group">
-                            <RadzenDropDown class="w-100" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
-                                Data=@CategoriaList TextProperty="Nombre" Name="Producto" ValueProperty="CategoriaId"
-                                AllowClear="true" @bind-Value=@producto.CategoriaId Placeholder="Select categoria" />
-                            <ValidationMessage For="@(() => producto.CategoriaId)" />
-
-                        </div>
-                    </div>
                 </div>
                 <br>
                 <br>
-                <div class="row">
-                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
-                        <div class="group">
-                            <InputNumber required="" @bind-Value="producto.Existencia" class="input" />
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <label>Existencia</label>
-                            <ValidationMessage For="@(() => producto.Existencia)" />
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <br>
-
                 <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
                             <RadzenDropDown class="w-100" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                 FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
                                 Data=@ProveedorList TextProperty="Nombre" Name="Producto" ValueProperty="ProveedorId"
-                                AllowClear="true" @bind-Value=@producto.ProveedorId Placeholder="Select proveedor" />
+                                AllowClear="true" @bind-Value=@producto.ProveedorId Placeholder="Proveedor" />
                             <ValidationMessage For="@(() => producto.ProveedorId)" />
 
                         </div>
@@ -224,6 +218,16 @@
         if (producto.Precio <= producto.Costo)
         {
             notify.ShowNotification("El precio no puede ser menor o igual que el costo", NotificationSeverity.Warning);
+            validar = false;
+        }
+        if (producto.CategoriaId <= 0)
+        {
+            notify.ShowNotification("El campo categoría es necesario", NotificationSeverity.Warning);
+            validar = false;
+        }
+        if (producto.ProveedorId <= 0)
+        {
+            notify.ShowNotification("El campo proveedor es necesario", NotificationSeverity.Warning);
             validar = false;
         }
 

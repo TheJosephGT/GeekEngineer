@@ -41,28 +41,13 @@
                             <label>Fecha</label>
                         </div>
                     </div>
-
-                    <div class="col-sm-2 col-md-4 mb-2 mx-auto"> </div>
-
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
-                        <div class="group">
-                            <RadzenDropDown class="w-100" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
-                                Data=@ProveedorList TextProperty="Nombre" Name="Producto" ValueProperty="ProveedorId"
-                                AllowClear="true" @bind-Value=@inventario.ProveedorId Placeholder="Select proveedor" />
-                            <ValidationMessage For="@(() => inventario.ProveedorId)" />
-                        </div>
-                    </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
                             <RadzenDropDown class="w-100" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                 FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
                                 Data=@ProductoList TextProperty="Nombre" Name="Producto" ValueProperty="ProductoId"
-                                AllowClear="true" @bind-Value=@inventario.ProductoId Placeholder="Select Producto" />
-                            <ValidationMessage For="@(() => inventario.ProductoId)" />
+                                AllowClear="true" @bind-Value=@detalle.ProductoId Placeholder="Producto" />
+                            <ValidationMessage For="@(() => detalle.ProductoId)" />
                         </div>
                     </div>
                 </div>
@@ -71,20 +56,21 @@
                 <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputNumber required="" @bind-Value="inventario.Cantidad" class="input" />
+                            <InputNumber required="" @bind-Value="detalle.Cantidad" class="input" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <label>Cantidad actual</label>
-                            <ValidationMessage For="@(() => inventario.Cantidad)" />
+                            <label>Cantidad</label>
+                            <ValidationMessage For="@(() => detalle.Cantidad)" />
                         </div>
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputText required="" @bind-Value="inventario.CodigoBarra" class="input" />
+                            <InputText required="" @bind-Value="detalle.CodigoBarra" class="input"
+                                disabled="disabled" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Codigo de barra</label>
-                            <ValidationMessage For="@(() => inventario.CodigoBarra)" />
+                            <ValidationMessage For="@(() => detalle.CodigoBarra)" />
                         </div>
                     </div>
                 </div>
@@ -129,8 +115,9 @@
     [Parameter]
     public int inventarioId { get; set; }
     public Inventarios inventario { get; set; } = new Inventarios();
+    public InventarioDetalle detalle { get; set; } = new InventarioDetalle();
     List<Productos> ProductoList = new List<Productos>();
-    List<Proveedores> ProveedorList = new List<Proveedores>();
+
 
     protected override void OnInitialized()
     {
@@ -140,12 +127,12 @@
             this.Buscar();
         }
         ProductoList = ProductoBLL.GetList(p => true && p.Status == true);
-        ProveedorList = ProveedorBLL.GetList(p => true && p.Status == true);
     }
 
     public void Nuevo()
     {
         inventario = new Inventarios();
+        detalle = new InventarioDetalle();
         notify.ShowNotification("Nueva plantilla creada correctamente.", NotificationSeverity.Success);
     }
 
@@ -158,7 +145,16 @@
             notify.ShowNotification("El ID debe ser mayor que 0.", NotificationSeverity.Warning);
             validar = false;
         }
-
+        if (detalle.ProductoId < 0)
+        {
+            notify.ShowNotification("Debe de llenar el campo producto.", NotificationSeverity.Warning);
+            validar = false;
+        }
+        if (detalle.CodigoBarra == string.Empty)
+        {
+            notify.ShowNotification("El codigo de barra no es valido.", NotificationSeverity.Warning);
+            validar = false;
+        }
         return validar;
     }
 
@@ -169,8 +165,10 @@
 
         if (InventarioBLL.Guardar(inventario))
         {
-            notify.ShowNotification("Fue guardado correctamente.");
+            this.inventario.InventariosDetalle.Add(this.detalle);
+            detalle = new InventarioDetalle();
             inventario = new Inventarios();
+            notify.ShowNotification("Fue guardado correctamente.");
         }
         else
         {

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeekEngineer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230618032435_Inicial")]
+    [Migration("20230619025347_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
@@ -78,6 +78,32 @@ namespace GeekEngineer.Migrations
                     b.ToTable("Clientes");
                 });
 
+            modelBuilder.Entity("InventarioDetalle", b =>
+                {
+                    b.Property<int>("DetalleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CodigoBarra")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("InventarioId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ProductoId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("DetalleId");
+
+                    b.HasIndex("InventarioId");
+
+                    b.ToTable("InventarioDetalle");
+                });
+
             modelBuilder.Entity("Inventarios", b =>
                 {
                     b.Property<int>("InventarioId")
@@ -95,9 +121,6 @@ namespace GeekEngineer.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<int>("ProductoId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ProveedorId")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("Status")
@@ -458,6 +481,15 @@ namespace GeekEngineer.Migrations
                     b.ToTable("VentasDetalle");
                 });
 
+            modelBuilder.Entity("InventarioDetalle", b =>
+                {
+                    b.HasOne("Inventarios", null)
+                        .WithMany("InventariosDetalle")
+                        .HasForeignKey("InventarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -516,6 +548,11 @@ namespace GeekEngineer.Migrations
                         .HasForeignKey("VentaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Inventarios", b =>
+                {
+                    b.Navigation("InventariosDetalle");
                 });
 
             modelBuilder.Entity("Ventas", b =>

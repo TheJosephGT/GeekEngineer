@@ -92,7 +92,6 @@ namespace GeekEngineer.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     ProductoId = table.Column<int>(type: "INTEGER", nullable: false),
                     Cantidad = table.Column<int>(type: "INTEGER", nullable: false),
-                    ProveedorId = table.Column<int>(type: "INTEGER", nullable: false),
                     CodigoBarra = table.Column<string>(type: "TEXT", nullable: false),
                     Fecha = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     Status = table.Column<bool>(type: "INTEGER", nullable: false)
@@ -272,6 +271,28 @@ namespace GeekEngineer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "InventarioDetalle",
+                columns: table => new
+                {
+                    DetalleId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    InventarioId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ProductoId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Cantidad = table.Column<int>(type: "INTEGER", nullable: false),
+                    CodigoBarra = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InventarioDetalle", x => x.DetalleId);
+                    table.ForeignKey(
+                        name: "FK_InventarioDetalle_Inventarios_InventarioId",
+                        column: x => x.InventarioId,
+                        principalTable: "Inventarios",
+                        principalColumn: "InventarioId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "VentasDetalle",
                 columns: table => new
                 {
@@ -333,6 +354,11 @@ namespace GeekEngineer.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_InventarioDetalle_InventarioId",
+                table: "InventarioDetalle",
+                column: "InventarioId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_VentasDetalle_VentaId",
                 table: "VentasDetalle",
                 column: "VentaId");
@@ -363,7 +389,7 @@ namespace GeekEngineer.Migrations
                 name: "Clientes");
 
             migrationBuilder.DropTable(
-                name: "Inventarios");
+                name: "InventarioDetalle");
 
             migrationBuilder.DropTable(
                 name: "Productos");
@@ -379,6 +405,9 @@ namespace GeekEngineer.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Inventarios");
 
             migrationBuilder.DropTable(
                 name: "Ventas");
