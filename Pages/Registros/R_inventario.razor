@@ -42,12 +42,14 @@
                         </div>
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
-                        <div class="group">
-                            <RadzenDropDown class="w-100" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        <div class="custom-group">
+                            <RadzenDropDown class="custom-dropdown"
+                                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                 FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
                                 Data=@ProductoList TextProperty="Nombre" Name="Producto" ValueProperty="ProductoId"
                                 AllowClear="true" @bind-Value=@detalle.ProductoId Placeholder="Producto" />
                             <ValidationMessage For="@(() => detalle.ProductoId)" />
+                            <span class="custom-bar"></span>
                         </div>
                     </div>
                 </div>
@@ -69,7 +71,7 @@
                                 disabled="disabled" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <label>Codigo de barra</label>
+                            <label>Código de barra</label>
                             <ValidationMessage For="@(() => detalle.CodigoBarra)" />
                         </div>
                     </div>

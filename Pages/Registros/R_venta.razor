@@ -38,11 +38,12 @@
                         </div>
                     </div>
                     <div class="col-sm- col-md-4 mb-2 mx-auto">
-                        <div class="group">
-                            <RadzenDropDown class="w-100" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
-                                Data=@ClienteList TextProperty="Nombre" Name="Producto" ValueProperty="ClienteId"
-                                AllowClear="true" @bind-Value=@venta.ClienteId Placeholder="Select cliente" />
+                        <div class="custom-group">
+                            <RadzenDropDown class="custom-dropdown" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                            FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
+                            Data=@ClienteList TextProperty="Nombre" Name="Producto" ValueProperty="ClienteId"
+                            AllowClear="true" @bind-Value=@venta.ClienteId Placeholder="Select cliente" />
+                            <span class="custom-bar"></span>
                         </div>
                     </div>
                 </div>
@@ -52,11 +53,12 @@
                 <br>
                 <div class="row">
                     <div class="col-sm-2 col-md-3 mb-2 mx-auto">
-                        <div class="group">
-                            <RadzenDropDown class="w-100" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        <div class="custom-group">
+                            <RadzenDropDown class="custom-dropdown" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                             FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
                             Data=@ProductoList TextProperty="Nombre" Name="Producto" ValueProperty="ProductoId"
                             AllowClear="true" @bind-Value=@venta.ProductoId Placeholder="Select Producto" />
+                            <span class="custom-bar"></span>
                         </div>
                     </div>
                     <br>

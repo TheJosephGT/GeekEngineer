@@ -5,7 +5,6 @@
 
 <EditForm Model="compra" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
-
     <div class="card col-lg-7 mx-auto">
         <div class="shadow">
             <div class="card-header">
@@ -40,11 +39,12 @@
                         </div>
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
-                        <div class="group">
-                            <RadzenDropDown class="w-100" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        <div class="custom-group">
+                            <RadzenDropDown class="custom-dropdown" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                 FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
                                 Data=@ProveedorList TextProperty="Nombre" Name="Producto" ValueProperty="ProveedorId"
                                 AllowClear="true" @bind-Value=@compra.ProveedorId Placeholder="Select proveedor" />
+                            <span class="custom-bar"></span>
                         </div>
                     </div>
                 </div>
@@ -52,12 +52,13 @@
                 <br>
                 <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
-                        <div class="group">
-                            <RadzenDropDown class="w-100" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        <div class="custom-group">
+                            <RadzenDropDown class="custom-dropdown" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                 FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
                                 Data=@ProductoList TextProperty="Nombre" Name="Producto" ValueProperty="ProductoId"
                                 AllowClear="true" @bind-Value=@compra.ProductoId Placeholder="Select Producto" />
                             <ValidationMessage For="@(() => compra.ProveedorId)" />
+                            <span class="custom-bar"></span>
                         </div>
                     </div>
                     <div class="col-sm-2 col-md-2 mb-2 mx-auto">

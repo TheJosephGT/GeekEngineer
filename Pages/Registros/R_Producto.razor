@@ -43,13 +43,13 @@
                         </div>
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
-                        <div class="group">
-                            <RadzenDropDown class="w-100" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        <div class="custom-group">
+                            <RadzenDropDown class="custom-dropdown" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                 FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
                                 Data=@CategoriaList TextProperty="Nombre" Name="Producto" ValueProperty="CategoriaId"
                                 AllowClear="true" @bind-Value=@producto.CategoriaId Placeholder="Categoría" />
                             <ValidationMessage For="@(() => producto.CategoriaId)" />
-
+                            <span class="custom-bar"></span>
                         </div>
                     </div>
                 </div>
@@ -111,13 +111,13 @@
                 <br>
                 <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
-                        <div class="group">
-                            <RadzenDropDown class="w-100" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        <div class="custom-group">
+                            <RadzenDropDown class="custom-dropdown" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                 FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
                                 Data=@ProveedorList TextProperty="Nombre" Name="Producto" ValueProperty="ProveedorId"
                                 AllowClear="true" @bind-Value=@producto.ProveedorId Placeholder="Proveedor" />
                             <ValidationMessage For="@(() => producto.ProveedorId)" />
-
+                            <span class="custom-bar"></span>
                         </div>
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
