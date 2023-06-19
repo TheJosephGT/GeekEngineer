@@ -6,6 +6,8 @@ public class Inventarios
     public int InventarioId { get; set; }
     public int ProductoId { get; set; }
     public int Cantidad { get; set; }
+    [Required(ErrorMessage = "Seleccione el código de barra.")]
+    [RegularExpression(@"^\d{3}[- ]?\d{3}[- ]?\d{4}$",ErrorMessage = "Formato inválido. 000-000-000")]
     public string CodigoBarra { get; set; } = string.Empty;
     [Required(ErrorMessage = "El campo fecha es requerido.")]
     public DateOnly Fecha { get; set; } = DateOnly.FromDateTime(DateTime.Now);

@@ -27,6 +27,8 @@ public class Productos
     public string Ubicacion { get; set; } = string.Empty;
     public double Descuento { get; set; }
     [Required(ErrorMessage = "Ingrese el código de barra.")]
+    [RegularExpression(@"^\d{3}[- ]?\d{3}[- ]?\d{4}$",ErrorMessage = "Formato inválido. 000-000-000")]
+
     public string CodigoBarra { get; set; } = string.Empty; 
     public bool Status { get; set; } = true;
     
