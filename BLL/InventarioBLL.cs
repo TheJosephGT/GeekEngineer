@@ -11,20 +11,6 @@ public class InventarioBLL
         contexto = _contexto;
     }
 
-    public string BuscarCodigoDeBarra(int productoId)
-    {
-        var productoBuscado = contexto.Productos.Find(productoId);
-        if(productoBuscado != null)
-        {
-            string CodigoBarra = productoBuscado.CodigoBarra;
-            return CodigoBarra;
-        }
-        else
-        {
-            return string.Empty;
-        }
-    }
-
     public bool Existe(int inventarioId)
     {
         return contexto.Inventarios.Any(p => p.InventarioId == inventarioId);
@@ -32,18 +18,42 @@ public class InventarioBLL
 
     private bool Insertar(Inventarios inventario)
     {
-        InsertarDetalle(inventario);
-        contexto.Inventarios.Add(inventario);
-        bool salida = contexto.SaveChanges() > 0;
-        contexto.Entry(inventario).State = EntityState.Detached;
-        return salida;
+
+        var producto = contexto.Productos.Find(inventario.ProductoId);
+        if (producto != null)
+        {
+            producto.Existencia += inventario.Cantidad;
+            contexto.Entry(producto).State = EntityState.Modified;
+            contexto.Inventarios.Add(inventario);
+            bool salida = contexto.SaveChanges() > 0;
+            contexto.Entry(inventario).State = EntityState.Detached;
+            return salida;
+        }
+        return false;
     }
 
     private bool Modificar(Inventarios inventario)
     {
-        ModificarDetalle(inventario);
-        contexto.Entry(inventario).State = EntityState.Modified;
-        return contexto.SaveChanges() > 0;
+        var existe = contexto.Inventarios.FirstOrDefault(p => p.InventarioId == inventario.InventarioId);
+
+        if (existe != null)
+        {
+            var producto = contexto.Productos.Find(inventario.ProductoId);
+            if (producto != null)
+            {
+                producto.Existencia -= inventario.Cantidad;
+                producto.Existencia += inventario.Cantidad;
+                contexto.Entry(producto).State = EntityState.Modified;
+                contexto.SaveChanges();
+                contexto.Entry(producto).State = EntityState.Detached;
+            }
+            contexto.Entry(existe).CurrentValues.SetValues(inventario);
+            bool salida = contexto.SaveChanges() > 0;
+            contexto.Entry(inventario).State = EntityState.Detached;
+            return salida;
+        }
+
+        return false;
     }
 
     public bool Guardar(Inventarios inventario)
@@ -54,67 +64,6 @@ public class InventarioBLL
             return Modificar(inventario);
     }
 
-    private bool InsertarDetalle(Inventarios inventario)
-    {
-        if (inventario.inventariosDetalle != null)
-        {
-            foreach (var item in inventario.inventariosDetalle)
-            {
-                var producto = contexto.Productos.Find(item.ProductoId);
-
-                if (producto != null)
-                {
-                    producto.Existencia += item.Cantidad;
-                    contexto.Entry(producto).State = EntityState.Modified;
-                }
-            }
-        }
-
-        bool salida = contexto.SaveChanges() > 0;
-        contexto.Entry(inventario).State = EntityState.Detached;
-        return salida;
-    }
-
-    private bool ModificarDetalle(Inventarios inventario)
-    {
-        var DetalleAnterior = contexto.Inventarios.Where(o => o.InventarioId == inventario.InventarioId).Include(o => o.inventariosDetalle).AsNoTracking().SingleOrDefault();
-
-        if (DetalleAnterior != null)
-        {
-            foreach (var item in inventario.inventariosDetalle)
-            {
-                var producto = contexto.Productos.Find(item.ProductoId);
-
-                if (producto != null)
-                {
-                    producto.Existencia -= item.Cantidad;
-                    contexto.Entry(producto).State = EntityState.Modified;
-                }
-            }
-        }
-
-        contexto.Database.ExecuteSqlRaw($"DELETE FROM EntradaDetalle where EntradaId = {inventario.InventarioId}");
-
-        //Se deshacen los cambios al detalle anterior.
-
-        foreach (var item in inventario.inventariosDetalle)
-        {
-            var producto = contexto.Productos.Find(item.ProductoId);
-
-            if (producto != null)
-            {
-                producto.Existencia += item.Cantidad;
-                contexto.Entry(producto).State = EntityState.Modified;
-
-            }
-        }
-
-        contexto.Inventarios.Update(inventario);
-        bool salida = contexto.SaveChanges() > 0;
-        contexto.Entry(inventario).State = EntityState.Detached;
-        return salida;
-    }
-
     public bool Eliminar(int inventarioId)
     {
         var eliminado = contexto.Inventarios
@@ -123,17 +72,12 @@ public class InventarioBLL
 
         if (eliminado != null)
         {
-            foreach (var item in eliminado.inventariosDetalle)
+            var producto = contexto.Productos.Find(eliminado.ProductoId);
+            if (producto != null)
             {
-                var producto = contexto.Productos.Find(item.ProductoId);
-
-                if (producto != null)
-                {
-                    producto.Existencia -= item.Cantidad;
-                    contexto.Entry(producto).State = EntityState.Modified;
-                }
+                producto.Existencia -= eliminado.Cantidad;
+                contexto.Entry(producto).State = EntityState.Modified;
             }
-            
             eliminado.Status = false;
             bool salida = contexto.SaveChanges() > 0;
             contexto.Entry(eliminado).State = EntityState.Detached;
