@@ -39,21 +39,24 @@ public class InventarioBLL
         if (existe != null)
         {
             var producto = contexto.Productos.Find(inventario.ProductoId);
+            
             if (producto != null)
             {
-                producto.Existencia -= inventario.Cantidad;
-                producto.Existencia += inventario.Cantidad;
+                producto.Existencia -= existe.Cantidad; 
+                producto.Existencia += inventario.Cantidad; 
                 contexto.Entry(producto).State = EntityState.Modified;
                 contexto.SaveChanges();
                 contexto.Entry(producto).State = EntityState.Detached;
             }
-            contexto.Entry(existe).CurrentValues.SetValues(inventario);
+
+            existe.Cantidad = inventario.Cantidad; 
+
             bool salida = contexto.SaveChanges() > 0;
-            contexto.Entry(inventario).State = EntityState.Detached;
+            contexto.Entry(existe).State = EntityState.Detached;
             return salida;
         }
 
-        return false;
+        return false; 
     }
 
     public bool Guardar(Inventarios inventario)
