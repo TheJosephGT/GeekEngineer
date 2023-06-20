@@ -81,14 +81,15 @@
                                 <label>Cantidad</label>
                                 <ValidationMessage For="@(() => inventario.Cantidad)" />
                             </div>
-                            <div class="col-sm-2 col-md-4 mb-2 mx-auto">
-                                <div class="group">
-                                    <button class="btn btn-outline-secondary" type="button"
-                                        @onclick="Aumentar" style="background: green;"><ion-icon name="add-outline"></ion-icon></button>
-                                    <button class="btn btn-outline-secondary" type="button"
-                                        @onclick="Disminuir" style="background: red;"><ion-icon name="remove-outline"></ion-icon></button>
-                                </div>
-                            </div>
+
+                        </div>
+                        <div class="col-sm-2 col-md-4 mb-2 mx-auto"> </div>
+
+                        <div class="b-posi">
+                            <button class="btn btn-outline-secondary" type="button"
+                                @onclick="Aumentar" style="background: rgb(4, 87, 4);"><ion-icon name="add-outline"></ion-icon></button>
+                            <button class="btn btn-outline-secondary" type="button"
+                                @onclick="Disminuir" style="background: rgb(95, 3, 3);"><ion-icon name="remove-outline"></ion-icon></button>
                         </div>
                     </div>
                 </div>
