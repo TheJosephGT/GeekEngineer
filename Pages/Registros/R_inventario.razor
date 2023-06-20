@@ -1,5 +1,5 @@
 @page "/r_inventario"
-@page "/inventario/{inventarioId:int}"
+@page "/r_inventario/{inventarioId:int}"
 @inject ProductoBLL ProductoBLL
 @inject ProveedorBLL ProveedorBLL
 @inject InventarioBLL InventarioBLL
@@ -81,7 +81,6 @@
                                 <label>Cantidad</label>
                                 <ValidationMessage For="@(() => inventario.Cantidad)" />
                             </div>
-
                         </div>
                         <div class="col-sm-2 col-md-4 mb-2 mx-auto"> </div>
 

@@ -1,4 +1,6 @@
 @page "/c_inventario"
+@inject ProductoBLL ProductoBLL
+@inject InventarioBLL InventarioBLL
 @* @attribute [Authorize] *@
 
 <PageTitle>Consulta inventario</PageTitle>
@@ -9,20 +11,41 @@
 <button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
 Generar reporte</button>
 
-@* <div class="card col-lg-8 mx-auto"> *@
+<div>
+    @if (lista == null)
+    {
+        <p><em>Sin datos para mostrar...</em></p>
+    }
+    else
+    {
         <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-            FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4" PagerHorizontalAlign="HorizontalAlign.Left" AllowSorting="true" Data="@listaClientes"
-            ColumnWidth="200px">
+            FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4" AllowSorting="true" Data="@lista"
+            TItem="Inventarios" ColumnWidth="150px">
 
             <Columns>
-                <RadzenGridColumn TItem="string" Title="ID" />
-                <RadzenGridColumn TItem="string" Title="Producto" />
-                <RadzenGridColumn TItem="string" Title="Cantidad" >
+                <RadzenGridColumn TItem="Inventarios" Property="InventarioId" Title="ID" />
+                <RadzenGridColumn TItem="Inventarios" Property="ProductoId" Title="Producto" />
+                <RadzenGridColumn TItem="Inventarios" Property="Cantidad" Title="Cantidad" />
+                <RadzenGridColumn TItem="Inventarios" Property="CodigoBarra" Title="Codigo de barra" />
+                <RadzenGridColumn TItem="Inventarios" Property="Fecha" Title="Fecha" >
+                </RadzenGridColumn>
+
+                <RadzenGridColumn TItem="Inventarios" Title="Edit">
+                    <Template Context="Inventario">
+                        <RadzenLink Path=@($"/r_inventario/{Inventario.InventarioId}") Text="Editar" Target="_blank"
+                            Style="color: blue;" />
+                    </Template>
                 </RadzenGridColumn>
             </Columns>
         </RadzenGrid>
-@* </div> *@
-
+    }
+</div>
 @code {
-    List<string> listaClientes = new List<string>();
+    List<Inventarios> lista = new List<Inventarios>();
+
+    protected override void OnInitialized()
+    {
+        lista = InventarioBLL.GetList(o => true);
+        
+    }
 }
