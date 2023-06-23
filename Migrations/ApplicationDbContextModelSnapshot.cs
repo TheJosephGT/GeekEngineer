@@ -365,10 +365,6 @@ namespace GeekEngineer.Migrations
                     b.Property<DateOnly>("Fecha")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("NCF")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("TEXT");

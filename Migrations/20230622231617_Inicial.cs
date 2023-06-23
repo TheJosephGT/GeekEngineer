@@ -133,7 +133,6 @@ namespace GeekEngineer.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Nombre = table.Column<string>(type: "TEXT", nullable: false),
                     RNC = table.Column<string>(type: "TEXT", nullable: false),
-                    NCF = table.Column<string>(type: "TEXT", nullable: false),
                     Fecha = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     Direccion = table.Column<string>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),

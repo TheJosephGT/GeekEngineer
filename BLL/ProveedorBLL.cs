@@ -64,30 +64,6 @@ public class ProveedorBLL
         }
     }
 
-    public bool ExisteNCF(Proveedores proveedor)
-    {
-        var modificado = contexto.Proveedores.Find(proveedor.ProveedorId);
-
-        if (modificado == null)
-        {
-            var existe = contexto.Proveedores.Any(p => p.NCF.ToLower() == proveedor.NCF.ToLower() && p.Status == true);
-            if (existe == true)
-                return false;
-            else
-                return true;
-
-        }
-        else
-        {
-
-            var existe = contexto.Proveedores.Any(p => p.NCF.ToLower() == proveedor.NCF.ToLower() && p.Status == true && p.ProveedorId != modificado.ProveedorId);
-            if (existe == true)
-                return false;
-            else
-                return true;
-        }
-    }
-
     public bool ExisteEmail(Proveedores proveedor)
     {
         var modificado = contexto.Proveedores.Find(proveedor.ProveedorId);

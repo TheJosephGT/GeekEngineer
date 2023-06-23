@@ -17,21 +17,6 @@
                 <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputNumber required="" @bind-Value="proveedor.ProveedorId" class="input" id="id" />
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <label>No. ID</label>
-                        </div>
-                        <button type="button" class="btn" @onclick="Buscar" id="boton">
-                            <span class="btn-text-one" style="color: white;" title='Buscar proveedor'>Buscar</span>
-                        </button>
-                    </div>
-                    <div class="col-sm-2 col-md-4 mb-2 mx-auto"> </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
-                        <div class="group">
                             <InputDate required="" @bind-Value="proveedor.Fecha" class="input" id="fecha" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
@@ -63,19 +48,6 @@
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputText required="" @bind-Value="proveedor.NCF" class="input" />
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <label>NCF</label>
-                            <ValidationMessage For="@(() => proveedor.NCF)" />
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <br>
-                <div class="row">
-                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
-                        <div class="group">
                             <InputText required="" @bind-Value="proveedor.Direccion" class="input" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
@@ -83,6 +55,10 @@
                             <ValidationMessage For="@(() => proveedor.Direccion)" />
                         </div>
                     </div>
+                </div>
+                <br>
+                <br>
+                <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
                             <InputText required="" @bind-Value="proveedor.Telefono" class="input" />
@@ -126,7 +102,7 @@
     [Parameter]
     public int ProveedorId { get; set; }
     public Proveedores proveedor { get; set; } = new Proveedores();
-    
+
 
     protected override void OnInitialized()
     {
@@ -157,28 +133,23 @@
             notify.ShowNotification("El RNC ingresado ya está registrado.", NotificationSeverity.Warning);
             validar = false;
         }
-        if (ProveedorBLL.ExisteNCF(proveedor) == false)
-        {
-            notify.ShowNotification("El NCF ingresado ya está registrado.", NotificationSeverity.Warning);
-            validar = false;
-        }
         if (ProveedorBLL.ExisteNombreProveedor(proveedor) == false)
         {
             notify.ShowNotification("Ya hay un proveedor registrado con ese nombre.", NotificationSeverity.Warning);
             validar = false;
         }
-        if (ProveedorBLL.ExisteEmail(proveedor) == false) 
+        if (ProveedorBLL.ExisteEmail(proveedor) == false)
         {
             notify.ShowNotification("Ya está registrado ese email, intente de nuevo.", NotificationSeverity.Warning);
             validar = false;
         }
-        if (ProveedorBLL.ExisteTelefono(proveedor) == false) 
+        if (ProveedorBLL.ExisteTelefono(proveedor) == false)
         {
             notify.ShowNotification("Ya está registrado ese número de teléfono, intente de nuevo.", NotificationSeverity.Warning);
             validar = false;
         }
 
-        return validar; 
+        return validar;
     }
 
     void Guardar()
