@@ -68,15 +68,39 @@
                                 <ValidationMessage For="@(() => inventario.Cantidad)" />
                             </div>
                         </div>
-                        <div class="col-sm-2 col-md-4 mb-2 mx-auto"> </div>
+                        <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                            <div class="group">
+                                <InputNumber required="" @bind-Value="inventario.Cantidad" class="input" />
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Existencia</label>
+                                <ValidationMessage For="@(() => inventario.Cantidad)" />
+                            </div>
+                        </div>
 
-                        <div class="b-posi">
+                        <button type="button" class="btn btn-outline-success">OK</button>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="row">
+
+                        <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                            <div class="group">
+                                <InputNumber required="" @bind-Value="inventario.Cantidad" class="input" />
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Monto</label>
+                                <ValidationMessage For="@(() => inventario.Cantidad)" />
+                            </div>
+                        </div>
                             <button class="btn btn-outline-secondary" type="button"
                                 @onclick="Aumentar" style="background: rgb(4, 87, 4);"><ion-icon name="add-outline"></ion-icon></button>
                             <button class="btn btn-outline-secondary" type="button"
                                 @onclick="Disminuir" style="background: rgb(95, 3, 3);"><ion-icon name="remove-outline"></ion-icon></button>
-                        </div>
                     </div>
+ 
                 </div>
                 <br>
                 <br>
@@ -133,7 +157,7 @@
     }
     private void Disminuir()
     {
-        if(inventario.Cantidad > 0)
+        if (inventario.Cantidad > 0)
             inventario.Cantidad--;
     }
 
