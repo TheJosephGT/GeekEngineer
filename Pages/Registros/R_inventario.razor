@@ -80,7 +80,7 @@
 
                     </div>
                     <div class="ubi-boton-add-restar-inventario">
-                        <button type="button" class="btn btn-outline-success" id="ubi-boton-add-inventario" @onclick="ExistenciaAumento">ADD</button>
+                        <button type="button" class="btn btn-outline-success" id="ubi-boton-add-inventario" @onclick="ExistenciaAumento">Agregar</button>
                         <button type="button" class="btn btn-outline-success" id="ubi-boton-restar-inventario"
                         @onclick="ExistenciaResta">Restar</button>
 
@@ -174,18 +174,24 @@
     }
     private void ExistenciaAumento()
     {
-        inventario.Existencia += Cantidad;
-        inventario.CantidadAumentada += Cantidad;
-        Cantidad =0;
-        notify.ShowNotification("Se ha aumentado la existencia.", NotificationSeverity.Success);
+        if(inventario.Existencia >= 0 && Cantidad > 0)
+        {
+            inventario.Existencia += Cantidad;
+            inventario.CantidadAumentada += Cantidad;
+            Cantidad =0;
+            notify.ShowNotification("Se ha aumentado la existencia.", NotificationSeverity.Success);
+        }
 
     }
     private void ExistenciaResta()
     {
-        inventario.Existencia -= Cantidad;
-        inventario.CantidadAumentada -= Cantidad;
-        Cantidad =0;
-        notify.ShowNotification("Se ha restado la existencia.", NotificationSeverity.Success);
+        if(inventario.Existencia >= 0 && Cantidad > 0)
+        {
+            inventario.Existencia -= Cantidad;
+            inventario.CantidadAumentada -= Cantidad;
+            Cantidad =0;
+            notify.ShowNotification("Se ha restado la existencia.", NotificationSeverity.Success);
+        }
 
     }
 
