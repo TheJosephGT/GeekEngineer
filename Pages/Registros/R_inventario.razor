@@ -76,8 +76,14 @@
                                 <ValidationMessage For="@(() => inventario.Existencia)" />
                             </div>
                         </div>
+                        <div class="col-sm-2 col-md-4 mb-2 mx-auto"></div>
 
-                        <button type="button" class="btn btn-outline-success" @onclick= "ExistenciaAumento">Agregar</button>
+                    </div>
+                    <div class="ubi-boton-add-restar-inventario">
+                        <button type="button" class="btn btn-outline-success" id="ubi-boton-add-inventario" @onclick="ExistenciaAumento">ADD</button>
+                        <button type="button" class="btn btn-outline-success" id="ubi-boton-restar-inventario"
+                        @onclick="ExistenciaResta">Restar</button>
+
                     </div>
                     <br>
                     <br>
@@ -93,12 +99,15 @@
                                 <label>Monto</label>
                             </div>
                         </div>
-                            <button class="btn btn-outline-secondary" type="button"
-                                @onclick="Aumentar" style="background: rgb(4, 87, 4);"><ion-icon name="add-outline"></ion-icon></button>
-                            <button class="btn btn-outline-secondary" type="button"
-                                @onclick="Disminuir" style="background: rgb(95, 3, 3);"><ion-icon name="remove-outline"></ion-icon></button>
                     </div>
- 
+                     <div class="botones-inventario-mas-menos">
+                        <button type="button" class="btn btn-outline-success" id="botones-inventario-mas"
+                        @onclick="Aumentar" style="background: rgb(40, 151, 40);"><ion-icon
+                        name="add-outline"></ion-icon></button>
+                        <button type="button" class="btn btn-outline-success" id="botones-inventario-menos"
+                        @onclick="Disminuir" style="background: rgb(158, 4, 4);"><ion-icon
+                        name="remove-outline"></ion-icon></button> 
+                    </div>
                 </div>
                 <br>
                 <br>
@@ -169,6 +178,14 @@
         inventario.CantidadAumentada += Cantidad;
         Cantidad =0;
         notify.ShowNotification("Se ha aumentado la existencia.", NotificationSeverity.Success);
+
+    }
+    private void ExistenciaResta()
+    {
+        inventario.Existencia -= Cantidad;
+        inventario.CantidadAumentada -= Cantidad;
+        Cantidad =0;
+        notify.ShowNotification("Se ha restado la existencia.", NotificationSeverity.Success);
 
     }
 

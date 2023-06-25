@@ -177,7 +177,7 @@ button:hover {
   background-color: #23c483;
   box-shadow: 0px 15px 20px #053F5C;
   color: #fff;
-  transform: translateY(-7px);
+  transform: translateY(-1px);
 }
 
 button:active {
@@ -381,4 +381,47 @@ button:active {
   padding-left: 45%;
   position: relative;
   top: -20px;
+}
+
+
+.ubi-boton-add-restar-inventario
+{ 
+  margin-left: 65%;
+  position: relative;
+  top: -50px;
+}
+
+#botones-inventario-mas
+{
+  width: 50px;
+  height: 40px;
+  margin-left: 66%;
+  position: relative;
+  top: -80px;
+  border-radius: 5px;
+}
+
+#botones-inventario-menos
+{
+  width: 50px;
+  height: 40px;
+  position: relative;
+  top: -80px;
+  left: 10px;
+  border-radius: 5px;
+}
+
+#ubi-boton-add-inventario
+{
+  width: 100px;
+  height: 50px;
+  position: relative;
+  border-radius: 5px;
+}
+#ubi-boton-restar-inventario
+{
+  width: 100px;
+  height: 50px;
+  position: relative;
+  border-radius: 5px;
 }
