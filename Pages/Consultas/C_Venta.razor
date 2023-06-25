@@ -1,4 +1,5 @@
 @page "/c_venta"
+@inject VentasBLL VentasBLL
 @* @attribute [Authorize] *@
 
 
@@ -8,26 +9,42 @@
 <h1 class="text-center">Consulta venta</h1>
 
 <button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
-Generar reporte</button>
+    Generar reporte</button>
+<div>
+@if (listaVentas == null)
+{
+    <p><em>Sin datos para mostrar...</em></p>
+}
+else
+{
+    <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+        FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4" AllowSorting="true" Data="@listaVentas"
+        TItem="Ventas" ColumnWidth="150px">
 
-@* <div class="card col-lg-8 mx-auto"> *@
-        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-            FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4" PagerHorizontalAlign="HorizontalAlign.Left" AllowSorting="true" Data="@listaClientes"
-            ColumnWidth="180px">
+        <Columns>
+            <RadzenGridColumn TItem="Ventas" Property="VentaId" Title="ID" />
+            <RadzenGridColumn TItem="Ventas" Property="ClienteId" Title="Cliente" />
+            <RadzenGridColumn TItem="Ventas" Property="Fecha" Title="Fecha" />
+            <RadzenGridColumn TItem="Ventas" Property="Total" Title="Total vendido" >
+            </RadzenGridColumn>
 
-            <Columns>
-                <RadzenGridColumn TItem="string" Title="ID" />
-                <RadzenGridColumn TItem="string" Title="Cliente" />
-                <RadzenGridColumn TItem="string" Title="Producto" />
-                <RadzenGridColumn TItem="string" Title="Fecha" />
-                <RadzenGridColumn TItem="string" Title="Precio" />
-                <RadzenGridColumn TItem="string" Title="Cantidad" />
-                <RadzenGridColumn TItem="string" Title="Total">
-                </RadzenGridColumn>
-            </Columns>
-        </RadzenGrid>
-@* </div> *@
+            <RadzenGridColumn TItem="Ventas" Title="Edit">
+                <Template Context="Venta">
+                    <RadzenLink Path=@($"/r_venta/{Venta.VentaId}") Text="Editar" Target="_blank"
+                        Style="color: blue;" />
+                </Template>
+            </RadzenGridColumn>
+        </Columns>
+    </RadzenGrid>
+}
+</div>
 
 @code {
-    List<string> listaClientes = new List<string>();
+    List<Ventas> listaVentas = new List<Ventas>();
+
+    protected override void OnInitialized()
+    {
+        listaVentas = VentasBLL.GetList(o => true && o.Status == true);
+
+    }
 }

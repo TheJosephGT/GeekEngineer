@@ -152,10 +152,7 @@ namespace GeekEngineer.Migrations
                     VentaId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ClienteId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ProductoId = table.Column<int>(type: "INTEGER", nullable: false),
                     Fecha = table.Column<DateOnly>(type: "TEXT", nullable: false),
-                    ITBIS = table.Column<double>(type: "REAL", nullable: false),
-                    SubTotal = table.Column<double>(type: "REAL", nullable: false),
                     Total = table.Column<double>(type: "REAL", nullable: false),
                     Status = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
@@ -278,10 +275,11 @@ namespace GeekEngineer.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     VentaId = table.Column<int>(type: "INTEGER", nullable: false),
                     ProductoId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Cantidad = table.Column<double>(type: "REAL", nullable: false),
-                    PrecioProducto = table.Column<float>(type: "REAL", nullable: false),
-                    Importe = table.Column<float>(type: "REAL", nullable: false),
-                    Status = table.Column<bool>(type: "INTEGER", nullable: false)
+                    PrecioProducto = table.Column<double>(type: "REAL", nullable: false),
+                    Importe = table.Column<double>(type: "REAL", nullable: false),
+                    Cantidad = table.Column<int>(type: "INTEGER", nullable: false),
+                    SubTotal = table.Column<double>(type: "REAL", nullable: false),
+                    ITBIS = table.Column<double>(type: "REAL", nullable: false)
                 },
                 constraints: table =>
                 {

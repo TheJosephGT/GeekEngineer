@@ -51,7 +51,7 @@
 
     protected override void OnInitialized()
     {
-        listaProductos = ProductoBLL.GetList(o => true);
+        listaProductos = ProductoBLL.GetList(o => true && o.Status == true);
 
     }
 }

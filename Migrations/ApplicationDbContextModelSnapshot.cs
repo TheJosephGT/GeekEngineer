@@ -400,17 +400,8 @@ namespace GeekEngineer.Migrations
                     b.Property<DateOnly>("Fecha")
                         .HasColumnType("TEXT");
 
-                    b.Property<double>("ITBIS")
-                        .HasColumnType("REAL");
-
-                    b.Property<int>("ProductoId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<bool>("Status")
                         .HasColumnType("INTEGER");
-
-                    b.Property<double>("SubTotal")
-                        .HasColumnType("REAL");
 
                     b.Property<double>("Total")
                         .HasColumnType("REAL");
@@ -426,20 +417,23 @@ namespace GeekEngineer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("Cantidad")
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("ITBIS")
                         .HasColumnType("REAL");
 
-                    b.Property<float>("Importe")
+                    b.Property<double>("Importe")
                         .HasColumnType("REAL");
 
-                    b.Property<float>("PrecioProducto")
+                    b.Property<double>("PrecioProducto")
                         .HasColumnType("REAL");
 
                     b.Property<int>("ProductoId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("Status")
-                        .HasColumnType("INTEGER");
+                    b.Property<double>("SubTotal")
+                        .HasColumnType("REAL");
 
                     b.Property<int>("VentaId")
                         .HasColumnType("INTEGER");

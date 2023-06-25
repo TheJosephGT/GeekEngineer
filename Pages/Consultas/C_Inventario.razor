@@ -46,7 +46,7 @@ Generar reporte</button>
 
     protected override void OnInitialized()
     {
-        lista = InventarioBLL.GetList(o => true);
+        lista = InventarioBLL.GetList(o => true && o.Status == true);
         
     }
 }

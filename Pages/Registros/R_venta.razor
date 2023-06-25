@@ -1,10 +1,13 @@
 @page "/r_venta"
-@page "/venta/{ventaId:int}"
-
+@page "/r_venta/{ventaId:int}"
+@inject NotificationService notify
+@inject VentasBLL VentasBLL
+@inject ProductoBLL ProductoBLL
+@inject ClienteBLL ClienteBLL
 @*@attribute [Authorize]*@
 
 
-<EditForm Model="venta" OnValidSubmit="Guardar">
+<EditForm Model="venta" OnInvalidSubmit="Guardar">
     <DataAnnotationsValidator />
     <div class="card col-lg-8 mx-auto">
         <div class="shadow">
@@ -28,7 +31,7 @@
                             <RadzenDropDown class="custom-dropdown" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                             FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
                             Data=@ClienteList TextProperty="Nombre" Name="Producto" ValueProperty="ClienteId"
-                            AllowClear="true" @bind-Value=@venta.ClienteId Placeholder="Select cliente" />
+                            AllowClear="true" @bind-Value=@venta.ClienteId Placeholder="Cliente" />
                             <span class="custom-bar"></span>
                         </div>
                     </div>
@@ -43,7 +46,7 @@
                             <RadzenDropDown class="custom-dropdown" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                             FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
                             Data=@ProductoList TextProperty="Nombre" Name="Producto" ValueProperty="ProductoId"
-                            AllowClear="true" @bind-Value=@venta.ProductoId Placeholder="Select Producto" />
+                            AllowClear="true" @bind-Value=@detalle.ProductoId Placeholder="Producto" />
                             <span class="custom-bar"></span>
                         </div>
                     </div>
@@ -61,7 +64,7 @@
                     @*...................... Boton Add ......................*@
 
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
-                        <button type="button" class="btn btn-primary" title="Añadir detalle de venta">
+                        <button type="button" class="btn btn-primary" title="Añadir detalle de venta" @onclick="AgregarDetalle">
                             <span class="oi oi-plus"> Agregar</span>
                         </button>
                     </div>
@@ -74,10 +77,10 @@
                 <table class="table table-light table-striped">
                     <thead class="thead">
                         <tr class="table text-center bg-inventariocolor">
-                            <th class="border border-3">Id</th>
                             <th class="border border-3">Producto</th>
                             <th class="border border-3">Cantidad</th>
                             <th class="border border-3">Precio</th>
+                            <th class="border border-3">ITBIS</th>
                             <th class="border border-3">Importe</th>
                         </tr>
                     </thead>
@@ -87,10 +90,16 @@
                             @foreach (var item in venta.ventasDetalle)
                             {
                                 <tr class="text-center">
-                                    <td>@item.ProductoId</td>
+                                    <td>@ProductoBLL.Buscar(item.ProductoId)?.Nombre</td>
                                     <td>@item.Cantidad</td>
-                                    <td>RD$ @item.PrecioProducto</td>
+                                    <td>RD$ @ProductoBLL.Buscar(item.ProductoId)?.Precio</td>
+                                    <td>@ProductoBLL.Buscar(item.ProductoId)?.ITBIS %</td>
                                     <td>RD$ @item.Importe</td>
+                                    <td>
+                                        <button class="btn btn-danger mr-2" onclick="@(() => EliminarDetalle(item))">
+                                            <i class="oi oi-trash"></i>
+                                        </button>
+                                    </td>
                                 </tr>
                             }
                         }
@@ -107,18 +116,7 @@
                                 <div class="custom-input-group-prepend">
                                     <span class="custom-input-group-text">SubTotal</span>
                                 </div>
-                                <input type="number" class="custom-input" value="@venta.SubTotal" readonly>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="custom-col">
-                        <div class="custom-form-group">
-                            <div class="custom-input-group">
-                                <div class="custom-input-group-prepend">
-                                    <span class="custom-input-group-text">ITBIS</span>
-                                </div>
-                                <input type="number" class="custom-input" value="@venta.ITBIS" readonly>
+                                <input type="number" class="custom-input" value="@detalle.SubTotal" readonly>
                             </div>
                         </div>
                     </div>
@@ -145,7 +143,7 @@
                     <button type="button" class="btn btn-outline-primary" @onclick="Nuevo"><span
                             class="oi oi-file"></span>
                         Nuevo</button>
-                    <button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
+                    <button type="submit" class="btn btn-outline-success" @onclick="Guardar"><span class="oi oi-document"></span>
                         Guardar</button>
                     <button type="button" class="btn btn-outline-danger" @onclick="Eliminar"><span
                             class="oi oi-delete"></span>
@@ -165,21 +163,119 @@
     public List<Clientes> ClienteList = new List<Clientes>();
     public VentasDetalle detalle = new VentasDetalle();
 
-    public void Guardar()
+    protected override void OnInitialized()
     {
-
+        if (ventaId > 0)
+        {
+            this.venta.VentaId = ventaId;
+            this.Buscar();
+        }
+        ProductoList = ProductoBLL.GetList(p => true && p.Status == true);
+        ClienteList = ClienteBLL.GetList(p => true && p.Status == true);
     }
-    public void Eliminar()
-    {
 
-    }
     public void Nuevo()
     {
-
+        venta = new Ventas();
+        notify.ShowNotification("Nueva plantilla creada correctamente.", NotificationSeverity.Success);
     }
 
-    public void Buscar()
+    bool Validar()
+    {
+        bool validar = true;
+
+        if (venta!.VentaId < 0)
+        {
+            notify.ShowNotification("El ID debe ser mayor que 0.", NotificationSeverity.Error);
+            validar = false;
+        }
+        if (venta.ventasDetalle.Count < 1)
+        {
+            notify.ShowNotification("Debe agregar al menos un detalle", NotificationSeverity.Error);
+            validar = false;
+        }
+        if(venta.ClienteId <= 0)
+        {
+            notify.ShowNotification("Debe seleccionar un cliente", NotificationSeverity.Error);
+            validar = false;
+        }
+
+        return validar;
+    }
+
+
+    void Guardar()
     {
 
+        if (!Validar()) { return; }
+
+        if (VentasBLL.Guardar(venta))
+        {
+            notify.ShowNotification("Fue guardado correctamente.");
+            venta = new Ventas();
+        }
+        else
+        {
+            notify.ShowNotification("No fue guardado, intentar nuevamente.", NotificationSeverity.Error);
+        }
+             
+    }
+
+    private void Buscar()
+    {
+        if (venta!.VentaId > 0)
+        {
+            var encontrado = VentasBLL.Buscar(venta.VentaId);
+            
+            if (encontrado != null)
+            {
+                notify.ShowNotification("Se ha encontrado con éxito", NotificationSeverity.Success);
+                this.venta = encontrado;
+            }
+            else
+            {
+                notify.ShowNotification("El ID ingresado no ha sido encontrado.", NotificationSeverity.Error);
+            }
+        }
+    }
+
+    public void Eliminar()
+    {
+        if (VentasBLL.Eliminar(venta.VentaId))
+        {
+            notify.ShowNotification("Se ha eliminado con éxito.", NotificationSeverity.Info);
+            venta = new Ventas();
+        }
+        else
+        {
+            notify.ShowNotification("No hay elementos para borrar.", NotificationSeverity.Warning);
+            return;
+        }
+    }
+
+    void AgregarDetalle()
+    {
+        var producto = ProductoBLL.Buscar(detalle.ProductoId);
+        if (detalle.Cantidad <= producto?.Existencia && detalle.Cantidad > 0)
+        {
+            detalle.PrecioProducto = producto.Precio;
+            detalle.ITBIS = producto.ITBIS;
+            detalle.ITBIS = detalle.ITBIS / 100;
+            detalle.SubTotal += detalle.PrecioProducto;
+
+
+            detalle.Importe = detalle.Cantidad * producto.Precio;
+            detalle.ITBIS = detalle.Importe * detalle.ITBIS;
+            detalle.Importe += detalle.ITBIS;
+            this.venta.ventasDetalle.Add(this.detalle);
+            this.detalle = new VentasDetalle();
+            venta.Total = venta.ventasDetalle.Sum(p => p.Importe);
+        }
+    }
+
+    void EliminarDetalle(VentasDetalle detalleBorrado)
+    {
+        venta.ventasDetalle.Remove(detalleBorrado);
+        venta.Total = venta.ventasDetalle.Sum(p => p.Importe);
     }
 }
