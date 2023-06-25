@@ -22,7 +22,7 @@ public class InventarioBLL
         var producto = contexto.Productos.Find(inventario.ProductoId);
         if (producto != null)
         {
-            producto.Existencia += inventario.Cantidad;
+            producto.Existencia += inventario.CantidadAumentada;
             contexto.Entry(producto).State = EntityState.Modified;
             contexto.Inventarios.Add(inventario);
             bool salida = contexto.SaveChanges() > 0;
@@ -42,14 +42,15 @@ public class InventarioBLL
             
             if (producto != null)
             {
-                producto.Existencia -= existe.Cantidad; 
-                producto.Existencia += inventario.Cantidad; 
+                producto.Existencia -= existe.CantidadAumentada; 
+                producto.Existencia += inventario.CantidadAumentada;
+                existe.Existencia = producto.Existencia; 
                 contexto.Entry(producto).State = EntityState.Modified;
                 contexto.SaveChanges();
                 contexto.Entry(producto).State = EntityState.Detached;
             }
 
-            existe.Cantidad = inventario.Cantidad; 
+            existe.CantidadAumentada = inventario.CantidadAumentada; 
 
             bool salida = contexto.SaveChanges() > 0;
             contexto.Entry(existe).State = EntityState.Detached;
@@ -78,7 +79,7 @@ public class InventarioBLL
             var producto = contexto.Productos.Find(eliminado.ProductoId);
             if (producto != null)
             {
-                producto.Existencia -= eliminado.Cantidad;
+                producto.Existencia -= eliminado.CantidadAumentada;
                 contexto.Entry(producto).State = EntityState.Modified;
             }
             eliminado.Status = false;

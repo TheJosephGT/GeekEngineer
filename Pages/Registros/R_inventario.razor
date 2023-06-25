@@ -61,11 +61,10 @@
                     <div class="row">
                         <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                             <div class="group">
-                                <InputNumber required="" @bind-Value="inventario.Cantidad" class="input" />
+                                <InputNumber required="" @bind-Value="Cantidad" class="input" />
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label>Cantidad</label>
-                                <ValidationMessage For="@(() => inventario.Cantidad)" />
                             </div>
                         </div>
                         <div class="col-sm-2 col-md-4 mb-2 mx-auto">
@@ -73,12 +72,12 @@
                                 <InputNumber required="" @bind-Value="inventario.Existencia" class="input" />
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
-                                <label>Existencia</label>
+                                <label>Existencia (Cantidad aumentada: @inventario.CantidadAumentada)</label>
                                 <ValidationMessage For="@(() => inventario.Existencia)" />
                             </div>
                         </div>
 
-                        <button type="button" class="btn btn-outline-success" @onclick= "ExistenciaAumento">OK</button>
+                        <button type="button" class="btn btn-outline-success" @onclick= "ExistenciaAumento">Agregar</button>
                     </div>
                     <br>
                     <br>
@@ -131,6 +130,8 @@
     public int ExistenciaActual { get; set; } = 0;
     public Productos producto = new Productos();
     public int monto { get; set; }
+    public int Cantidad { get; set; }
+
 
 
     protected override void OnInitialized()
@@ -150,24 +151,26 @@
         notify.ShowNotification("Nueva plantilla creada correctamente.", NotificationSeverity.Success);
         ExistenciaActual = 0;
         monto = 0;
+        Cantidad = 0;
     }
 
     private void Aumentar()
     {
-        inventario.Cantidad = inventario.Cantidad + monto;
+        Cantidad = Cantidad + monto;
     }
     private void Disminuir()
     {
-        if (inventario.Cantidad > 0)
-            inventario.Cantidad--;
+        if (Cantidad > 0)
+            Cantidad = Cantidad - monto;
     }
     private void ExistenciaAumento()
     {
-        inventario.Existencia += inventario.Cantidad;
-        inventario.Cantidad =0;
+        inventario.Existencia += Cantidad;
+        inventario.CantidadAumentada += Cantidad;
+        Cantidad =0;
+        notify.ShowNotification("Se ha aumentado la existencia.", NotificationSeverity.Success);
 
     }
-
 
     private void ActualizarCodigoDeBarra()
     {
@@ -183,6 +186,7 @@
         }
         else
         {
+            inventario.Existencia = 0;
             inventario.CodigoBarra = string.Empty;
         }
     }
@@ -201,11 +205,11 @@
             notify.ShowNotification("Debe de llenar el campo producto.", NotificationSeverity.Warning);
             validar = false;
         }
-        if (inventario.Cantidad <= 0)
+         if (inventario.CantidadAumentada <= 0)
         {
-            notify.ShowNotification("La cantidad debe ser mayor a 0.", NotificationSeverity.Warning);
+            notify.ShowNotification("Debe aumentar la existencia para poder guardar.", NotificationSeverity.Warning);
             validar = false;
-        }
+        } 
         if (inventario.CodigoBarra == string.Empty)
         {
             notify.ShowNotification("El código de barra no es válido.", NotificationSeverity.Warning);
@@ -228,7 +232,7 @@
         }
         else
         {
-            notify.ShowNotification("No fue guardado, intentar nuevamente.", NotificationSeverity.Error);
+            notify.ShowNotification("No fue guardado, verifique si ha modificado la existencia, si es asi y el error persiste, comuniquese con el tecnico encargado.", NotificationSeverity.Error);
         }
 
     }

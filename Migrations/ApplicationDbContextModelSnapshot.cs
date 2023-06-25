@@ -81,7 +81,7 @@ namespace GeekEngineer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Cantidad")
+                    b.Property<int>("CantidadAumentada")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("CodigoBarra")

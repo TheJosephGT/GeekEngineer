@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GeekEngineer.Migrations
 {
     /// <inheritdoc />
-    public partial class inicial : Migration
+    public partial class Inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -91,7 +91,7 @@ namespace GeekEngineer.Migrations
                     InventarioId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ProductoId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Cantidad = table.Column<int>(type: "INTEGER", nullable: false),
+                    CantidadAumentada = table.Column<int>(type: "INTEGER", nullable: false),
                     CodigoBarra = table.Column<string>(type: "TEXT", nullable: false),
                     Fecha = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     Status = table.Column<bool>(type: "INTEGER", nullable: false),
