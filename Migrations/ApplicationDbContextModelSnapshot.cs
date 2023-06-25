@@ -88,6 +88,9 @@ namespace GeekEngineer.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Existencia")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateOnly>("Fecha")
                         .HasColumnType("TEXT");
 

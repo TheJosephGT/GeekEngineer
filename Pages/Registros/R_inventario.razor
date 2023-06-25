@@ -70,15 +70,15 @@
                         </div>
                         <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                             <div class="group">
-                                <InputNumber required="" @bind-Value="inventario.Cantidad" class="input" />
+                                <InputNumber required="" @bind-Value="inventario.Existencia" class="input" />
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label>Existencia</label>
-                                <ValidationMessage For="@(() => inventario.Cantidad)" />
+                                <ValidationMessage For="@(() => inventario.Existencia)" />
                             </div>
                         </div>
 
-                        <button type="button" class="btn btn-outline-success">OK</button>
+                        <button type="button" class="btn btn-outline-success" @onclick= "ExistenciaAumento">OK</button>
                     </div>
                     <br>
                     <br>
@@ -88,11 +88,10 @@
 
                         <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                             <div class="group">
-                                <InputNumber required="" @bind-Value="inventario.Cantidad" class="input" />
+                                <InputNumber required="" @bind-Value="monto" class="input" />
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label>Monto</label>
-                                <ValidationMessage For="@(() => inventario.Cantidad)" />
                             </div>
                         </div>
                             <button class="btn btn-outline-secondary" type="button"
@@ -131,6 +130,7 @@
     List<Productos> ProductoList = new List<Productos>();
     public int ExistenciaActual { get; set; } = 0;
     public Productos producto = new Productos();
+    public int monto { get; set; }
 
 
     protected override void OnInitialized()
@@ -149,25 +149,35 @@
         inventario = new Inventarios();
         notify.ShowNotification("Nueva plantilla creada correctamente.", NotificationSeverity.Success);
         ExistenciaActual = 0;
+        monto = 0;
     }
 
     private void Aumentar()
     {
-        inventario.Cantidad++;
+        inventario.Cantidad = inventario.Cantidad + monto;
     }
     private void Disminuir()
     {
         if (inventario.Cantidad > 0)
             inventario.Cantidad--;
     }
+    private void ExistenciaAumento()
+    {
+        inventario.Existencia += inventario.Cantidad;
+        inventario.Cantidad =0;
+
+    }
+
 
     private void ActualizarCodigoDeBarra()
     {
 
         var productoSeleccionado = ProductoList.FirstOrDefault(p => p.ProductoId == inventario.ProductoId);
+        
 
         if (productoSeleccionado != null)
         {
+            inventario.Existencia = productoSeleccionado.Existencia;
             inventario.CodigoBarra = productoSeleccionado.CodigoBarra;
             ExistenciaActual = productoSeleccionado.Existencia;
         }

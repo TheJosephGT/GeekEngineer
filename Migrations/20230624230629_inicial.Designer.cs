@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeekEngineer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230622231617_Inicial")]
-    partial class Inicial
+    [Migration("20230624230629_inicial")]
+    partial class inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -90,6 +90,9 @@ namespace GeekEngineer.Migrations
                     b.Property<string>("CodigoBarra")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Existencia")
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateOnly>("Fecha")
                         .HasColumnType("TEXT");

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GeekEngineer.Migrations
 {
     /// <inheritdoc />
-    public partial class Inicial : Migration
+    public partial class inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -94,7 +94,8 @@ namespace GeekEngineer.Migrations
                     Cantidad = table.Column<int>(type: "INTEGER", nullable: false),
                     CodigoBarra = table.Column<string>(type: "TEXT", nullable: false),
                     Fecha = table.Column<DateOnly>(type: "TEXT", nullable: false),
-                    Status = table.Column<bool>(type: "INTEGER", nullable: false)
+                    Status = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Existencia = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

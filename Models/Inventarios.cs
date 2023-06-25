@@ -12,4 +12,5 @@ public class Inventarios
     [Required(ErrorMessage = "El campo fecha es requerido.")]
     public DateOnly Fecha { get; set; } = DateOnly.FromDateTime(DateTime.Now);
     public bool Status { get; set; } = true;
+    public int Existencia { get; set; }
 }
