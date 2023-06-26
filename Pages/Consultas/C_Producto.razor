@@ -3,6 +3,7 @@
 @inject CategoriaBLL CategoriaBLL
 @inject ProveedorBLL ProveedorBLL
 @* @attribute [Authorize] *@
+@inject NotificationService notify
 
 <PageTitle>Consulta Productos</PageTitle>
 
@@ -19,7 +20,7 @@
     {
         <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
             FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4" AllowSorting="true" Data="@listaProductos"
-            TItem="Productos" ColumnWidth="150px">
+            TItem="Productos" ColumnWidth="120px">
 
             <Columns>
                 <RadzenGridColumn TItem="Productos" Property="ProductoId" Title="ID" />
@@ -35,12 +36,20 @@
                 <RadzenGridColumn TItem="Productos" Property="CodigoBarra" Title="Codigo de barra">
                 </RadzenGridColumn>
 
-                <RadzenGridColumn TItem="Productos" Title="Edit">
+                <RadzenGridColumn TItem="Productos" Title="Editar">
                     <Template Context="Producto">
-                        <RadzenLink Path=@($"/r_producto/{Producto.ProductoId}") Text="Editar" Target="_blank"
-                            Style="color: blue;" />
+                        <RadzenLink Path=@($"/r_producto/{Producto.ProductoId}") Text="Ver">
+                            <RadzenBadge BadgeStyle="BadgeStyle.Success" Text="Ver" />
+                        </RadzenLink>
                     </Template>
                 </RadzenGridColumn>
+
+                @* <RadzenGridColumn TItem="Productos" Title="Eliminar">
+                    <Template Context="Producto">
+                        <RadzenButton ButtonStyle="ButtonStyle.Danger" Click="@(args => Eliminar(Producto.ProductoId))"
+                            Class="mt-2" Text="Eliminar" />
+                    </Template>
+                </RadzenGridColumn> *@
             </Columns>
         </RadzenGrid>
     }
@@ -54,4 +63,18 @@
         listaProductos = ProductoBLL.GetList(o => true && o.Status == true);
 
     }
+
+    @* public void Eliminar(int productoId)
+    {
+        if (ProductoBLL.Eliminar(productoId))
+        {
+            notify.ShowNotification("Se ha eliminado con éxito.", NotificationSeverity.Success);
+            // Actualizar la lista de productos después de eliminar uno
+            listaProductos = ProductoBLL.GetList(o => true && o.Status == true);
+        }
+        else
+        {
+            notify.ShowNotification("No hay elementos para borrar.", NotificationSeverity.Warning);
+        }
+    } *@
 }

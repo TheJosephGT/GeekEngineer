@@ -11,32 +11,33 @@
 <button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
     Generar reporte</button>
 <div>
-@if (listaVentas == null)
-{
-    <p><em>Sin datos para mostrar...</em></p>
-}
-else
-{
-    <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-        FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4" AllowSorting="true" Data="@listaVentas"
-        TItem="Ventas" ColumnWidth="150px">
+    @if (listaVentas == null)
+    {
+        <p><em>Sin datos para mostrar...</em></p>
+    }
+    else
+    {
+        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+            FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4" AllowSorting="true" Data="@listaVentas"
+            TItem="Ventas" ColumnWidth="150px">
 
-        <Columns>
-            <RadzenGridColumn TItem="Ventas" Property="VentaId" Title="ID" />
-            <RadzenGridColumn TItem="Ventas" Property="ClienteId" Title="Cliente" />
-            <RadzenGridColumn TItem="Ventas" Property="Fecha" Title="Fecha" />
-            <RadzenGridColumn TItem="Ventas" Property="Total" Title="Total vendido" >
-            </RadzenGridColumn>
+            <Columns>
+                <RadzenGridColumn TItem="Ventas" Property="VentaId" Title="ID" />
+                <RadzenGridColumn TItem="Ventas" Property="ClienteId" Title="Cliente" />
+                <RadzenGridColumn TItem="Ventas" Property="Fecha" Title="Fecha" />
+                <RadzenGridColumn TItem="Ventas" Property="Total" Title="Total vendido">
+                </RadzenGridColumn>
 
-            <RadzenGridColumn TItem="Ventas" Title="Edit">
-                <Template Context="Venta">
-                    <RadzenLink Path=@($"/r_venta/{Venta.VentaId}") Text="Editar" Target="_blank"
-                        Style="color: blue;" />
-                </Template>
-            </RadzenGridColumn>
-        </Columns>
-    </RadzenGrid>
-}
+                <RadzenGridColumn TItem="Ventas" Title="Editar">
+                    <Template Context="Venta">
+                        <RadzenLink Path=@($"/r_venta/{Venta.VentaId}") Text="Ver">
+                            <RadzenBadge BadgeStyle="BadgeStyle.Success" Text="Ver" />
+                        </RadzenLink>
+                    </Template>
+                </RadzenGridColumn>
+            </Columns>
+        </RadzenGrid>
+    }
 </div>
 
 @code {

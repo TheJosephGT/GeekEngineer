@@ -9,7 +9,7 @@
 <h1 class="text-center">Consulta inventario</h1>
 
 <button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
-Generar reporte</button>
+    Generar reporte</button>
 
 <div>
     @if (lista == null)
@@ -28,13 +28,14 @@ Generar reporte</button>
                 <RadzenGridColumn TItem="Inventarios" Property="CantidadAumentada" Title="Cantidad" />
                 <RadzenGridColumn TItem="Inventarios" Property="Existencia" Title="Existencia" />
                 <RadzenGridColumn TItem="Inventarios" Property="CodigoBarra" Title="Codigo de barra" />
-                <RadzenGridColumn TItem="Inventarios" Property="Fecha" Title="Fecha" >
+                <RadzenGridColumn TItem="Inventarios" Property="Fecha" Title="Fecha">
                 </RadzenGridColumn>
 
-                <RadzenGridColumn TItem="Inventarios" Title="Edit">
+                <RadzenGridColumn TItem="Inventarios" Title="Editar">
                     <Template Context="Inventario">
-                        <RadzenLink Path=@($"/r_inventario/{Inventario.InventarioId}") Text="Editar" Target="_blank"
-                            Style="color: blue;" />
+                        <RadzenLink Path=@($"/r_inventario/{Inventario.InventarioId}") Text="Ver">
+                            <RadzenBadge BadgeStyle="BadgeStyle.Success" Text="Ver" />
+                        </RadzenLink>
                     </Template>
                 </RadzenGridColumn>
             </Columns>
@@ -47,6 +48,6 @@ Generar reporte</button>
     protected override void OnInitialized()
     {
         lista = InventarioBLL.GetList(o => true && o.Status == true);
-        
+
     }
 }
