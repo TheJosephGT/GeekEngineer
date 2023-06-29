@@ -173,7 +173,7 @@
     {
         if (cliente!.ClienteId > 0)
         {
-            var encontrado = ClienteBLL.Buscar(cliente);
+            var encontrado = ClienteBLL.Buscar(cliente.ClienteId);
             
             if (encontrado != null)
             {

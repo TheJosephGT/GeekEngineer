@@ -4,6 +4,7 @@
 @inject VentasBLL VentasBLL
 @inject ProductoBLL ProductoBLL
 @inject ClienteBLL ClienteBLL
+@inject IJSRuntime jsRunTime
 @*@attribute [Authorize]*@
 
 
@@ -40,7 +41,7 @@
                 <br>
                 <br>
                 <br>
-                <div class="row">
+                <div class="row hideWhenPrint">
                     <div class="col-sm-2 col-md-3 mb-2 mx-auto">
                         <div class="custom-group">
                             <RadzenDropDown class="custom-dropdown" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
@@ -95,7 +96,7 @@
                                     <td>RD$ @ProductoBLL.Buscar(item.ProductoId)?.Precio</td>
                                     <td>@ProductoBLL.Buscar(item.ProductoId)?.ITBIS %</td>
                                     <td>RD$ @item.Importe</td>
-                                    <td>
+                                    <td class="hideWhenPrint">
                                         <button class="btn btn-danger mr-2" onclick="@(() => EliminarDetalle(item))">
                                             <i class="oi oi-trash"></i>
                                         </button>
@@ -138,7 +139,7 @@
             <br>
 
             @*Botones*@
-            <div class="card-footer">
+            <div class="card-footer hideWhenPrint">
                 <div class="form-group text-center" display: inline-block>
                     <button type="button" class="btn btn-outline-primary" @onclick="Nuevo"><span
                             class="oi oi-file"></span>
@@ -150,6 +151,55 @@
                         Eliminar</button>
                 </div>
             </div>
+
+            @* <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-12" style="text-align: center;">
+                        <h1>Factura de venta</h1>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2" style="text-align: right;">
+                        <label>Nombre del cliente: @ClienteBLL.Buscar(venta.ClienteId)?.Nombre</label>
+                    </div>
+                    <div class="col-md-10" style="text-align: right;">
+                        <label>Fecha: @venta.Fecha</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12" style="text-align: right;">
+                        <h1>Productos comprados</h1>
+                    </div>
+                </div>
+                <table class="table table-light table-striped">
+                    <thead class="thead">
+                        <tr class="table text-center bg-inventariocolor">
+                            <th class="border border-3">Producto</th>
+                            <th class="border border-3">Cantidad</th>
+                            <th class="border border-3">Precio</th>
+                            <th class="border border-3">ITBIS</th>
+                            <th class="border border-3">Importe</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (venta.ventasDetalle is not null)
+                        {
+                            @foreach (var item in venta.ventasDetalle)
+                            {
+                                <tr class="text-center">
+                                    <td>@ProductoBLL.Buscar(item.ProductoId)?.Nombre</td>
+                                    <td>@item.Cantidad</td>
+                                    <td>RD$ @ProductoBLL.Buscar(item.ProductoId)?.Precio</td>
+                                    <td>@ProductoBLL.Buscar(item.ProductoId)?.ITBIS %</td>
+                                    <td>RD$ @item.Importe</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div> *@
         </div>
     </div>
 </EditForm>
@@ -212,6 +262,8 @@
         if (VentasBLL.Guardar(venta))
         {
             notify.ShowNotification("Fue guardado correctamente.");
+            //Generar factura en PDF
+            jsRunTime.InvokeVoidAsync("Facturar");
             venta = new Ventas();
         }
         else
@@ -220,7 +272,6 @@
         }
              
     }
-
     private void Buscar()
     {
         if (venta!.VentaId > 0)
