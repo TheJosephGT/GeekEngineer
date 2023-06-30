@@ -151,55 +151,6 @@
                         Eliminar</button>
                 </div>
             </div>
-
-            @* <div class="col-md-8">
-                <div class="row">
-                    <div class="col-md-12" style="text-align: center;">
-                        <h1>Factura de venta</h1>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-2" style="text-align: right;">
-                        <label>Nombre del cliente: @ClienteBLL.Buscar(venta.ClienteId)?.Nombre</label>
-                    </div>
-                    <div class="col-md-10" style="text-align: right;">
-                        <label>Fecha: @venta.Fecha</label>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12" style="text-align: right;">
-                        <h1>Productos comprados</h1>
-                    </div>
-                </div>
-                <table class="table table-light table-striped">
-                    <thead class="thead">
-                        <tr class="table text-center bg-inventariocolor">
-                            <th class="border border-3">Producto</th>
-                            <th class="border border-3">Cantidad</th>
-                            <th class="border border-3">Precio</th>
-                            <th class="border border-3">ITBIS</th>
-                            <th class="border border-3">Importe</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (venta.ventasDetalle is not null)
-                        {
-                            @foreach (var item in venta.ventasDetalle)
-                            {
-                                <tr class="text-center">
-                                    <td>@ProductoBLL.Buscar(item.ProductoId)?.Nombre</td>
-                                    <td>@item.Cantidad</td>
-                                    <td>RD$ @ProductoBLL.Buscar(item.ProductoId)?.Precio</td>
-                                    <td>@ProductoBLL.Buscar(item.ProductoId)?.ITBIS %</td>
-                                    <td>RD$ @item.Importe</td>
-                                </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div> *@
         </div>
     </div>
 </EditForm>
@@ -227,6 +178,7 @@
     public void Nuevo()
     {
         venta = new Ventas();
+        detalle.SubTotal = 0;
         notify.ShowNotification("Nueva plantilla creada correctamente.", NotificationSeverity.Success);
     }
 
@@ -320,13 +272,16 @@
             detalle.Importe += detalle.ITBIS;
             this.venta.ventasDetalle.Add(this.detalle);
             this.detalle = new VentasDetalle();
+            detalle.SubTotal = venta.ventasDetalle.Sum(p => p.PrecioProducto* p.Cantidad);
             venta.Total = venta.ventasDetalle.Sum(p => p.Importe);
         }
     }
 
     void EliminarDetalle(VentasDetalle detalleBorrado)
     {
+        venta.Total -= detalleBorrado.Importe;
         venta.ventasDetalle.Remove(detalleBorrado);
+        detalle.SubTotal -= detalleBorrado.PrecioProducto * detalleBorrado.Cantidad;
         venta.Total = venta.ventasDetalle.Sum(p => p.Importe);
     }
 }
