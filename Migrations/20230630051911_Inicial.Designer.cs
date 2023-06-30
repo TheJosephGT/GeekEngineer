@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeekEngineer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230628032247_Initial")]
-    partial class Initial
+    [Migration("20230630051911_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,6 +76,57 @@ namespace GeekEngineer.Migrations
                     b.HasKey("ClienteId");
 
                     b.ToTable("Clientes");
+                });
+
+            modelBuilder.Entity("Facturacion", b =>
+                {
+                    b.Property<int>("FacturaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateOnly>("Fecha")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("Total")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("FacturaId");
+
+                    b.ToTable("Facturacion");
+                });
+
+            modelBuilder.Entity("FacturacionDetalle", b =>
+                {
+                    b.Property<int>("DetalleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Concepto")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("FacturaId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("Importe")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("Precio")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("DetalleId");
+
+                    b.HasIndex("FacturaId");
+
+                    b.ToTable("FacturacionDetalle");
                 });
 
             modelBuilder.Entity("Inventarios", b =>
@@ -448,6 +499,15 @@ namespace GeekEngineer.Migrations
                     b.ToTable("VentasDetalle");
                 });
 
+            modelBuilder.Entity("FacturacionDetalle", b =>
+                {
+                    b.HasOne("Facturacion", null)
+                        .WithMany("facturaDetalle")
+                        .HasForeignKey("FacturaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -506,6 +566,11 @@ namespace GeekEngineer.Migrations
                         .HasForeignKey("VentaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Facturacion", b =>
+                {
+                    b.Navigation("facturaDetalle");
                 });
 
             modelBuilder.Entity("Ventas", b =>

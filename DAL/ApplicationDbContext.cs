@@ -12,6 +12,7 @@ namespace GeekEngineer.Data
         public DbSet<Productos> Productos { get; set; }
         public DbSet<Proveedores> Proveedores { get; set; }
         public DbSet<Ventas> Ventas { get; set; }
+        public DbSet<Facturacion> Facturacion { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GeekEngineer.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -82,6 +82,22 @@ namespace GeekEngineer.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Clientes", x => x.ClienteId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Facturacion",
+                columns: table => new
+                {
+                    FacturaId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ClienteId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Fecha = table.Column<DateOnly>(type: "TEXT", nullable: false),
+                    Total = table.Column<double>(type: "REAL", nullable: false),
+                    Status = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Facturacion", x => x.FacturaId);
                 });
 
             migrationBuilder.CreateTable(
@@ -268,6 +284,29 @@ namespace GeekEngineer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FacturacionDetalle",
+                columns: table => new
+                {
+                    DetalleId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    FacturaId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Concepto = table.Column<string>(type: "TEXT", nullable: true),
+                    Precio = table.Column<double>(type: "REAL", nullable: false),
+                    Importe = table.Column<double>(type: "REAL", nullable: false),
+                    Cantidad = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FacturacionDetalle", x => x.DetalleId);
+                    table.ForeignKey(
+                        name: "FK_FacturacionDetalle_Facturacion_FacturaId",
+                        column: x => x.FacturaId,
+                        principalTable: "Facturacion",
+                        principalColumn: "FacturaId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "VentasDetalle",
                 columns: table => new
                 {
@@ -330,6 +369,11 @@ namespace GeekEngineer.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_FacturacionDetalle_FacturaId",
+                table: "FacturacionDetalle",
+                column: "FacturaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_VentasDetalle_VentaId",
                 table: "VentasDetalle",
                 column: "VentaId");
@@ -360,6 +404,9 @@ namespace GeekEngineer.Migrations
                 name: "Clientes");
 
             migrationBuilder.DropTable(
+                name: "FacturacionDetalle");
+
+            migrationBuilder.DropTable(
                 name: "Inventarios");
 
             migrationBuilder.DropTable(
@@ -376,6 +423,9 @@ namespace GeekEngineer.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Facturacion");
 
             migrationBuilder.DropTable(
                 name: "Ventas");

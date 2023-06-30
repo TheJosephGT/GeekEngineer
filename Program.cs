@@ -37,6 +37,7 @@ namespace GeekEngineer
             builder.Services.AddScoped<ClienteBLL>();
             builder.Services.AddScoped<InventarioBLL>();
             builder.Services.AddScoped<VentasBLL>();
+            builder.Services.AddScoped<FacturacionBLL>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

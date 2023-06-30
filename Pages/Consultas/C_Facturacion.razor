@@ -1,0 +1,51 @@
+@page "/c_facturacion"
+@inject FacturacionBLL FacturacionBLL
+@* @attribute [Authorize] *@
+
+
+<PageTitle>Consulta facturación</PageTitle>
+
+
+<h1 class="text-center">Consulta facturación</h1>
+
+<button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
+    Generar reporte</button>
+<div>
+    @if (lista == null)
+    {
+        <p><em>Sin datos para mostrar...</em></p>
+    }
+    else
+    {
+        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+            FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4" AllowSorting="true" Data="@lista"
+            TItem="Facturacion" ColumnWidth="150px">
+
+            <Columns>
+                <RadzenGridColumn TItem="Facturacion" Property="FacturaId" Title="ID" />
+                <RadzenGridColumn TItem="Facturacion" Property="ClienteId" Title="ClienteId" />
+                <RadzenGridColumn TItem="Facturacion" Property="Fecha" Title="Fecha" />
+                <RadzenGridColumn TItem="Facturacion" Property="Total" Title="Total vendido">
+                </RadzenGridColumn>
+
+                <RadzenGridColumn TItem="Facturacion" Title="Editar">
+                    <Template Context="Facturacion">
+                        <RadzenLink Path=@($"/r_facturacion/{Facturacion.FacturaId}") Text="Ver">
+                            <RadzenBadge BadgeStyle="BadgeStyle.Success" Text="Ver" />
+                        </RadzenLink>
+                    </Template>
+                </RadzenGridColumn>
+            </Columns>
+        </RadzenGrid>
+    }
+</div>
+
+@code {
+    List<Facturacion> lista = new List<Facturacion>();
+
+    protected override void OnInitialized()
+    {
+        lista = FacturacionBLL.GetList(o => true && o.Status == true);
+
+    }
+}

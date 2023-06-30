@@ -1,19 +1,18 @@
-@page "/r_venta"
-@page "/r_venta/{ventaId:int}"
+@page "/r_facturacion"
+@page "/r_facturacion/{facturaId:int}"
 @inject NotificationService notify
-@inject VentasBLL VentasBLL
-@inject ProductoBLL ProductoBLL
+@inject FacturacionBLL FacturacionBLL
 @inject ClienteBLL ClienteBLL
 @inject IJSRuntime jsRunTime
 @*@attribute [Authorize]*@
 
 
-<EditForm Model="venta" OnInvalidSubmit="Guardar">
+<EditForm Model="facturacion" OnInvalidSubmit="Guardar">
     <DataAnnotationsValidator />
     <div class="card col-lg-8 mx-auto">
         <div class="shadow">
             <div class="card-header">
-                <h1 class="text-center"><strong>Registro de Venta</strong></h1>
+                <h1 class="text-center"><strong>Registro de facturación</strong></h1>
             </div>
             <br>
             <br>
@@ -21,7 +20,7 @@
                 <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputDate required="" @bind-Value="venta.Fecha" class="input" id="fecha" />
+                            <InputDate required="" @bind-Value="facturacion.Fecha" class="input" id="fecha" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Fecha</label>
@@ -32,7 +31,7 @@
                             <RadzenDropDown class="custom-dropdown" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                             FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
                             Data=@ClienteList TextProperty="Nombre" Name="Producto" ValueProperty="ClienteId"
-                            AllowClear="true" @bind-Value=@venta.ClienteId Placeholder="Cliente" />
+                            AllowClear="true" @bind-Value=@facturacion.ClienteId Placeholder="Cliente" />
                             <span class="custom-bar"></span>
                         </div>
                     </div>
@@ -42,13 +41,12 @@
                 <br>
                 <br>
                 <div class="row hideWhenPrint">
-                    <div class="col-sm-2 col-md-3 mb-2 mx-auto">
-                        <div class="custom-group">
-                            <RadzenDropDown class="custom-dropdown" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                            FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
-                            Data=@ProductoList TextProperty="Nombre" Name="Producto" ValueProperty="ProductoId"
-                            AllowClear="true" @bind-Value=@detalle.ProductoId Placeholder="Producto" />
-                            <span class="custom-bar"></span>
+                    <div class="col-sm-2 col-md-2 mb-2 mx-auto">
+                        <div class="group">
+                            <InputText @bind-Value="detalle.Concepto" class="input" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Concepto</label>
                         </div>
                     </div>
                     <br>
@@ -59,6 +57,14 @@
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Cantidad</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-md-2 mb-2 mx-auto">
+                        <div class="group">
+                            <InputNumber required="" @bind-Value="detalle.Precio" class="input" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Precio</label>
                         </div>
                     </div>
 
@@ -78,23 +84,21 @@
                 <table class="table table-light table-striped">
                     <thead class="thead">
                         <tr class="table text-center bg-inventariocolor">
-                            <th class="border border-3">Producto</th>
+                            <th class="border border-3">Concepto</th>
                             <th class="border border-3">Cantidad</th>
                             <th class="border border-3">Precio</th>
-                            <th class="border border-3">ITBIS</th>
                             <th class="border border-3">Importe</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @if (venta.ventasDetalle is not null)
+                        @if (facturacion.facturaDetalle is not null)
                         {
-                            @foreach (var item in venta.ventasDetalle)
+                            @foreach (var item in facturacion.facturaDetalle)
                             {
                                 <tr class="text-center">
-                                    <td>@ProductoBLL.Buscar(item.ProductoId)?.Nombre</td>
+                                    <td>@item.Concepto</td>
                                     <td>@item.Cantidad</td>
-                                    <td>RD$ @ProductoBLL.Buscar(item.ProductoId)?.Precio</td>
-                                    <td>@ProductoBLL.Buscar(item.ProductoId)?.ITBIS %</td>
+                                    <td>RD$ @item.Precio</td>
                                     <td>RD$ @item.Importe</td>
                                     <td class="hideWhenPrint">
                                         <button class="btn btn-danger mr-2" onclick="@(() => EliminarDetalle(item))">
@@ -115,41 +119,14 @@
                         <div class="custom-form-group">
                             <div class="custom-input-group">
                                 <div class="custom-input-group-prepend">
-                                    <span class="custom-input-group-text">SubTotal</span>
-                                </div>
-                                <input type="number" class="custom-input" value="@detalle.SubTotal" readonly>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="custom-col">
-                        <div class="custom-form-group">
-                            <div class="custom-input-group">
-                                <div class="custom-input-group-prepend">
                                     <span class="custom-input-group-text">Total</span>
                                 </div>
-                                <input type="number" class="custom-input" value="@venta.Total" readonly>
+                                <input type="number" class="custom-input" value="@facturacion.Total" readonly>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="form-group col-2">
-                    <span class="custom-input-group-text">Pago Obtenido</span>
-                    <InputNumber @bind-Value="PagoObtenido" @onfocusout="ObtenerDevuelta"
-                    class="form-control"/>
-                </div>
-
-        @*...................... Devuelta ......................*@
-
-                <div class="form-group col-md-2">
-                    <span class="custom-input-group-text">Devuelta</span>
-                    <InputNumber @bind-Value="Devuelta" class="form-control col-5" readOnly="true"/>
-                </div>
-            </div>
-
             <br>
             <br>
 
@@ -173,32 +150,26 @@
 @code
 {
     [Parameter]
-    public int ventaId { get; set; }
-    public Ventas venta { get; set; } = new Ventas();
-    public List<Productos> ProductoList = new List<Productos>();
+    public int facturaId { get; set; }
+    public Facturacion facturacion { get; set; } = new Facturacion();
     public List<Clientes> ClienteList = new List<Clientes>();
-    public VentasDetalle detalle = new VentasDetalle();
-    public double PagoObtenido { get; set; }
-    public double Devuelta { get; set; }
+    public FacturacionDetalle detalle = new FacturacionDetalle();
 
     protected override void OnInitialized()
     {
-        if (ventaId > 0)
+        if (facturaId > 0)
         {
-            this.venta.VentaId = ventaId;
+            this.facturacion.FacturaId = facturaId;
             this.Buscar();
         }
-        ProductoList = ProductoBLL.GetList(p => true && p.Status == true);
         ClienteList = ClienteBLL.GetList(p => true && p.Status == true);
     }
 
     public void Nuevo()
     {
-        venta = new Ventas();
-        detalle.SubTotal = 0;
-        PagoObtenido = 0;
-        Devuelta = 0;
+        facturacion = new Facturacion();
         detalle.Cantidad = 0;
+        detalle.Precio = 0;
         notify.ShowNotification("Nueva plantilla creada correctamente.", NotificationSeverity.Success);
     }
 
@@ -206,55 +177,36 @@
     {
         bool validar = true;
 
-        if (venta!.VentaId < 0)
+        if (facturacion!.FacturaId < 0)
         {
             notify.ShowNotification("El ID debe ser mayor que 0.", NotificationSeverity.Error);
             validar = false;
         }
-        if (venta.ventasDetalle.Count < 1)
+        if (facturacion.facturaDetalle.Count < 1)
         {
             notify.ShowNotification("Debe agregar al menos un detalle", NotificationSeverity.Error);
             validar = false;
         }
-        if(venta.ClienteId <= 0)
+        if(facturacion.ClienteId <= 0)
         {
             notify.ShowNotification("Debe seleccionar un cliente", NotificationSeverity.Error);
-            validar = false;
-        }
-        if(PagoObtenido <= 0)
-        {
-            notify.ShowNotification("Debe ingresar el pago obtenido.", NotificationSeverity.Error);
-            validar = false;
-        }
-        if(PagoObtenido < venta.Total)
-        {
-            notify.ShowNotification("El pago obtenido es menor que el monto a pagar (total)", NotificationSeverity.Error);
             validar = false;
         }
 
         return validar;
     }
 
-    private void ObtenerDevuelta()
-    {
-        if (PagoObtenido >= venta.Total)
-        {
-            Devuelta = PagoObtenido - venta.Total;
-        }
-    }
-
-
     void Guardar()
     {
 
         if (!Validar()) { return; }
 
-        if (VentasBLL.Guardar(venta))
+        if (FacturacionBLL.Guardar(facturacion))
         {
             notify.ShowNotification("Fue guardado correctamente.");
             //Generar factura en PDF
             jsRunTime.InvokeVoidAsync("Facturar");
-            venta = new Ventas();
+            facturacion = new Facturacion();
         }
         else
         {
@@ -264,14 +216,14 @@
     }
     private void Buscar()
     {
-        if (venta!.VentaId > 0)
+        if (facturacion!.FacturaId > 0)
         {
-            var encontrado = VentasBLL.Buscar(venta.VentaId);
+            var encontrado = FacturacionBLL.Buscar(facturacion.FacturaId);
             
             if (encontrado != null)
             {
                 notify.ShowNotification("Se ha encontrado con éxito", NotificationSeverity.Success);
-                this.venta = encontrado;
+                this.facturacion = encontrado;
             }
             else
             {
@@ -282,10 +234,10 @@
 
     public void Eliminar()
     {
-        if (VentasBLL.Eliminar(venta.VentaId))
+        if (FacturacionBLL.Eliminar(facturacion.FacturaId))
         {
             notify.ShowNotification("Se ha eliminado con éxito.", NotificationSeverity.Info);
-            venta = new Ventas();
+            facturacion = new Facturacion();
         }
         else
         {
@@ -296,40 +248,23 @@
 
     void AgregarDetalle()
     {
-        var producto = ProductoBLL.Buscar(detalle.ProductoId);
-        if (detalle.Cantidad > 0)
+        if (detalle.Cantidad > 0 && detalle.Precio > 0)
         {
-            if(detalle.Cantidad <= producto?.Existencia)
-            {
-                detalle.PrecioProducto = producto.Precio;
-                detalle.ITBIS = producto.ITBIS;
-                detalle.ITBIS = detalle.ITBIS / 100;
-                detalle.SubTotal += detalle.PrecioProducto;
-
-
-                detalle.Importe = detalle.Cantidad * producto.Precio;
-                detalle.ITBIS = detalle.Importe * detalle.ITBIS;
-                detalle.Importe += detalle.ITBIS;
-                this.venta.ventasDetalle.Add(this.detalle);
-                this.detalle = new VentasDetalle();
-                detalle.SubTotal = venta.ventasDetalle.Sum(p => p.PrecioProducto* p.Cantidad);
-                venta.Total = venta.ventasDetalle.Sum(p => p.Importe);
-            }else 
-            {
-                notify.ShowNotification("La cantidad asignada es mayor a la existencia", NotificationSeverity.Warning);
-            }
+                detalle.Importe = detalle.Cantidad * detalle.Precio;
+                this.facturacion.facturaDetalle.Add(this.detalle);
+                this.detalle = new FacturacionDetalle();
+                facturacion.Total = facturacion.facturaDetalle.Sum(p => p.Importe);
         }
         else
         {
-            notify.ShowNotification("La cantidad debe ser mayor que 0.", NotificationSeverity.Warning);
+            notify.ShowNotification("La cantidad y el precio deben ser mayor que 0.", NotificationSeverity.Warning);
         }
     }
 
-    void EliminarDetalle(VentasDetalle detalleBorrado)
+    void EliminarDetalle(FacturacionDetalle detalleBorrado)
     {
-        venta.Total -= detalleBorrado.Importe;
-        venta.ventasDetalle.Remove(detalleBorrado);
-        detalle.SubTotal -= detalleBorrado.PrecioProducto * detalleBorrado.Cantidad;
-        venta.Total = venta.ventasDetalle.Sum(p => p.Importe);
+        facturacion.Total -= detalleBorrado.Importe;
+        facturacion.facturaDetalle.Remove(detalleBorrado);
+        facturacion.Total = facturacion.facturaDetalle.Sum(p => p.Importe);
     }
 }
