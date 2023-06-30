@@ -135,6 +135,21 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="form-group col-2">
+                    <span class="custom-input-group-text">Pago Obtenido</span>
+                    <InputNumber @bind-Value="PagoObtenido" @onfocusout="ObtenerDevuelta"
+                    class="form-control"/>
+                </div>
+
+        @*...................... Devuelta ......................*@
+
+                <div class="form-group col-md-2">
+                    <span class="custom-input-group-text">Devuelta</span>
+                    <InputNumber @bind-Value="Devuelta" class="form-control col-5" readOnly="true"/>
+                </div>
+            </div>
+
             <br>
             <br>
 
@@ -163,6 +178,8 @@
     public List<Productos> ProductoList = new List<Productos>();
     public List<Clientes> ClienteList = new List<Clientes>();
     public VentasDetalle detalle = new VentasDetalle();
+    public double PagoObtenido { get; set; }
+    public double Devuelta { get; set; }
 
     protected override void OnInitialized()
     {
@@ -179,6 +196,9 @@
     {
         venta = new Ventas();
         detalle.SubTotal = 0;
+        PagoObtenido = 0;
+        Devuelta = 0;
+        detalle.Cantidad = 0;
         notify.ShowNotification("Nueva plantilla creada correctamente.", NotificationSeverity.Success);
     }
 
@@ -201,8 +221,26 @@
             notify.ShowNotification("Debe seleccionar un cliente", NotificationSeverity.Error);
             validar = false;
         }
+        if(PagoObtenido <= 0)
+        {
+            notify.ShowNotification("Debe ingresar el pago obtenido.", NotificationSeverity.Error);
+            validar = false;
+        }
+        if(PagoObtenido < venta.Total)
+        {
+            notify.ShowNotification("El pago obtenido es menor que el monto a pagar (total)", NotificationSeverity.Error);
+            validar = false;
+        }
 
         return validar;
+    }
+
+    private void ObtenerDevuelta()
+    {
+        if (PagoObtenido >= venta.Total)
+        {
+            Devuelta = PagoObtenido - venta.Total;
+        }
     }
 
 
@@ -259,21 +297,31 @@
     void AgregarDetalle()
     {
         var producto = ProductoBLL.Buscar(detalle.ProductoId);
-        if (detalle.Cantidad <= producto?.Existencia && detalle.Cantidad > 0)
+        if (detalle.Cantidad > 0)
         {
-            detalle.PrecioProducto = producto.Precio;
-            detalle.ITBIS = producto.ITBIS;
-            detalle.ITBIS = detalle.ITBIS / 100;
-            detalle.SubTotal += detalle.PrecioProducto;
+            if(detalle.Cantidad <= producto.Existencia)
+            {
+                detalle.PrecioProducto = producto.Precio;
+                detalle.ITBIS = producto.ITBIS;
+                detalle.ITBIS = detalle.ITBIS / 100;
+                detalle.SubTotal += detalle.PrecioProducto;
 
 
-            detalle.Importe = detalle.Cantidad * producto.Precio;
-            detalle.ITBIS = detalle.Importe * detalle.ITBIS;
-            detalle.Importe += detalle.ITBIS;
-            this.venta.ventasDetalle.Add(this.detalle);
-            this.detalle = new VentasDetalle();
-            detalle.SubTotal = venta.ventasDetalle.Sum(p => p.PrecioProducto* p.Cantidad);
-            venta.Total = venta.ventasDetalle.Sum(p => p.Importe);
+                detalle.Importe = detalle.Cantidad * producto.Precio;
+                detalle.ITBIS = detalle.Importe * detalle.ITBIS;
+                detalle.Importe += detalle.ITBIS;
+                this.venta.ventasDetalle.Add(this.detalle);
+                this.detalle = new VentasDetalle();
+                detalle.SubTotal = venta.ventasDetalle.Sum(p => p.PrecioProducto* p.Cantidad);
+                venta.Total = venta.ventasDetalle.Sum(p => p.Importe);
+            }else 
+            {
+                notify.ShowNotification("La cantidad asignada es mayor a la existencia", NotificationSeverity.Warning);
+            }
+        }
+        else
+        {
+            notify.ShowNotification("La cantidad debe ser mayor que 0.", NotificationSeverity.Warning);
         }
     }
 

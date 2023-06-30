@@ -1,0 +1,135 @@
+@page "/f_FacturaVenta"
+@page "/f_Factura/{ventaId:int}"
+@inject VentasBLL VentasBLL
+@inject ClienteBLL ClienteBLL
+@inject ProductoBLL ProductoBLL
+
+<head>
+    <style>
+        .factura {
+            table-layout: fixed;
+        }
+
+        .fact-info>div>h5 {
+            font-weight: bold;
+        }
+
+        .factura>thead {
+            border-top: solid 3px #000;
+            border-bottom: 3px solid #000;
+        }
+
+        .factura>thead>tr>th:nth-child(2),
+        .factura>tbod>tr>td:nth-child(2) {
+            width: 300px;
+        }
+
+        .factura>thead>tr>th:nth-child(n+3) {
+            text-align: right;
+        }
+
+        .factura>tbody>tr>td:nth-child(n+3) {
+            text-align: right;
+        }
+
+        .factura>tfoot>tr>th,
+        .factura>tfoot>tr>th:nth-child(n+3) {
+            font-size: 24px;
+            text-align: right;
+        }
+
+        .cond {
+            border-top: solid 2px #000;
+        }
+    </style>
+</head>
+
+
+<div id="app" class="col-11" onload="window.print()">
+
+    <h1>Factura</h1>
+
+    <hr />
+
+    <div class="row fact-info mt-3">
+        <div class="col-3">
+            <h5>Facturar a</h5>
+            <p>
+                @ClienteBLL.Buscar(venta.ClienteId)?.Nombre;
+            </p>
+        </div>
+        <div class="col-3">
+            <h5>N° de factura</h5>
+            <h5>Fecha</h5>
+        </div>
+        <div class="col-3">
+            <h5>@venta.VentaId</h5>
+            <p>@venta.Fecha</p>
+        </div>
+    </div>
+
+    <div class="row my-5">
+        <table class="table table-borderless factura">
+            <thead>
+                <tr>
+                    <th>Cant.</th>
+                    <th>Producto</th>
+                    <th>Precio Unitario</th>
+                    <th>ITBIS</th>
+                    <th>Importe</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in venta.ventasDetalle)
+                {
+                    <tr class="text-center">
+                        <td>@ProductoBLL.Buscar(item.ProductoId)?.Nombre</td>
+                        <td>@item.Cantidad</td>
+                        <td>RD$ @ProductoBLL.Buscar(item.ProductoId)?.Precio</td>
+                        <td>@ProductoBLL.Buscar(item.ProductoId)?.ITBIS %</td>
+                        <td>RD$ @item.Importe</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>Total Factura</th>
+                    <th>@venta.Total</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <div class="cond row">
+        <div class="col-12 mt-3">
+            <h4>Nombre de empresa: ########</h4>
+            <p>Sistema creado por GeekEngineer</p>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int VentaId { get; set; }
+    public Ventas venta { get; set; } = new Ventas();
+
+    protected override void OnInitialized()
+    {
+        if (VentaId > 0)
+        {
+            this.Buscar();
+        }
+    }
+
+    private void Buscar()
+    {
+        Ventas? ventaEncontrada = VentasBLL.Buscar(this.VentaId);
+        if (ventaEncontrada != null)
+        {
+            this.venta = ventaEncontrada;
+        }
+    }
+}
