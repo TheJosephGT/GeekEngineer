@@ -425,3 +425,12 @@ button:active {
   position: relative;
   border-radius: 5px;
 }
+
+#input-tamanio
+{
+  width: 150px;
+}
+#venta-label-tamanio
+{
+  padding-left:30px;
+}

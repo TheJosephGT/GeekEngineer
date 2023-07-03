@@ -135,19 +135,30 @@
                 </div>
             </div>
 
+<br>
+<br>
             <div class="row">
-                <div class="form-group col-2">
-                    <span class="custom-input-group-text">Pago Obtenido</span>
-                    <InputNumber @bind-Value="PagoObtenido" @onfocusout="ObtenerDevuelta"
-                    class="form-control"/>
-                </div>
+                    <div class="col-sm-2 col-md-2 mb-2 mx-auto" id="venta-label-tamanio">
+                        <div class="group">
+                        <InputNumber required="" @bind-Value="PagoObtenido" @onfocusout="ObtenerDevuelta" class="input"/>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Pago Obtenido</label>
+                        </div>
+                    </div>
 
         @*...................... Devuelta ......................*@
 
-                <div class="form-group col-md-2">
-                    <span class="custom-input-group-text">Devuelta</span>
-                    <InputNumber @bind-Value="Devuelta" class="form-control col-5" readOnly="true"/>
-                </div>
+                    <div class="custom-col">
+                        <div class="custom-form-group">
+                            <div class="custom-input-group">
+                                <div class="custom-input-group-prepend">
+                                    <span class="custom-input-group-text">Devuelta</span>
+                                </div>
+                                <InputNumber @bind-Value="Devuelta" class="form-control col-5" readOnly="true" id="input-tamanio"/>
+                            </div>
+                        </div>
+                    </div>
             </div>
 
             <br>
