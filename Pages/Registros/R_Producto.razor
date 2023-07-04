@@ -6,7 +6,7 @@
 @inject NotificationService notify
 @* @attribute [Authorize] *@
 
-<EditForm Model="producto" OnValidSubmit="Guardar">
+<EditForm Model="producto">
     <DataAnnotationsValidator />
     <div class="card col-lg-7 mx-auto">
         <div class="shadow">
@@ -28,7 +28,8 @@
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="custom-group">
-                            <RadzenDropDown class="custom-dropdown" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                            <RadzenDropDown class="custom-dropdown"
+                                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                 FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
                                 Data=@CategoriaList TextProperty="Nombre" Name="Producto" ValueProperty="CategoriaId"
                                 AllowClear="true" @bind-Value=@producto.CategoriaId Placeholder="Categoría" />
@@ -65,15 +66,6 @@
                 <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputNumber required="" @bind-Value="producto.Precio" class="input" />
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <label>Precio</label>
-                            <ValidationMessage For="@(() => producto.Precio)" />
-                        </div>
-                    </div>
-                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
-                        <div class="group">
                             <InputNumber required="" @bind-Value="producto.Costo" class="input" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
@@ -81,6 +73,17 @@
                             <ValidationMessage For="@(() => producto.Costo)" />
                         </div>
                     </div>
+
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputNumber required="" @bind-Value="producto.Precio" class="input" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Precio</label>
+                            <ValidationMessage For="@(() => producto.Precio)" />
+                        </div>
+                    </div>
+
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
                             <InputNumber required="" @bind-Value="producto.ITBIS" class="input" />
@@ -96,7 +99,8 @@
                 <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="custom-group">
-                            <RadzenDropDown class="custom-dropdown" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                            <RadzenDropDown class="custom-dropdown"
+                                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                 FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
                                 Data=@ProveedorList TextProperty="Nombre" Name="Producto" ValueProperty="ProveedorId"
                                 AllowClear="true" @bind-Value=@producto.ProveedorId Placeholder="Proveedor" />
@@ -143,7 +147,7 @@
                     <button type="button" class="btn btn-outline-primary" @onclick="Nuevo"><span
                             class="oi oi-file"></span>
                         Nuevo</button>
-                    <button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
+                    <button type="button" class="btn btn-outline-success" @onclick="Guardar"><span class="oi oi-document"></span>
                         Guardar</button>
                     <button type="button" class="btn btn-outline-danger" @onclick="Eliminar"><span
                             class="oi oi-delete"></span>

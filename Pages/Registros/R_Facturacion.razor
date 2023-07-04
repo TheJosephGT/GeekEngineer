@@ -7,12 +7,12 @@
 @*@attribute [Authorize]*@
 
 
-<EditForm Model="facturacion" OnInvalidSubmit="Guardar">
+<EditForm Model="facturacion">
     <DataAnnotationsValidator />
     <div class="card col-lg-8 mx-auto">
         <div class="shadow">
             <div class="card-header">
-                <h1 class="text-center"><strong>Registro de facturación</strong></h1>
+                <h1 class="text-center"><strong>Registro de Facturación</strong></h1>
             </div>
             <br>
             <br>
@@ -41,9 +41,9 @@
                 <br>
                 <br>
                 <div class="row hideWhenPrint">
-                    <div class="col-sm-2 col-md-2 mb-2 mx-auto">
+                    <div class="col-sm-3 col-md-3 mb-3 mx-auto">
                         <div class="group">
-                            <InputText @bind-Value="detalle.Concepto" class="input" />
+                            <InputText required="" @bind-Value="detalle.Concepto" class="input" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Concepto</label>
@@ -136,7 +136,7 @@
                     <button type="button" class="btn btn-outline-primary" @onclick="Nuevo"><span
                             class="oi oi-file"></span>
                         Nuevo</button>
-                    <button type="submit" class="btn btn-outline-success" @onclick="Guardar"><span class="oi oi-document"></span>
+                    <button type="button" class="btn btn-outline-success" @onclick="Guardar"><span class="oi oi-document"></span>
                         Guardar</button>
                     <button type="button" class="btn btn-outline-danger" @onclick="Eliminar"><span
                             class="oi oi-delete"></span>
@@ -236,7 +236,7 @@
     {
         if (FacturacionBLL.Eliminar(facturacion.FacturaId))
         {
-            notify.ShowNotification("Se ha eliminado con éxito.", NotificationSeverity.Info);
+            notify.ShowNotification("Se ha eliminado con éxito.", NotificationSeverity.Success);
             facturacion = new Facturacion();
         }
         else

@@ -4,7 +4,7 @@
 @inject NotificationService notify
 @* @attribute [Authorize] *@
 
-<EditForm Model="proveedor" OnValidSubmit="Guardar">
+<EditForm Model="proveedor">
     <DataAnnotationsValidator />
     <div class="card col-lg-7 mx-auto">
         <div class="shadow">
@@ -87,7 +87,7 @@
                     <button type="button" class="btn btn-outline-primary" @onclick="Nuevo"><span
                             class="oi oi-file"></span>
                         Nuevo</button>
-                    <button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
+                    <button type="button" class="btn btn-outline-success"@onclick="Guardar"><span class="oi oi-document"></span>
                         Guardar</button>
                     <button type="button" class="btn btn-outline-danger" @onclick="Eliminar"><span
                             class="oi oi-delete"></span>
@@ -190,7 +190,7 @@
     {
         if (ProveedorBLL.Eliminar(proveedor.ProveedorId))
         {
-            notify.ShowNotification("Se ha eliminado con éxito.", NotificationSeverity.Info);
+            notify.ShowNotification("Se ha eliminado con éxito.", NotificationSeverity.Success);
             proveedor = new Proveedores();
         }
         else

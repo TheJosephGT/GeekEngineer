@@ -7,7 +7,7 @@
 
 <PageTitle>Consulta Productos</PageTitle>
 
-<h1 class="text-center">Consulta productos</h1>
+<h1 class="text-center">Consulta Productos</h1>
 
 <button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
     Generar reporte</button>
@@ -43,13 +43,6 @@
                         </RadzenLink>
                     </Template>
                 </RadzenGridColumn>
-
-                @* <RadzenGridColumn TItem="Productos" Title="Eliminar">
-                    <Template Context="Producto">
-                        <RadzenButton ButtonStyle="ButtonStyle.Danger" Click="@(args => Eliminar(Producto.ProductoId))"
-                            Class="mt-2" Text="Eliminar" />
-                    </Template>
-                </RadzenGridColumn> *@
             </Columns>
         </RadzenGrid>
     }
@@ -63,18 +56,4 @@
         listaProductos = ProductoBLL.GetList(o => true && o.Status == true);
 
     }
-
-    @* public void Eliminar(int productoId)
-    {
-        if (ProductoBLL.Eliminar(productoId))
-        {
-            notify.ShowNotification("Se ha eliminado con éxito.", NotificationSeverity.Success);
-            // Actualizar la lista de productos después de eliminar uno
-            listaProductos = ProductoBLL.GetList(o => true && o.Status == true);
-        }
-        else
-        {
-            notify.ShowNotification("No hay elementos para borrar.", NotificationSeverity.Warning);
-        }
-    } *@
 }

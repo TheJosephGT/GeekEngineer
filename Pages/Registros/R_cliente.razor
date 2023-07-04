@@ -5,7 +5,7 @@
 @*@attribute [Authorize]*@
 
 
-<EditForm Model="cliente" OnValidSubmit="Guardar">
+<EditForm Model="cliente">
     <DataAnnotationsValidator />
 
     <div class="card col-lg-7 mx-auto">
@@ -19,7 +19,7 @@
                 <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputText @bind-Value="cliente.Nombre" class="input" />
+                            <InputText required="" @bind-Value="cliente.Nombre" class="input"/>
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Nombre</label>
@@ -28,7 +28,7 @@
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputDate @bind-Value="cliente.Fecha" class="input" id="fecha" />
+                            <InputDate required="" @bind-Value="cliente.Fecha" class="input" id="fecha" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Fecha</label>
@@ -41,7 +41,7 @@
                 <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputText @bind-Value="cliente.Cedula" class="input" />
+                            <InputText required="" @bind-Value="cliente.Cedula" class="input" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Cédula</label>
@@ -52,7 +52,7 @@
                     <br>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputText @bind-Value="cliente.Direccion" class="input" />
+                            <InputText required="" @bind-Value="cliente.Direccion" class="input" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Dirección</label>
@@ -66,7 +66,7 @@
                 <div class="row">
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputText @bind-Value="cliente.Telefono" class="input" />
+                            <InputText required="" @bind-Value="cliente.Telefono" class="input" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Teléfono</label>
@@ -75,7 +75,7 @@
                     </div>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
-                            <InputText @bind-Value="cliente.Email" class="input" />
+                            <InputText required="" @bind-Value="cliente.Email" class="input" />
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Email</label>
@@ -91,7 +91,7 @@
                     <button type="button" class="btn btn-outline-primary" @onclick="Nuevo"><span
                             class="oi oi-file"></span>
                         Nuevo</button>
-                    <button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
+                    <button type="submit" class="btn btn-outline-success"@onclick="Guardar"><span class="oi oi-document"></span>
                         Guardar</button>
                     <button type="button" class="btn btn-outline-danger" @onclick="Eliminar"><span
                             class="oi oi-delete"></span>

@@ -3,12 +3,12 @@
 
 
 
-<EditForm Model="compra" OnValidSubmit="Guardar">
+<EditForm Model="compra">
     <DataAnnotationsValidator />
     <div class="card col-lg-7 mx-auto">
         <div class="shadow">
             <div class="card-header">
-                <h1 class="text-center"><strong>Registro de compra</strong></h1>
+                <h1 class="text-center"><strong>Registro de Compra</strong></h1>
             </div>
             <br>
             <br>
@@ -144,7 +144,7 @@
                     <button type="button" class="btn btn-outline-primary" @onclick="Nuevo"><span
                             class="oi oi-file"></span>
                         Nuevo</button>
-                    <button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
+                    <button type="button" class="btn btn-outline-success" @onclick="Guardar"><span class="oi oi-document"></span>
                         Guardar</button>
                     <button type="button" class="btn btn-outline-danger" @onclick="Eliminar"><span
                             class="oi oi-delete"></span>

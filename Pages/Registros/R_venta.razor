@@ -8,7 +8,7 @@
 @*@attribute [Authorize]*@
 
 
-<EditForm Model="venta" OnInvalidSubmit="Guardar">
+<EditForm Model="venta">
     <DataAnnotationsValidator />
     <div class="card col-lg-8 mx-auto">
         <div class="shadow">
@@ -144,6 +144,7 @@
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Pago Obtenido</label>
+                             <ValidationMessage For="@(() => PagoObtenido)" />
                         </div>
                     </div>
 
@@ -156,6 +157,7 @@
                                     <span class="custom-input-group-text">Devuelta</span>
                                 </div>
                                 <InputNumber @bind-Value="Devuelta" class="form-control col-5" readOnly="true" id="input-tamanio"/>
+                                 <ValidationMessage For="@(() => Devuelta)" />
                             </div>
                         </div>
                     </div>
@@ -170,7 +172,7 @@
                     <button type="button" class="btn btn-outline-primary" @onclick="Nuevo"><span
                             class="oi oi-file"></span>
                         Nuevo</button>
-                    <button type="submit" class="btn btn-outline-success" @onclick="Guardar"><span class="oi oi-document"></span>
+                    <button type="button" class="btn btn-outline-success" @onclick="Guardar"><span class="oi oi-document"></span>
                         Guardar</button>
                     <button type="button" class="btn btn-outline-danger" @onclick="Eliminar"><span
                             class="oi oi-delete"></span>
@@ -295,7 +297,7 @@
     {
         if (VentasBLL.Eliminar(venta.VentaId))
         {
-            notify.ShowNotification("Se ha eliminado con éxito.", NotificationSeverity.Info);
+            notify.ShowNotification("Se ha eliminado con éxito.", NotificationSeverity.Success);
             venta = new Ventas();
         }
         else
