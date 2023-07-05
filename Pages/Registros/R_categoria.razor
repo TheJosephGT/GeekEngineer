@@ -5,7 +5,7 @@
 @* @attribute [Authorize] *@
 
 
-<EditForm Model="categoria">
+<EditForm Model="categoria" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
 
     <div class="card col-lg-7 mx-auto">
@@ -47,7 +47,7 @@
                     <button type="button" class="btn btn-outline-primary" @onclick="Nuevo"><span
                             class="oi oi-file"></span>
                         Nuevo</button>
-                    <button type="button" class="btn btn-outline-success" @onclick="Guardar"><span class="oi oi-document"></span>
+                    <button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
                         Guardar</button>
                     <button type="button" class="btn btn-outline-danger" @onclick="Eliminar"><span
                             class="oi oi-delete"></span>
