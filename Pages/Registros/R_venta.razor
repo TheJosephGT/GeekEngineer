@@ -83,6 +83,7 @@
                             <th class="border border-3">Precio</th>
                             <th class="border border-3">ITBIS</th>
                             <th class="border border-3">Importe</th>
+                            <th class="border border-3">Descuento</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -96,6 +97,7 @@
                                     <td>RD$ @ProductoBLL.Buscar(item.ProductoId)?.Precio</td>
                                     <td>@ProductoBLL.Buscar(item.ProductoId)?.ITBIS %</td>
                                     <td>RD$ @item.Importe</td>
+                                    <td>@ProductoBLL.Buscar(item.ProductoId)?.Descuento %</td>
                                     <td class="hideWhenPrint">
                                         <button class="btn btn-danger mr-2" onclick="@(() => EliminarDetalle(item))">
                                             <i class="oi oi-trash"></i>
@@ -323,6 +325,11 @@
                 detalle.ITBIS = detalle.Importe * detalle.ITBIS;
                 detalle.Importe += detalle.ITBIS;
 
+                producto.Descuento = producto.Descuento / 100;
+
+                producto.Descuento = detalle.Importe * producto.Descuento;
+                
+
                 // Verificar si el detalle ya existe en la lista
                 var detalleExistente = this.venta.ventasDetalle.FirstOrDefault(d => d.ProductoId == detalle.ProductoId);
                 if (detalleExistente != null)
@@ -350,6 +357,7 @@
                 this.detalle = new VentasDetalle();
                 detalle.SubTotal = venta.ventasDetalle.Sum(p => p.PrecioProducto * p.Cantidad);
                 venta.Total = venta.ventasDetalle.Sum(p => p.Importe);
+                venta.Total = venta.Total - producto.Descuento;
             }
             else
             {
