@@ -54,6 +54,7 @@ public class VentasBLL
                 {
                     producto.Existencia -= item.Cantidad;
                     contexto.Entry(producto).State = EntityState.Modified;
+                    
                 }
             }
         }
