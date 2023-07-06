@@ -258,7 +258,6 @@
         }
     }
 
-
     void Guardar()
     {
 
@@ -325,34 +324,25 @@
                 detalle.ITBIS = detalle.Importe * detalle.ITBIS;
                 detalle.Importe += detalle.ITBIS;
 
-                producto.Descuento = producto.Descuento / 100;
-
-                producto.Descuento = detalle.Importe * producto.Descuento;
-
+                producto.Descuento /= 100;
+                producto.Descuento *= detalle.Importe;
                 detalle.Importe -= producto.Descuento;
 
-
-                // Verificar si el detalle ya existe en la lista
                 var detalleExistente = this.venta.ventasDetalle.FirstOrDefault(d => d.ProductoId == detalle.ProductoId);
                 if (detalleExistente != null)
                 {
-                    // Obtener la cantidad máxima disponible para el producto
                     var cantidadMaximaDisponible = producto.Existencia - detalleExistente.Cantidad;
 
-                    // Verificar si se excede la cantidad máxima disponible
                     if (detalle.Cantidad > cantidadMaximaDisponible)
                     {
                         notify.ShowNotification("La cantidad excede la cantidad máxima disponible", NotificationSeverity.Warning);
-                        return; // Salir del método sin agregar el detalle
+                        return;
                     }
-
-                    // Actualizar las propiedades del detalle existente
                     detalleExistente.Cantidad += detalle.Cantidad;
                     detalleExistente.Importe += detalle.Importe;
                 }
                 else
                 {
-                    // Agregar el detalle a la lista
                     this.venta.ventasDetalle.Add(this.detalle);
                 }
 
@@ -370,8 +360,6 @@
             notify.ShowNotification("La cantidad debe ser mayor que 0.", NotificationSeverity.Warning);
         }
     }
-
-
 
     void EliminarDetalle(VentasDetalle detalleBorrado)
     {
