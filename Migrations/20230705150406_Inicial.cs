@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GeekEngineer.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -170,6 +170,11 @@ namespace GeekEngineer.Migrations
                     ClienteId = table.Column<int>(type: "INTEGER", nullable: false),
                     Fecha = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     Total = table.Column<double>(type: "REAL", nullable: false),
+                    EsCredito = table.Column<string>(type: "TEXT", nullable: false),
+                    Cuotas = table.Column<int>(type: "INTEGER", nullable: false),
+                    ValorCuotas = table.Column<double>(type: "REAL", nullable: false),
+                    TipoCredito = table.Column<string>(type: "TEXT", nullable: true),
+                    CuotaInicial = table.Column<string>(type: "TEXT", nullable: true),
                     Status = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
