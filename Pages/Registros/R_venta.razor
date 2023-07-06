@@ -170,7 +170,7 @@
                         </div>
                     </div>
 
-        @*...................... Devuelta ......................*@
+            @*...................... Devuelta ......................*@
 
                     <div class="custom-col">
                         <div class="custom-form-group">
@@ -232,7 +232,7 @@
 
                     <div class="col-sm-2 col-md-2 mb-2 mx-auto">
                         <div class="group">
-                            <InputSelect class="input" @bind-Value="venta.CuotaInicial">
+                            <InputSelect class="input" @bind-Value="venta.CuotaInicial" @onfocusout="CalcularSaldoRestante">
                                     @if (string.IsNullOrEmpty(venta.CuotaInicial))
                                     {
                                         venta.CuotaInicial = OpcionesCuotaInicial.FirstOrDefault();
@@ -251,6 +251,32 @@
 
 
                 </div>
+            }
+
+            @if(venta.CuotaInicial == "Si")
+            {
+                    <div class="custom-col">
+                        <div class="custom-form-group">
+                            <div class="custom-input-group">
+                                <div class="custom-input-group-prepend">
+                                    <span class="custom-input-group-text">Valor abonado: </span>
+                                </div>
+                                <InputNumber @bind-Value="venta.ValorCuotas" class="form-control col-5" readOnly="true" id="input-tamanio"/>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="custom-col">
+                        <div class="custom-form-group">
+                            <div class="custom-input-group">
+                                <div class="custom-input-group-prepend">
+                                    <span class="custom-input-group-text">Saldo restante: @SaldoRestante</span>
+                                </div>
+                                <InputNumber @bind-Value="SaldoRestante" class="form-control col-5" readOnly="true" id="input-tamanio"/>
+                            </div>
+                        </div>
+                    </div>
             }
 
             <br>
@@ -286,6 +312,7 @@
     public VentasDetalle detalle = new VentasDetalle();
     public double PagoObtenido { get; set; }
     public double Devuelta { get; set; }
+    public double SaldoRestante { get; set; }
 
     protected override void OnInitialized()
     {
@@ -341,6 +368,11 @@
         return validar;
     }
 
+    private void CalcularSaldoRestante()
+    {
+        SaldoRestante = venta.Total - venta.ValorCuotas;
+    }
+
     private void ObtenerValorCuotas()
     {
         venta.ValorCuotas = venta.Total / venta.Cuotas;
@@ -365,6 +397,8 @@
             //Generar factura en PDF
             jsRunTime.InvokeVoidAsync("Facturar");
             venta = new Ventas();
+            PagoObtenido = 0;
+            Devuelta = 0;
         }
         else
         {
