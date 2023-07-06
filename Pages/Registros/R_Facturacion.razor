@@ -250,10 +250,10 @@
     {
         if (detalle.Cantidad > 0 && detalle.Precio > 0)
         {
-                detalle.Importe = detalle.Cantidad * detalle.Precio;
-                this.facturacion.facturaDetalle.Add(this.detalle);
-                this.detalle = new FacturacionDetalle();
-                facturacion.Total = facturacion.facturaDetalle.Sum(p => p.Importe);
+            detalle.Importe = detalle.Cantidad * detalle.Precio;
+            this.facturacion.facturaDetalle.Add(this.detalle);
+            this.detalle = new FacturacionDetalle();
+            facturacion.Total = facturacion.facturaDetalle.Sum(p => p.Importe);
         }
         else
         {

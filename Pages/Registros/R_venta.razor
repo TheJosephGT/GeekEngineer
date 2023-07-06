@@ -100,6 +100,7 @@
                             <th class="border border-3">Cantidad</th>
                             <th class="border border-3">Precio</th>
                             <th class="border border-3">ITBIS</th>
+                            <th class="border border-3">Descuento</th>
                             <th class="border border-3">Importe</th>
                         </tr>
                     </thead>
@@ -113,6 +114,7 @@
                                     <td>@item.Cantidad</td>
                                     <td>RD$ @ProductoBLL.Buscar(item.ProductoId)?.Precio</td>
                                     <td>@ProductoBLL.Buscar(item.ProductoId)?.ITBIS %</td>
+                                    <td>@ProductoBLL.Buscar(item.ProductoId)?.Descuento %</td>
                                     <td>RD$ @item.Importe</td>
                                     <td class="hideWhenPrint">
                                         <button class="btn btn-danger mr-2" onclick="@(() => EliminarDetalle(item))">
@@ -352,7 +354,6 @@
         }
     }
 
-
     void Guardar()
     {
 
@@ -419,27 +420,25 @@
                 detalle.ITBIS = detalle.Importe * detalle.ITBIS;
                 detalle.Importe += detalle.ITBIS;
 
-                // Verificar si el detalle ya existe en la lista
+                producto.Descuento /= 100;
+                producto.Descuento *= detalle.Importe;
+                detalle.Importe -= producto.Descuento;
+
                 var detalleExistente = this.venta.ventasDetalle.FirstOrDefault(d => d.ProductoId == detalle.ProductoId);
                 if (detalleExistente != null)
                 {
-                    // Obtener la cantidad máxima disponible para el producto
                     var cantidadMaximaDisponible = producto.Existencia - detalleExistente.Cantidad;
 
-                    // Verificar si se excede la cantidad máxima disponible
                     if (detalle.Cantidad > cantidadMaximaDisponible)
                     {
                         notify.ShowNotification("La cantidad excede la cantidad máxima disponible", NotificationSeverity.Warning);
-                        return; // Salir del método sin agregar el detalle
+                        return;
                     }
-
-                    // Actualizar las propiedades del detalle existente
                     detalleExistente.Cantidad += detalle.Cantidad;
                     detalleExistente.Importe += detalle.Importe;
                 }
                 else
                 {
-                    // Agregar el detalle a la lista
                     this.venta.ventasDetalle.Add(this.detalle);
                 }
 
@@ -457,8 +456,6 @@
             notify.ShowNotification("La cantidad debe ser mayor que 0.", NotificationSeverity.Warning);
         }
     }
-
-
 
     void EliminarDetalle(VentasDetalle detalleBorrado)
     {

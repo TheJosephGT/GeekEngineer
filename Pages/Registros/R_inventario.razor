@@ -189,7 +189,7 @@
         {
             inventario.Existencia -= Cantidad;
             inventario.CantidadAumentada -= Cantidad;
-            Cantidad =0;
+            Cantidad = 0;
             notify.ShowNotification("Se ha restado la existencia.", NotificationSeverity.Success);
         }
 
@@ -199,7 +199,6 @@
     {
 
         var productoSeleccionado = ProductoList.FirstOrDefault(p => p.ProductoId == inventario.ProductoId);
-        
 
         if (productoSeleccionado != null)
         {
