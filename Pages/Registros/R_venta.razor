@@ -27,6 +27,24 @@
                             <label>Fecha</label>
                         </div>
                     </div>
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputSelect class="input" @bind-Value="venta.EsCredito">
+                                    @if (string.IsNullOrEmpty(venta.EsCredito))
+                                    {
+                                        venta.EsCredito = OpcionesCredito.FirstOrDefault();
+                                    }
+                                    @foreach (var item in OpcionesCredito)
+                                    {
+                                        <option value="@item">@item</option>
+                                    }
+                            </InputSelect>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>¿Es a crédito?</label>
+                            <ValidationMessage For="@(() => venta.EsCredito)" />
+                        </div>
+                    </div>
                     <div class="col-sm- col-md-4 mb-2 mx-auto">
                         <div class="custom-group">
                             <RadzenDropDown class="custom-dropdown" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
@@ -137,7 +155,9 @@
 
 <br>
 <br>
-            <div class="row">
+            @if(venta.EsCredito == "No" || string.IsNullOrEmpty(venta.EsCredito))
+            {
+                <div class="row">
                     <div class="col-sm-2 col-md-2 mb-2 mx-auto" id="venta-label-tamanio">
                         <div class="group">
                         <InputNumber required="" @bind-Value="PagoObtenido" @onfocusout="ObtenerDevuelta" class="input"/>
@@ -162,6 +182,74 @@
                         </div>
                     </div>
             </div>
+            }
+            @if(venta.EsCredito == "Si")
+            {
+                <div class="row">
+                    <div class="col-sm-2 col-md-2 mb-2 mx-auto" id="venta-label-tamanio">
+                        <div class="group">
+                        <InputNumber required="" @bind-Value="venta.Cuotas" @onfocusout="ObtenerValorCuotas" class="input"/>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Cuotas</label>
+                        </div>
+                    </div>
+
+                @*...................... Valor Cuotas ......................*@
+
+                    <div class="custom-col">
+                        <div class="custom-form-group">
+                            <div class="custom-input-group">
+                                <div class="custom-input-group-prepend">
+                                    <span class="custom-input-group-text">Valor por cuota</span>
+                                </div>
+                                <InputNumber @bind-Value="venta.ValorCuotas" class="form-control col-5" readOnly="true" id="input-tamanio"/>
+                            </div>
+                        </div>
+                    </div>
+
+                @*...................... tipo de credito ......................*@
+
+                    <div class="col-sm-2 col-md-2 mb-2 mx-auto">
+                        <div class="group">
+                            <InputSelect class="input" @bind-Value="venta.TipoCredito">
+                                    @if (string.IsNullOrEmpty(venta.TipoCredito))
+                                    {
+                                        venta.TipoCredito = OpcionesTipoCredito.FirstOrDefault();
+                                    }
+                                    @foreach (var item in OpcionesTipoCredito)
+                                    {
+                                        <option value="@item">@item</option>
+                                    }
+                            </InputSelect>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Tipo de crédito</label>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2 col-md-2 mb-2 mx-auto">
+                        <div class="group">
+                            <InputSelect class="input" @bind-Value="venta.CuotaInicial">
+                                    @if (string.IsNullOrEmpty(venta.CuotaInicial))
+                                    {
+                                        venta.CuotaInicial = OpcionesCuotaInicial.FirstOrDefault();
+                                    }
+                                    @foreach (var item in OpcionesCuotaInicial)
+                                    {
+                                        <option value="@item">@item</option>
+                                    }
+                            </InputSelect>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Cuota Inicial</label>
+                            <ValidationMessage For="@(() => venta.EsCredito)" />
+                        </div>
+                    </div>
+
+
+                </div>
+            }
 
             <br>
             <br>
@@ -190,6 +278,9 @@
     public Ventas venta { get; set; } = new Ventas();
     public List<Productos> ProductoList = new List<Productos>();
     public List<Clientes> ClienteList = new List<Clientes>();
+    public List<string> OpcionesCredito { get; set; } = new List<string>() { "No", "Si"};
+    public List<string> OpcionesTipoCredito { get; set; } = new List<string>() { "Mensual", "Quincenal"};
+    public List<string> OpcionesCuotaInicial { get; set; } = new List<string>() { "No", "Si"};
     public VentasDetalle detalle = new VentasDetalle();
     public double PagoObtenido { get; set; }
     public double Devuelta { get; set; }
@@ -234,18 +325,23 @@
             notify.ShowNotification("Debe seleccionar un cliente", NotificationSeverity.Error);
             validar = false;
         }
-        if(PagoObtenido <= 0)
+        if(PagoObtenido <= 0 && venta.EsCredito == "No")
         {
             notify.ShowNotification("Debe ingresar el pago obtenido.", NotificationSeverity.Error);
             validar = false;
         }
-        if(PagoObtenido < venta.Total)
+        if(PagoObtenido < venta.Total && venta.EsCredito == "No")
         {
             notify.ShowNotification("El pago obtenido es menor que el monto a pagar (total)", NotificationSeverity.Error);
             validar = false;
         }
 
         return validar;
+    }
+
+    private void ObtenerValorCuotas()
+    {
+        venta.ValorCuotas = venta.Total / venta.Cuotas;
     }
 
     private void ObtenerDevuelta()
