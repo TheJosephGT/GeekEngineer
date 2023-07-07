@@ -65,7 +65,14 @@
                             <RadzenDropDown class="custom-dropdown" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                             FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
                             Data=@ProductoList TextProperty="Nombre" Name="Producto" ValueProperty="ProductoId"
-                            AllowClear="true" @bind-Value=@detalle.ProductoId Placeholder="Producto" />
+                            AllowClear="true" @bind-Value=@detalle.ProductoId Placeholder="Producto">
+                            <Template Context="data">
+                                <div>
+                                    @data.Nombre
+                                    <span class="existing-quantity">(@ExistenciaProducto(data.ProductoId))</span>
+                                </div>
+                            </Template>
+                        </RadzenDropDown>
                             <span class="custom-bar"></span>
                         </div>
                     </div>
@@ -155,11 +162,9 @@
                 </div>
             </div>
 
-<br>
-<br>
-            @if(venta.EsCredito == "No" || string.IsNullOrEmpty(venta.EsCredito))
-            {
-                <div class="row">
+        <br>
+        <br>
+            <div class="row">
                     <div class="col-sm-2 col-md-2 mb-2 mx-auto" id="venta-label-tamanio">
                         <div class="group">
                         <InputNumber required="" @bind-Value="PagoObtenido" @onfocusout="ObtenerDevuelta" class="input"/>
@@ -314,6 +319,26 @@
     public double PagoObtenido { get; set; }
     public double Devuelta { get; set; }
     public double SaldoRestante { get; set; }
+
+    public int ExistenciaProducto(int productoId)
+    {
+        var producto = ProductoList.FirstOrDefault(p => p.ProductoId == productoId);
+        if (producto != null)
+        {
+            return producto.Existencia;
+        }
+
+        return 0;
+    }
+    private void ActualizarCantidadProducto(int productoId, int cantidad)
+    {
+        var producto = ProductoList.FirstOrDefault(p => p.ProductoId == productoId);
+        if (producto != null)
+        {
+            producto.Existencia -= cantidad;
+        }
+    }
+    
 
     protected override void OnInitialized()
     {
@@ -482,6 +507,9 @@
                     this.venta.ventasDetalle.Add(this.detalle);
                 }
 
+                //Metodo para actualizar la cantidad del producto en el detalle
+                ActualizarCantidadProducto(detalle.ProductoId, detalle.Cantidad);
+
                 this.detalle = new VentasDetalle();
                 detalle.SubTotal = venta.ventasDetalle.Sum(p => p.PrecioProducto * p.Cantidad);
                 venta.Total = venta.ventasDetalle.Sum(p => p.Importe);
@@ -503,5 +531,8 @@
         venta.ventasDetalle.Remove(detalleBorrado);
         detalle.SubTotal -= detalleBorrado.PrecioProducto * detalleBorrado.Cantidad;
         venta.Total = venta.ventasDetalle.Sum(p => p.Importe);
+        
+        //Metodo para actualizar la cantidad del producto en el detalle
+        ActualizarCantidadProducto(detalleBorrado.ProductoId, - detalleBorrado.Cantidad);
     }
 }
