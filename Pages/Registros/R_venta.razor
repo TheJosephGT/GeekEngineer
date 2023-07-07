@@ -27,6 +27,10 @@
                             <label>Fecha</label>
                         </div>
                     </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <div class="group">
                             <InputSelect class="input" @bind-Value="venta.EsCredito">
@@ -45,6 +49,10 @@
                             <ValidationMessage For="@(() => venta.EsCredito)" />
                         </div>
                     </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                     <div class="col-sm- col-md-4 mb-2 mx-auto">
                         <div class="custom-group">
                             <RadzenDropDown class="custom-dropdown" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
@@ -55,8 +63,6 @@
                         </div>
                     </div>
                 </div>
-                <br>
-                <br>
                 <br>
                 <br>
                 <div class="row hideWhenPrint">
@@ -76,6 +82,8 @@
                             <span class="custom-bar"></span>
                         </div>
                     </div>
+                    <br>
+                    <br>
                     <br>
                     <br>
                     <div class="col-sm-2 col-md-2 mb-2 mx-auto">
@@ -194,6 +202,7 @@
             }
             @if(venta.EsCredito == "Si")
             {
+                
                 <div class="row">
                     <div class="col-sm-2 col-md-2 mb-2 mx-auto" id="venta-label-tamanio">
                         <div class="group">
@@ -205,7 +214,7 @@
                     </div>
 
                 @*...................... Valor Cuotas ......................*@
-
+                    <br>
                     <div class="custom-col">
                         <div class="custom-form-group">
                             <div class="custom-input-group">
@@ -218,7 +227,10 @@
                     </div>
 
                 @*...................... tipo de credito ......................*@
-
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                     <div class="col-sm-2 col-md-2 mb-2 mx-auto">
                         <div class="group">
                             <InputSelect class="input" @bind-Value="venta.TipoCredito">
@@ -236,7 +248,10 @@
                             <label>Tipo de crédito</label>
                         </div>
                     </div>
-
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                     <div class="col-sm-2 col-md-2 mb-2 mx-auto">
                         <div class="group">
                             <InputSelect class="input" @bind-Value="CuotaInicialString" @onfocusout="CalcularSaldoRestante">

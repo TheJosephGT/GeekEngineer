@@ -218,7 +218,11 @@
             notify.ShowNotification("El campo proveedor es necesario", NotificationSeverity.Warning);
             validar = false;
         }
-
+        if(producto.Descuento >=100)
+        {
+            notify.ShowNotification("El descuento no puede ser mayor que 99%", NotificationSeverity.Warning);
+            validar = false;   
+        }
         return validar;
     }
 
