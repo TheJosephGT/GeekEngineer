@@ -312,7 +312,7 @@
                         Nuevo</button>
                     <button type="button" class="btn btn-outline-success" @onclick="Guardar"><span class="oi oi-document"></span>
                         Guardar</button>
-                    <button type="button" class="btn btn-outline-danger" @onclick="Eliminar"><span
+                    <button type="button" disabled="@Condicion" class="btn btn-outline-danger" @onclick="Eliminar"><span
                             class="oi oi-delete"></span>
                         Eliminar</button>
                 </div>
@@ -336,6 +336,7 @@
     public double PagoObtenido { get; set; }
     public double Devuelta { get; set; }
     public double SaldoRestante { get; set; }
+    public bool Condicion { get; set; } = false;
 
     public int ExistenciaProducto(int productoId)
     {
@@ -375,6 +376,7 @@
         PagoObtenido = 0;
         Devuelta = 0;
         detalle.Cantidad = 0;
+        Condicion = false;
         notify.ShowNotification("Nueva plantilla creada correctamente.", NotificationSeverity.Success);
     }
 
@@ -530,6 +532,11 @@
                 this.detalle = new VentasDetalle();
                 detalle.SubTotal = venta.ventasDetalle.Sum(p => p.PrecioProducto * p.Cantidad);
                 venta.Total = venta.ventasDetalle.Sum(p => p.Importe);
+                if(Condicion == false && venta.VentaId!=0){
+                    notify.ShowNotification("Se ha desactivado el boton eliminar, para poder eliminar la venta debe guardar los cambios", NotificationSeverity.Warning);
+                }
+                Condicion = true;
+                
             }
             else
             {
@@ -551,5 +558,10 @@
         
         //Metodo para actualizar la cantidad del producto en el detalle
         ActualizarCantidadProducto(detalleBorrado.ProductoId, - detalleBorrado.Cantidad);
+
+        if(Condicion == false && venta.VentaId!=0){
+            notify.ShowNotification("Se ha desactivado el boton eliminar, para poder eliminar la venta debe guardar los cambios", NotificationSeverity.Warning);
+        }
+        Condicion = true;
     }
 }
