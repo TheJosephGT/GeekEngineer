@@ -164,6 +164,8 @@
 
         <br>
         <br>
+            @if(venta.EsCredito == "No" || string.IsNullOrEmpty(venta.EsCredito))
+            {
             <div class="row">
                     <div class="col-sm-2 col-md-2 mb-2 mx-auto" id="venta-label-tamanio">
                         <div class="group">
