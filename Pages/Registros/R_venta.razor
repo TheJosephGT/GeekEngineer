@@ -232,10 +232,10 @@
 
                     <div class="col-sm-2 col-md-2 mb-2 mx-auto">
                         <div class="group">
-                            <InputSelect class="input" @bind-Value="venta.CuotaInicial" @onfocusout="CalcularSaldoRestante">
-                                    @if (string.IsNullOrEmpty(venta.CuotaInicial))
+                            <InputSelect class="input" @bind-Value="CuotaInicialString" @onfocusout="CalcularSaldoRestante">
+                                    @if (string.IsNullOrEmpty(CuotaInicialString))
                                     {
-                                        venta.CuotaInicial = OpcionesCuotaInicial.FirstOrDefault();
+                                        CuotaInicialString = OpcionesCuotaInicial.FirstOrDefault();
                                     }
                                     @foreach (var item in OpcionesCuotaInicial)
                                     {
@@ -253,7 +253,7 @@
                 </div>
             }
 
-            @if(venta.CuotaInicial == "Si")
+            @if(CuotaInicialString == "Si")
             {
                     <div class="custom-col">
                         <div class="custom-form-group">
@@ -308,6 +308,7 @@
     public List<Clientes> ClienteList = new List<Clientes>();
     public List<string> OpcionesCredito { get; set; } = new List<string>() { "No", "Si"};
     public List<string> OpcionesTipoCredito { get; set; } = new List<string>() { "Mensual", "Quincenal"};
+    public string? CuotaInicialString { get; set; }
     public List<string> OpcionesCuotaInicial { get; set; } = new List<string>() { "No", "Si"};
     public VentasDetalle detalle = new VentasDetalle();
     public double PagoObtenido { get; set; }
@@ -390,6 +391,11 @@
     {
 
         if (!Validar()) { return; }
+
+            if(SaldoRestante != 0)
+            {
+                venta.Total = SaldoRestante;
+            }
 
         if (VentasBLL.Guardar(venta))
         {

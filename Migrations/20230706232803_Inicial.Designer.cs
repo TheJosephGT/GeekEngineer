@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeekEngineer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230705150406_Inicial")]
+    [Migration("20230706232803_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
@@ -450,9 +450,6 @@ namespace GeekEngineer.Migrations
 
                     b.Property<int>("ClienteId")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("CuotaInicial")
-                        .HasColumnType("TEXT");
 
                     b.Property<int>("Cuotas")
                         .HasColumnType("INTEGER");

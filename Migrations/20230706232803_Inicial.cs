@@ -174,7 +174,6 @@ namespace GeekEngineer.Migrations
                     Cuotas = table.Column<int>(type: "INTEGER", nullable: false),
                     ValorCuotas = table.Column<double>(type: "REAL", nullable: false),
                     TipoCredito = table.Column<string>(type: "TEXT", nullable: true),
-                    CuotaInicial = table.Column<string>(type: "TEXT", nullable: true),
                     Status = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>

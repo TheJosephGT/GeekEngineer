@@ -13,7 +13,6 @@ public class Ventas
     public int Cuotas { get; set; }
     public double ValorCuotas { get; set; }
     public string? TipoCredito { get; set; }
-    public string? CuotaInicial { get; set; }
     public bool Status { get; set; } = true;
 
     [ForeignKey("VentaId")]

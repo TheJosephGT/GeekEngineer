@@ -448,9 +448,6 @@ namespace GeekEngineer.Migrations
                     b.Property<int>("ClienteId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("CuotaInicial")
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("Cuotas")
                         .HasColumnType("INTEGER");
 
