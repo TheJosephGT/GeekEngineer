@@ -75,6 +75,63 @@ namespace GeekEngineer.Migrations
                     b.ToTable("Clientes");
                 });
 
+            modelBuilder.Entity("Compras", b =>
+                {
+                    b.Property<int>("CompraId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateOnly>("Fecha")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ProveedorId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("Total")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("CompraId");
+
+                    b.ToTable("Compras");
+                });
+
+            modelBuilder.Entity("ComprasDetalle", b =>
+                {
+                    b.Property<int>("DetalleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CompraId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("Importe")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("PrecioProducto")
+                        .HasColumnType("REAL");
+
+                    b.Property<int>("ProductoId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("SubTotal")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("DetalleId");
+
+                    b.HasIndex("CompraId");
+
+                    b.ToTable("ComprasDetalle");
+                });
+
             modelBuilder.Entity("Facturacion", b =>
                 {
                     b.Property<int>("FacturaId")
@@ -509,6 +566,15 @@ namespace GeekEngineer.Migrations
                     b.ToTable("VentasDetalle");
                 });
 
+            modelBuilder.Entity("ComprasDetalle", b =>
+                {
+                    b.HasOne("Compras", null)
+                        .WithMany("ComprasDetalles")
+                        .HasForeignKey("CompraId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("FacturacionDetalle", b =>
                 {
                     b.HasOne("Facturacion", null)
@@ -576,6 +642,11 @@ namespace GeekEngineer.Migrations
                         .HasForeignKey("VentaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Compras", b =>
+                {
+                    b.Navigation("ComprasDetalles");
                 });
 
             modelBuilder.Entity("Facturacion", b =>

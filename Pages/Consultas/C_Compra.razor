@@ -1,4 +1,5 @@
 @page "/c_compra"
+@inject ComprasBLL ComprasBLL
 @* @attribute [Authorize] *@
 
 <PageTitle>Consulta compras</PageTitle>
@@ -11,18 +12,32 @@ Generar reporte</button>
 
 @* <div class="card col-lg-8 mx-auto"> *@
         <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-            FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4" PagerHorizontalAlign="HorizontalAlign.Left" AllowSorting="true" Data="@listaClientes"
-            ColumnWidth="180px">
+            FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4" PagerHorizontalAlign="HorizontalAlign.Left" AllowSorting="true" Data="@listaCompras"
+            ColumnWidth="180px" TItem="Compras">
             <Columns>
-                <RadzenGridColumn TItem="string" Property="CompraId" Title="ID" />
-                <RadzenGridColumn TItem="string" Property="ProveedorId " Title="Nombre" />
-                <RadzenGridColumn TItem="string" Property="ProductoId " Title="Cédula" />
-                <RadzenGridColumn TItem="string" Property="Fecha" Title="Fecha" >
+                <RadzenGridColumn TItem="Compras" Property="CompraId" Title="Compra Id" />
+                <RadzenGridColumn TItem="Compras" Property="ProveedorId" Title="Proveedor Id" />
+                <RadzenGridColumn TItem="Compras" Property="Fecha" Title="Fecha" />
+                <RadzenGridColumn TItem="Compras" Property="Total" Title="Total" >
+                </RadzenGridColumn>
+
+                <RadzenGridColumn TItem="Compras" Title="Editar">
+                    <Template Context="Compra">
+                        <RadzenLink Path=@($"/compra/{Compra.CompraId}") Text="Ver">
+                            <RadzenBadge BadgeStyle="BadgeStyle.Success" Text="Ver" />
+                        </RadzenLink>
+                    </Template>
                 </RadzenGridColumn>
             </Columns>
         </RadzenGrid>
 @* </div> *@
 
 @code {
-    List<string> listaClientes = new List<string>();
+    List<Compras> listaCompras = new List<Compras>();
+
+    protected override void OnInitialized()
+    {
+        listaCompras = ComprasBLL.GetList(o => true && o.Status == true);
+
+    }
 }

@@ -1,5 +1,11 @@
 @page "/r_compra"
 @page "/compra/{compraid:int}"
+@inject NotificationService notify
+@inject ComprasBLL ComprasBLL
+@inject ProductoBLL ProductoBLL
+@inject ProveedorBLL ProveedorBLL
+@inject IJSRuntime jsRunTime
+@*@attribute [Authorize]*@
 
 <EditForm Model="compra">
     <DataAnnotationsValidator />
@@ -26,8 +32,8 @@
                             <RadzenDropDown class="custom-dropdown"
                                 FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                 FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
-                                Data=@ProveedorList TextProperty="Nombre" Name="Producto" ValueProperty="ProveedorId"
-                                AllowClear="true" @bind-Value=@compra.ProveedorId Placeholder="Select proveedor" />
+                                Data=@ProveedorList TextProperty="Nombre" Name="Proveedor" ValueProperty="ProveedorId"
+                                AllowClear="true" @bind-Value=@compra.ProveedorId Placeholder="Proveedor" />
                             <span class="custom-bar"></span>
                         </div>
                     </div>
@@ -40,9 +46,9 @@
                             <RadzenDropDown class="custom-dropdown"
                                 FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                 FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
-                                Data=@ProductoList TextProperty="Nombre" Name="Producto" ValueProperty="ProductoId"
-                                AllowClear="true" @bind-Value=@compra.ProductoId Placeholder="Select Producto" />
-                            <ValidationMessage For="@(() => compra.ProveedorId)" />
+                                Data=@ProductoBLL.GetList(p => p.ProveedorId == compra.ProveedorId && p.Status == true) TextProperty="Nombre" Name="Producto" ValueProperty="ProductoId"
+                                AllowClear="true" @bind-Value=@detalle.ProductoId Disabled=@(compra.ProveedorId == 0) Placeholder="Producto" />
+                            <ValidationMessage For="@(() => detalle.ProductoId)" />
                             <span class="custom-bar"></span>
                         </div>
                     </div>
@@ -56,7 +62,7 @@
                     </div>
 
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
-                        <button type="button" class="btn btn-primary" title="Añadir detalle de venta">
+                        <button type="button" class="btn btn-primary" title="Añadir detalle de venta" @onclick="AgregarDetalle">
                             <span class="oi oi-plus"> Agregar</span>
                         </button>
                     </div>
@@ -64,14 +70,12 @@
 
                 <br>
                 <br>
-
-
+                
                 @*Detalle*@
 
                 <table class="table table-light table-striped">
                     <thead class="thead">
                         <tr class="table text-center bg-inventariocolor">
-                            <th class="border border-3">Id</th>
                             <th class="border border-3">Producto</th>
                             <th class="border border-3">Cantidad</th>
                             <th class="border border-3">Precio</th>
@@ -84,10 +88,15 @@
                             @foreach (var item in compra.ComprasDetalles)
                             {
                                 <tr class="text-center">
-                                    <td>@item.ProductoId</td>
+                                    <td>@ProductoBLL.Buscar(item.ProductoId)?.Nombre</td>
                                     <td>@item.Cantidad</td>
-                                    <td>RD$ @item.PrecioProducto</td>
+                                    <td>RD$ @ProductoBLL.Buscar(item.ProductoId)?.Precio</td>
                                     <td>RD$ @item.Importe</td>
+                                    <td class="hideWhenPrint">
+                                        <button class="btn btn-danger mr-2" onclick="@(() => EliminarDetalle(item))">
+                                            <i class="oi oi-trash"></i>
+                                        </button>
+                                    </td>
                                 </tr>
                             }
                         }
@@ -105,18 +114,7 @@
                                 <div class="custom-input-group-prepend">
                                     <span class="custom-input-group-text">SubTotal</span>
                                 </div>
-                                <input type="number" class="custom-input" value="@compra.SubTotal" readonly>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="custom-col">
-                        <div class="custom-form-group">
-                            <div class="custom-input-group">
-                                <div class="custom-input-group-prepend">
-                                    <span class="custom-input-group-text">ITBIS</span>
-                                </div>
-                                <input type="number" class="custom-input" value="@compra.ITBIS" readonly>
+                                <input type="number" class="custom-input" value="@detalle.SubTotal" readonly>
                             </div>
                         </div>
                     </div>
@@ -134,7 +132,17 @@
                 </div>
             </div>
 
-
+            <div class="row">
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputDate required="" @bind-Value="compra.FechaLlegada" class="input" id="fecha" />
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Fecha de llegada</label>
+                            <ValidationMessage For="@(() => compra.FechaLlegada)" />
+                        </div>
+                    </div>
+            </div>
 
             @*Botones*@
             <div class="card-footer">
@@ -142,9 +150,10 @@
                     <button type="button" class="btn btn-outline-primary" @onclick="Nuevo"><span
                             class="oi oi-file"></span>
                         Nuevo</button>
-                    <button type="button" class="btn btn-outline-success" @onclick="Guardar"><span class="oi oi-document"></span>
+                    <button type="button" class="btn btn-outline-success" @onclick="Guardar"><span
+                            class="oi oi-document"></span>
                         Guardar</button>
-                    <button type="button" class="btn btn-outline-danger" @onclick="Eliminar"><span
+                    <button type="button" disabled="@Condicion" class="btn btn-outline-danger" @onclick="Eliminar"><span
                             class="oi oi-delete"></span>
                         Eliminar</button>
                 </div>
@@ -157,32 +166,195 @@
 @code {
 
     [Parameter]
-    public int compraid { get; set; }
+    public int compraId { get; set; }
     public Compras compra { get; set; } = new Compras();
     public List<Productos> ProductoList = new List<Productos>();
     public List<Proveedores> ProveedorList = new List<Proveedores>();
     public ComprasDetalle detalle = new ComprasDetalle();
+    public bool Condicion { get; set; } = false;
+
+    public int ExistenciaProducto(int productoId)
+    {
+        var producto = ProductoList.FirstOrDefault(p => p.ProductoId == productoId);
+        if (producto != null)
+        {
+            return producto.Existencia;
+        }
+
+        return 0;
+    }
+    private void ActualizarCantidadProducto(int productoId, int cantidad)
+    {
+        var producto = ProductoList.FirstOrDefault(p => p.ProductoId == productoId);
+        if (producto != null)
+        {
+            producto.Existencia -= cantidad;
+        }
+    }
+
+
+    protected override void OnInitialized()
+    {
+        if (compraId > 0)
+        {
+            this.compra.CompraId = compraId;
+            this.Buscar();
+        }
+        ProveedorList = ProveedorBLL.GetList(p => true && p.Status == true);
+    }
 
     public void Nuevo()
     {
-
+        compra = new Compras();
+        detalle.SubTotal = 0;
+        detalle.Cantidad = 0;
+        Condicion = false;
+        notify.ShowNotification("Nueva plantilla creada correctamente.", NotificationSeverity.Success);
     }
 
+    bool Validar()
+    {
+        bool validar = true;
+
+        if (compra!.CompraId < 0)
+        {
+            notify.ShowNotification("El ID debe ser mayor que 0.", NotificationSeverity.Error);
+            validar = false;
+        }
+        if (compra.ComprasDetalles.Count < 1)
+        {
+            notify.ShowNotification("Debe agregar al menos un detalle", NotificationSeverity.Error);
+            validar = false;
+        }
+        if (compra.ProveedorId <= 0)
+        {
+            notify.ShowNotification("Debe seleccionar un cliente", NotificationSeverity.Error);
+            validar = false;
+        }
+
+        return validar;
+    }
 
     void Guardar()
     {
 
+        if (!Validar()) { return; }
 
+        if (ComprasBLL.Guardar(compra))
+        {
+            notify.ShowNotification("Fue guardado correctamente.");
+            //Generar factura en PDF
+            jsRunTime.InvokeVoidAsync("Facturar");
+            compra = new Compras();
+        }
+        else
+        {
+            notify.ShowNotification("No fue guardado, intentar nuevamente.", NotificationSeverity.Error);
+        }
 
     }
-
     private void Buscar()
     {
+        if (compra!.CompraId > 0)
+        {
+            var encontrado = ComprasBLL.Buscar(compra.CompraId);
 
+            if (encontrado != null)
+            {
+                notify.ShowNotification("Se ha encontrado con éxito", NotificationSeverity.Success);
+                this.compra = encontrado;
+            }
+            else
+            {
+                notify.ShowNotification("El ID ingresado no ha sido encontrado.", NotificationSeverity.Error);
+            }
+        }
     }
 
     public void Eliminar()
     {
+        if (ComprasBLL.Eliminar(compra.CompraId))
+        {
+            notify.ShowNotification("Se ha eliminado con éxito.", NotificationSeverity.Success);
+            compra = new Compras();
+        }
+        else
+        {
+            notify.ShowNotification("No hay elementos para borrar.", NotificationSeverity.Warning);
+            return;
+        }
+    }
 
+    void AgregarDetalle()
+    {
+        var producto = ProductoBLL.Buscar(detalle.ProductoId);
+        if (detalle.Cantidad > 0)
+        {
+            if (detalle.Cantidad <= producto?.Existencia)
+            {
+                detalle.PrecioProducto = producto.Precio;
+                detalle.SubTotal += detalle.PrecioProducto;
+
+                detalle.Importe = detalle.Cantidad * producto.Precio;
+
+                var detalleExistente = this.compra.ComprasDetalles.FirstOrDefault(d => d.ProductoId == detalle.ProductoId);
+                if (detalleExistente != null)
+                {
+                    var cantidadMaximaDisponible = producto.Existencia - detalleExistente.Cantidad;
+
+                    if (detalle.Cantidad > cantidadMaximaDisponible)
+                    {
+                        notify.ShowNotification("La cantidad excede la cantidad máxima disponible", NotificationSeverity.Warning);
+                        return;
+                    }
+                    detalleExistente.Cantidad += detalle.Cantidad;
+                    detalleExistente.Importe += detalle.Importe;
+                }
+                else
+                {
+                    this.compra.ComprasDetalles.Add(this.detalle);
+                }
+
+                //Metodo para actualizar la cantidad del producto en el detalle
+                ActualizarCantidadProducto(detalle.ProductoId, detalle.Cantidad);
+
+                this.detalle = new ComprasDetalle();
+                detalle.SubTotal = compra.ComprasDetalles.Sum(p => p.PrecioProducto * p.Cantidad);
+                compra.Total = compra.ComprasDetalles.Sum(p => p.Importe);
+                if (Condicion == false && compra.CompraId != 0)
+                {
+                    notify.ShowNotification("Se ha desactivado el boton eliminar, para poder eliminar la venta debe guardar los cambios",
+                    NotificationSeverity.Warning);
+                }
+                Condicion = true;
+
+            }
+            else
+            {
+                notify.ShowNotification("La cantidad asignada es mayor a la existencia", NotificationSeverity.Warning);
+            }
+        }
+        else
+        {
+            notify.ShowNotification("La cantidad debe ser mayor que 0.", NotificationSeverity.Warning);
+        }
+    }
+
+    void EliminarDetalle(ComprasDetalle detalleBorrado)
+    {
+        compra.Total -= detalleBorrado.Importe;
+        compra.ComprasDetalles.Remove(detalleBorrado);
+        detalle.SubTotal -= detalleBorrado.PrecioProducto * detalleBorrado.Cantidad;
+        compra.Total = compra.ComprasDetalles.Sum(p => p.Importe);
+
+        //Metodo para actualizar la cantidad del producto en el detalle
+        ActualizarCantidadProducto(detalleBorrado.ProductoId, -detalleBorrado.Cantidad);
+
+        if (Condicion == false && compra.CompraId != 0)
+        {
+            notify.ShowNotification("Se ha desactivado el boton eliminar, para poder eliminar la venta debe guardar los cambios",
+            NotificationSeverity.Warning);
+        }
+        Condicion = true;
     }
 }

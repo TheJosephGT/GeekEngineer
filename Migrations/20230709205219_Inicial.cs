@@ -85,6 +85,22 @@ namespace GeekEngineer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Compras",
+                columns: table => new
+                {
+                    CompraId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ProveedorId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Fecha = table.Column<DateOnly>(type: "TEXT", nullable: false),
+                    Total = table.Column<double>(type: "REAL", nullable: false),
+                    Status = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Compras", x => x.CompraId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Facturacion",
                 columns: table => new
                 {
@@ -288,6 +304,31 @@ namespace GeekEngineer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ComprasDetalle",
+                columns: table => new
+                {
+                    DetalleId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CompraId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ProductoId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Cantidad = table.Column<int>(type: "INTEGER", nullable: false),
+                    PrecioProducto = table.Column<double>(type: "REAL", nullable: false),
+                    Importe = table.Column<double>(type: "REAL", nullable: false),
+                    SubTotal = table.Column<double>(type: "REAL", nullable: false),
+                    Status = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ComprasDetalle", x => x.DetalleId);
+                    table.ForeignKey(
+                        name: "FK_ComprasDetalle_Compras_CompraId",
+                        column: x => x.CompraId,
+                        principalTable: "Compras",
+                        principalColumn: "CompraId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "FacturacionDetalle",
                 columns: table => new
                 {
@@ -373,6 +414,11 @@ namespace GeekEngineer.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_ComprasDetalle_CompraId",
+                table: "ComprasDetalle",
+                column: "CompraId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_FacturacionDetalle_FacturaId",
                 table: "FacturacionDetalle",
                 column: "FacturaId");
@@ -408,6 +454,9 @@ namespace GeekEngineer.Migrations
                 name: "Clientes");
 
             migrationBuilder.DropTable(
+                name: "ComprasDetalle");
+
+            migrationBuilder.DropTable(
                 name: "FacturacionDetalle");
 
             migrationBuilder.DropTable(
@@ -427,6 +476,9 @@ namespace GeekEngineer.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Compras");
 
             migrationBuilder.DropTable(
                 name: "Facturacion");
