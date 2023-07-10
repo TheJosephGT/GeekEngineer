@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeekEngineer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230709205219_Inicial")]
-    partial class Inicial
+    [Migration("20230710192420_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -85,6 +85,9 @@ namespace GeekEngineer.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateOnly>("Fecha")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateOnly>("FechaEntrada")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("ProveedorId")
@@ -572,7 +575,7 @@ namespace GeekEngineer.Migrations
             modelBuilder.Entity("ComprasDetalle", b =>
                 {
                     b.HasOne("Compras", null)
-                        .WithMany("ComprasDetalles")
+                        .WithMany("ComprasDetalle")
                         .HasForeignKey("CompraId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -649,7 +652,7 @@ namespace GeekEngineer.Migrations
 
             modelBuilder.Entity("Compras", b =>
                 {
-                    b.Navigation("ComprasDetalles");
+                    b.Navigation("ComprasDetalle");
                 });
 
             modelBuilder.Entity("Facturacion", b =>

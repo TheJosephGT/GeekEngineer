@@ -181,6 +181,9 @@ public class ProveedorBLL
 
     public List<Proveedores> GetList(Expression<Func<Proveedores, bool>> criterio)
     {
-        return contexto.Proveedores.AsNoTracking().Where(criterio).ToList();
+        return contexto.Proveedores
+        .AsNoTracking()
+        .Where(criterio)
+        .ToList();
     }
 }

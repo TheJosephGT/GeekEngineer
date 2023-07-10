@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GeekEngineer.Migrations
 {
     /// <inheritdoc />
-    public partial class Inicial : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -92,6 +92,7 @@ namespace GeekEngineer.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     ProveedorId = table.Column<int>(type: "INTEGER", nullable: false),
                     Fecha = table.Column<DateOnly>(type: "TEXT", nullable: false),
+                    FechaEntrada = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     Total = table.Column<double>(type: "REAL", nullable: false),
                     Status = table.Column<bool>(type: "INTEGER", nullable: false)
                 },

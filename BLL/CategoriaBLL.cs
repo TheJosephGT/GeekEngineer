@@ -108,11 +108,17 @@ public class CategoriaBLL
 
     public Categorias? BuscarCategoria(int categoriaId)
     {
-        return contexto.Categorias.Where(p => p.CategoriaId == categoriaId).AsNoTracking().SingleOrDefault();
+        return contexto.Categorias
+        .Where(p => p.CategoriaId == categoriaId)
+        .AsNoTracking()
+        .SingleOrDefault();
     }
 
     public List<Categorias> GetList(Expression<Func<Categorias, bool>> criterio)
     {
-        return contexto.Categorias.AsNoTracking().Where(criterio).ToList();
+        return contexto.Categorias
+        .AsNoTracking()
+        .Where(criterio)
+        .ToList();
     }
 }

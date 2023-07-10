@@ -66,11 +66,17 @@ public class FacturacionBLL
 
     public Facturacion? Buscar(int facturaId)
     {
-        return contexto.Facturacion.Include(o => o.facturaDetalle).Where(o => o.FacturaId == facturaId).SingleOrDefault();
+        return contexto.Facturacion
+        .Include(o => o.facturaDetalle)
+        .Where(o => o.FacturaId == facturaId)
+        .SingleOrDefault();
     }
 
     public List<Facturacion> GetList(Expression<Func<Facturacion, bool>> criterio)
     {
-        return contexto.Facturacion.AsNoTracking().Where(criterio).ToList();
+        return contexto.Facturacion
+        .AsNoTracking()
+        .Where(criterio)
+        .ToList();
     }
 }

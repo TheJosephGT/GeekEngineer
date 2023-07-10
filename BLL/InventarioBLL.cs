@@ -111,6 +111,9 @@ public class InventarioBLL
 
     public List<Inventarios> GetList(Expression<Func<Inventarios, bool>> criterio)
     {
-        return contexto.Inventarios.AsNoTracking().Where(criterio).ToList();
+        return contexto.Inventarios
+        .AsNoTracking()
+        .Where(criterio)
+        .ToList();
     }
 }

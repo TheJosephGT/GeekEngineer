@@ -9,10 +9,10 @@ public class Compras
     [DataType(DataType.Date)]
     [Required(ErrorMessage = "El campo fecha es necesario")]
     public DateOnly Fecha { get; set; } = DateOnly.FromDateTime(DateTime.Now);
-    public DateOnly FechaLlegada { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+    public DateOnly FechaEntrada { get; set; } = DateOnly.FromDateTime(DateTime.Now);
     public double Total { get; set; }
     public bool Status { get; set; } = true;
 
     [ForeignKey("CompraId")]
-    public List<ComprasDetalle> ComprasDetalles { get; set; } = new List<ComprasDetalle>();
+    public List<ComprasDetalle> ComprasDetalle { get; set; } = new List<ComprasDetalle>();
 }

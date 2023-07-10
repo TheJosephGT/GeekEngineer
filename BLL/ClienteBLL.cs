@@ -139,7 +139,10 @@ public class ClienteBLL
 
     public Clientes? Buscar(int clienteId)
     {
-        return contexto.Clientes.Where(p => p.ClienteId == clienteId && p.Status == true).AsNoTracking().SingleOrDefault();
+        return contexto.Clientes
+        .Where(p => p.ClienteId == clienteId && p.Status == true)
+        .AsNoTracking()
+        .SingleOrDefault();
     }
 
     public List<Clientes> GetList(Expression<Func<Clientes, bool>> criterio)

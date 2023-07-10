@@ -113,7 +113,10 @@ public class ProductoBLL
 
     public Productos? Buscar(int productoId)
     {
-        return contexto.Productos.Where(p => p.ProductoId == productoId && p.Status == true).AsNoTracking().SingleOrDefault();
+        return contexto.Productos
+        .Where(p => p.ProductoId == productoId && p.Status == true)
+        .AsNoTracking()
+        .SingleOrDefault();
     }
 
     public List<Productos> GetList(Expression<Func<Productos, bool>> criterio)
