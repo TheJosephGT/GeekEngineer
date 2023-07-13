@@ -46,9 +46,9 @@ public class ComprasBLL
     {
         DateOnly fechaActual = DateOnly.FromDateTime(DateTime.Today);
 
-        if (compra.ComprasDetalles != null)
+        if (compra.ComprasDetalle != null)
         {
-            foreach (var item in compra.ComprasDetalles)
+            foreach (var item in compra.ComprasDetalle)
             {
                 var producto = contexto.Productos.Find(item.ProductoId);
 
@@ -64,10 +64,11 @@ public class ComprasBLL
     private void ModificarDetalle(Compras compra)
     {
         DateOnly fechaActual = DateOnly.FromDateTime(DateTime.Today);
-        var DetalleAnterior = contexto.Compras.Where(o => o.CompraId == compra.CompraId).Include(o => o.ComprasDetalles).AsNoTracking().SingleOrDefault();
+        var DetalleAnterior = contexto.Compras.Where(o => o.CompraId == compra.CompraId).Include(o => o.ComprasDetalle).AsNoTracking().SingleOrDefault();
+
         if (DetalleAnterior != null)
         {
-            foreach (var item in DetalleAnterior.ComprasDetalles)
+            foreach (var item in DetalleAnterior.ComprasDetalle)
             {
                 var producto = contexto.Productos.Find(item.ProductoId);
 
@@ -78,7 +79,7 @@ public class ComprasBLL
                 }
             }
 
-            foreach (var item in compra.ComprasDetalles)
+            foreach (var item in compra.ComprasDetalle)
             {
                 var producto = contexto.Productos.Find(item.ProductoId);
 
@@ -99,7 +100,7 @@ public class ComprasBLL
 
         if (eliminado != null)
         {
-            foreach (var item in eliminado.ComprasDetalles)
+            foreach (var item in eliminado.ComprasDetalle)
             {
                 var producto = contexto.Productos.Find(item.ProductoId);
 
@@ -110,7 +111,7 @@ public class ComprasBLL
                 }
             }
 
-            contexto.RemoveRange(eliminado.ComprasDetalles);
+            contexto.RemoveRange(eliminado.ComprasDetalle);
             eliminado.Status = false;
             bool salida = contexto.SaveChanges() > 0;
             contexto.Entry(eliminado).State = EntityState.Detached;
@@ -121,11 +122,17 @@ public class ComprasBLL
 
     public Compras? Buscar(int compraId)
     {
-        return contexto.Compras.Include(o => o.ComprasDetalles).Where(o => o.CompraId == compraId).SingleOrDefault();
+        return contexto.Compras
+        .Include(o => o.ComprasDetalle)
+        .Where(o => o.CompraId == compraId)
+        .SingleOrDefault();
     }
 
     public List<Compras> GetList(Expression<Func<Compras, bool>> criterio)
     {
-        return contexto.Compras.AsNoTracking().Where(criterio).ToList();
+        return contexto.Compras
+        .AsNoTracking()
+        .Where(criterio)
+        .ToList();
     }
 }

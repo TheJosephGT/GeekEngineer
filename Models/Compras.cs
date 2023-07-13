@@ -13,5 +13,5 @@ public class Compras
     public bool Status { get; set; } = true;
 
     [ForeignKey("CompraId")]
-    public List<ComprasDetalle> ComprasDetalles { get; set; } = new List<ComprasDetalle>();
+    public List<ComprasDetalle> ComprasDetalle { get; set; } = new List<ComprasDetalle>();
 }

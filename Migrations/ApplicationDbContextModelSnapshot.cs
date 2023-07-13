@@ -572,7 +572,7 @@ namespace GeekEngineer.Migrations
             modelBuilder.Entity("ComprasDetalle", b =>
                 {
                     b.HasOne("Compras", null)
-                        .WithMany("ComprasDetalles")
+                        .WithMany("ComprasDetalle")
                         .HasForeignKey("CompraId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -649,7 +649,7 @@ namespace GeekEngineer.Migrations
 
             modelBuilder.Entity("Compras", b =>
                 {
-                    b.Navigation("ComprasDetalles");
+                    b.Navigation("ComprasDetalle");
                 });
 
             modelBuilder.Entity("Facturacion", b =>

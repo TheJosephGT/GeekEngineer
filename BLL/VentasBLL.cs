@@ -120,11 +120,17 @@ public class VentasBLL
 
     public Ventas? Buscar(int ventaId)
     {
-        return contexto.Ventas.Include(o => o.ventasDetalle).Where(o => o.VentaId == ventaId).SingleOrDefault();
+        return contexto.Ventas
+        .Include(o => o.ventasDetalle)
+        .Where(o => o.VentaId == ventaId)
+        .SingleOrDefault();
     }
 
     public List<Ventas> GetList(Expression<Func<Ventas, bool>> criterio)
     {
-        return contexto.Ventas.AsNoTracking().Where(criterio).ToList();
+        return contexto.Ventas
+        .AsNoTracking()
+        .Where(criterio)
+        .ToList();
     }
 }

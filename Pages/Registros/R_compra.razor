@@ -102,9 +102,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if (compra.ComprasDetalles is not null)
+                        @if (compra.ComprasDetalle is not null)
                         {
-                            @foreach (var item in compra.ComprasDetalles)
+                            @foreach (var item in compra.ComprasDetalle)
                             {
                                 <tr class="text-center">
                                     <td>@ProductoBLL.Buscar(item.ProductoId)?.Nombre</td>
@@ -200,7 +200,6 @@
         }
     }
 
-
     protected override void OnInitialized()
     {
         if (compraId > 0)
@@ -229,7 +228,7 @@
             notify.ShowNotification("El ID debe ser mayor que 0.", NotificationSeverity.Error);
             validar = false;
         }
-        if (compra.ComprasDetalles.Count < 1)
+        if (compra.ComprasDetalle.Count < 1)
         {
             notify.ShowNotification("Debe agregar al menos un detalle", NotificationSeverity.Error);
             validar = false;
@@ -303,7 +302,7 @@
 
                 detalle.Importe = detalle.Cantidad * producto.Precio;
 
-                var detalleExistente = this.compra.ComprasDetalles.FirstOrDefault(d => d.ProductoId == detalle.ProductoId);
+                var detalleExistente = this.compra.ComprasDetalle.FirstOrDefault(d => d.ProductoId == detalle.ProductoId);
                 if (detalleExistente != null)
                 {
                     var cantidadMaximaDisponible = producto.Existencia - detalleExistente.Cantidad;
@@ -318,15 +317,15 @@
                 }
                 else
                 {
-                    this.compra.ComprasDetalles.Add(this.detalle);
+                    this.compra.ComprasDetalle.Add(this.detalle);
                 }
 
                 //Metodo para actualizar la cantidad del producto en el detalle
                 ActualizarCantidadProducto(detalle.ProductoId, detalle.Cantidad);
 
                 this.detalle = new ComprasDetalle();
-                detalle.SubTotal = compra.ComprasDetalles.Sum(p => p.PrecioProducto * p.Cantidad);
-                compra.Total = compra.ComprasDetalles.Sum(p => p.Importe);
+                detalle.SubTotal = compra.ComprasDetalle.Sum(p => p.PrecioProducto * p.Cantidad);
+                compra.Total = compra.ComprasDetalle.Sum(p => p.Importe);
                 if (Condicion == false && compra.CompraId != 0)
                 {
                     notify.ShowNotification("Se ha desactivado el boton eliminar, para poder eliminar la venta debe guardar los cambios",
@@ -349,9 +348,9 @@
     void EliminarDetalle(ComprasDetalle detalleBorrado)
     {
         compra.Total -= detalleBorrado.Importe;
-        compra.ComprasDetalles.Remove(detalleBorrado);
+        compra.ComprasDetalle.Remove(detalleBorrado);
         detalle.SubTotal -= detalleBorrado.PrecioProducto * detalleBorrado.Cantidad;
-        compra.Total = compra.ComprasDetalles.Sum(p => p.Importe);
+        compra.Total = compra.ComprasDetalle.Sum(p => p.Importe);
 
         //Metodo para actualizar la cantidad del producto en el detalle
         ActualizarCantidadProducto(detalleBorrado.ProductoId, -detalleBorrado.Cantidad);
