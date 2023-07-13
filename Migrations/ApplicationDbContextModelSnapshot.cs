@@ -113,6 +113,9 @@ namespace GeekEngineer.Migrations
                     b.Property<double>("Importe")
                         .HasColumnType("REAL");
 
+                    b.Property<string>("Llegada")
+                        .HasColumnType("TEXT");
+
                     b.Property<double>("PrecioProducto")
                         .HasColumnType("REAL");
 

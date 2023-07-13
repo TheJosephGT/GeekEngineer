@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeekEngineer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230709205219_Inicial")]
+    [Migration("20230713215534_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
@@ -115,6 +115,9 @@ namespace GeekEngineer.Migrations
 
                     b.Property<double>("Importe")
                         .HasColumnType("REAL");
+
+                    b.Property<string>("Llegada")
+                        .HasColumnType("TEXT");
 
                     b.Property<double>("PrecioProducto")
                         .HasColumnType("REAL");

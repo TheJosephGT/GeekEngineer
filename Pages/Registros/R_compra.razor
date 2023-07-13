@@ -62,6 +62,24 @@
                     </div>
 
                     <div class="col-sm-2 col-md-4 mb-2 mx-auto">
+                        <div class="group">
+                            <InputSelect class="input" @bind-Value="detalle.Llegada">
+                                    @if (string.IsNullOrEmpty(detalle.Llegada))
+                                    {
+                                        detalle.Llegada = OpcionesLlegada.FirstOrDefault();
+                                    }
+                                    @foreach (var item in OpcionesLlegada)
+                                    {
+                                        <option value="@item">@item</option>
+                                    }
+                            </InputSelect>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>¿Ha llegado?</label>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                         <button type="button" class="btn btn-primary" title="Añadir detalle de venta" @onclick="AgregarDetalle">
                             <span class="oi oi-plus"> Agregar</span>
                         </button>
@@ -79,6 +97,7 @@
                             <th class="border border-3">Producto</th>
                             <th class="border border-3">Cantidad</th>
                             <th class="border border-3">Precio</th>
+                            <th class="border border-3">¿Ha llegado?</th>
                             <th class="border border-3">Importe</th>
                         </tr>
                     </thead>
@@ -91,6 +110,7 @@
                                     <td>@ProductoBLL.Buscar(item.ProductoId)?.Nombre</td>
                                     <td>@item.Cantidad</td>
                                     <td>RD$ @ProductoBLL.Buscar(item.ProductoId)?.Precio</td>
+                                    <td>@item.Llegada</td>
                                     <td>RD$ @item.Importe</td>
                                     <td class="hideWhenPrint">
                                         <button class="btn btn-danger mr-2" onclick="@(() => EliminarDetalle(item))">
@@ -131,19 +151,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="row">
-                    <div class="col-sm-2 col-md-4 mb-2 mx-auto">
-                        <div class="group">
-                            <InputDate required="" @bind-Value="compra.FechaLlegada" class="input" id="fecha" />
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <label>Fecha de llegada</label>
-                            <ValidationMessage For="@(() => compra.FechaLlegada)" />
-                        </div>
-                    </div>
-            </div>
-
             @*Botones*@
             <div class="card-footer">
                 <div class="form-group text-center" display: inline-block>
@@ -169,6 +176,7 @@
     public int compraId { get; set; }
     public Compras compra { get; set; } = new Compras();
     public List<Productos> ProductoList = new List<Productos>();
+    public List<string> OpcionesLlegada { get; set; } = new List<string>() { "No", "Si"};
     public List<Proveedores> ProveedorList = new List<Proveedores>();
     public ComprasDetalle detalle = new ComprasDetalle();
     public bool Condicion { get; set; } = false;
@@ -243,8 +251,6 @@
         if (ComprasBLL.Guardar(compra))
         {
             notify.ShowNotification("Fue guardado correctamente.");
-            //Generar factura en PDF
-            jsRunTime.InvokeVoidAsync("Facturar");
             compra = new Compras();
         }
         else

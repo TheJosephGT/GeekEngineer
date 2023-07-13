@@ -8,5 +8,6 @@ public class ComprasDetalle
     public double PrecioProducto { get; set; }
     public double Importe { get; set; }
     public double SubTotal { get; set; } = 0;
+    public string? Llegada { get; set; }
     public bool Status { get; set; } = true;
 }

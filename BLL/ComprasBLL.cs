@@ -44,17 +44,18 @@ public class ComprasBLL
 
     private void InsertarDetalle(Compras compra)
     {
+        DateOnly fechaActual = DateOnly.FromDateTime(DateTime.Today);
+
         if (compra.ComprasDetalles != null)
         {
             foreach (var item in compra.ComprasDetalles)
             {
                 var producto = contexto.Productos.Find(item.ProductoId);
 
-                if (producto != null)
+                if (producto != null && item.Llegada == "Si")
                 {
                     producto.Existencia += item.Cantidad;
                     contexto.Entry(producto).State = EntityState.Modified;
-                    
                 }
             }
         }
@@ -62,15 +63,15 @@ public class ComprasBLL
 
     private void ModificarDetalle(Compras compra)
     {
+        DateOnly fechaActual = DateOnly.FromDateTime(DateTime.Today);
         var DetalleAnterior = contexto.Compras.Where(o => o.CompraId == compra.CompraId).Include(o => o.ComprasDetalles).AsNoTracking().SingleOrDefault();
-
         if (DetalleAnterior != null)
         {
             foreach (var item in DetalleAnterior.ComprasDetalles)
             {
                 var producto = contexto.Productos.Find(item.ProductoId);
 
-                if (producto != null)
+                if (producto != null && item.Llegada == "Si")
                 {
                     producto.Existencia -= item.Cantidad;
                     contexto.Entry(producto).State = EntityState.Modified;
@@ -81,7 +82,7 @@ public class ComprasBLL
             {
                 var producto = contexto.Productos.Find(item.ProductoId);
 
-                if (producto != null)
+                if (producto != null && item.Llegada == "Si")
                 {
                     producto.Existencia += item.Cantidad;
                     contexto.Entry(producto).State = EntityState.Modified;

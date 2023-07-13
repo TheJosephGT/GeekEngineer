@@ -315,6 +315,7 @@ namespace GeekEngineer.Migrations
                     PrecioProducto = table.Column<double>(type: "REAL", nullable: false),
                     Importe = table.Column<double>(type: "REAL", nullable: false),
                     SubTotal = table.Column<double>(type: "REAL", nullable: false),
+                    Llegada = table.Column<string>(type: "TEXT", nullable: true),
                     Status = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
