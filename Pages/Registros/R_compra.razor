@@ -276,8 +276,7 @@
         var producto = ProductoBLL.Buscar(detalle.ProductoId);
         if (detalle.Cantidad > 0)
         {
-            if (detalle.Cantidad <= producto?.Existencia)
-            {
+
                 detalle.PrecioProducto = producto.Precio;
                 detalle.SubTotal += detalle.PrecioProducto;
 
@@ -313,12 +312,7 @@
                     NotificationSeverity.Warning);
                 }
                 Condicion = true;
-
-            }
-            else
-            {
-                notify.ShowNotification("La cantidad asignada es mayor a la existencia", NotificationSeverity.Warning);
-            }
+ 
         }
         else
         {
