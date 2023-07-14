@@ -16,6 +16,7 @@
   background: transparent;
 }
 
+
 #fecha {
   font-size: 16px;
   padding: 10px 10px 10px 5px;
@@ -433,4 +434,8 @@ button:active {
 #venta-label-tamanio
 {
   padding-left:30px;
+}
+
+#botton-tamanio{
+  width: 50px;
 }
