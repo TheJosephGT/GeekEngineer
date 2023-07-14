@@ -4,112 +4,86 @@
 @inject ClienteBLL ClienteBLL
 @inject ProductoBLL ProductoBLL
 
-<head>
-    <style>
-        .factura {
-            table-layout: fixed;
-        }
-
-        .fact-info>div>h5 {
-            font-weight: bold;
-        }
-
-        .factura>thead {
-            border-top: solid 3px #000;
-            border-bottom: 3px solid #000;
-        }
-
-        .factura>thead>tr>th:nth-child(2),
-        .factura>tbod>tr>td:nth-child(2) {
-            width: 300px;
-        }
-
-        .factura>thead>tr>th:nth-child(n+3) {
-            text-align: right;
-        }
-
-        .factura>tbody>tr>td:nth-child(n+3) {
-            text-align: right;
-        }
-
-        .factura>tfoot>tr>th,
-        .factura>tfoot>tr>th:nth-child(n+3) {
-            font-size: 24px;
-            text-align: right;
-        }
-
-        .cond {
-            border-top: solid 2px #000;
-        }
-    </style>
-</head>
-
-
 <div id="app" class="col-11" onload="window.print()">
 
-    <h1>Factura</h1>
+    <div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+            <tr class="top">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td class="title">
+                                <i class="fa fa-desktop"></i>
+                            </td>
+                            <td>
+                                Invoice #: 123<br>
+                                Created: January 1, 2015<br>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
 
-    <hr />
+            <tr class="information">
+                <td colspan="2">
+                    <table>
+                        <tr class="">
+                            <td>
+                                Nombre de la empresa:<br>
+                                Dirección:<br>
+                                Correo electrónico: <br>
+                                Nombre del cliente: <br>
 
-    <div class="row fact-info mt-3">
-        <div class="col-3">
-            <h5>Facturar a</h5>
-            <p>
-                @ClienteBLL.Buscar(venta.ClienteId)?.Nombre;
-            </p>
-        </div>
-        <div class="col-3">
-            <h5>N° de factura</h5>
-            <h5>Fecha</h5>
-        </div>
-        <div class="col-3">
-            <h5>@venta.VentaId</h5>
-            <p>@venta.Fecha</p>
-        </div>
-    </div>
+                            </td>
 
-    <div class="row my-5">
-        <table class="table table-borderless factura">
-            <thead>
-                <tr>
-                    <th>Cant.</th>
-                    <th>Producto</th>
-                    <th>Precio Unitario</th>
-                    <th>ITBIS</th>
-                    <th>Importe</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in venta.ventasDetalle)
-                {
-                    <tr class="text-center">
-                        <td>@ProductoBLL.Buscar(item.ProductoId)?.Nombre</td>
-                        <td>@item.Cantidad</td>
-                        <td>RD$ @ProductoBLL.Buscar(item.ProductoId)?.Precio</td>
-                        <td>@ProductoBLL.Buscar(item.ProductoId)?.ITBIS %</td>
-                        <td>RD$ @item.Importe</td>
-                    </tr>
-                }
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th>Total Factura</th>
-                    <th>@venta.Total</th>
-                </tr>
-            </tfoot>
+                            <td>
+                                GeekEngineer<br>
+                                ****************<br>
+                                GeekEngineer@gmail.com <br>
+                                ****************<br>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="heading">
+                <td>Qtd</td>
+                <td>Item </td>
+                <td>Price </td>
+            </tr>
+            <tr class="item">
+                <td>3 </td>
+                <td>Website design </td>
+                <td>$300.00 </td>
+            </tr>
+            <tr class="item">
+                <td>3 </td>
+                <td> Hosting (3 months) </td>
+                <td>$75.00 </td>
+            </tr>
+            <tr class="item last">
+                <td>3 </td>
+                <td> Domain name (1 year) </td>
+                <td>$10.00 </td>
+            </tr>
+
+            <tr class="heading">
+                <td>SubTotal</td>
+                <td>Total </td>
+            </tr>
+            <tr class="item">
+                <td>1000 </td>
+                <td>$300.00 </td>
+            </tr>
         </table>
+    <button class="btn btn-danger mr-2" id="botton-tamanio"><i class="fa fa-print"></i></button>
+
+
     </div>
 
-    <div class="cond row">
-        <div class="col-12 mt-3">
-            <h4>Nombre de empresa: ########</h4>
-            <p>Sistema creado por GeekEngineer</p>
-        </div>
-    </div>
+
 </div>
+
 
 @code {
     [Parameter]
