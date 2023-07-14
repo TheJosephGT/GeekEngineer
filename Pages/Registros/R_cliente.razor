@@ -1,5 +1,5 @@
 @page "/r_cliente"
-@page "/cliente/{clienteId:int}"
+@page "/r_cliente/{ClienteId:int}"
 @inject ClienteBLL ClienteBLL
 @inject NotificationService notify
 @*@attribute [Authorize]*@
@@ -127,11 +127,6 @@
     {
         bool validar = true;
 
-        if (cliente!.ClienteId < 0)
-        {
-            notify.ShowNotification("El ID debe ser mayor que 0.", NotificationSeverity.Warning);
-            validar = false;
-        }
         if (ClienteBLL.ExisteEmail(cliente) == false) 
         {
             notify.ShowNotification("Ya está registrado ese email, intente de nuevo.", NotificationSeverity.Warning);

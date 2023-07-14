@@ -178,11 +178,6 @@
     {
         bool validar = true;
 
-        if (facturacion!.FacturaId < 0)
-        {
-            notify.ShowNotification("El ID debe ser mayor que 0.", NotificationSeverity.Error);
-            validar = false;
-        }
         if (facturacion.facturaDetalle.Count < 1)
         {
             notify.ShowNotification("Debe agregar al menos un detalle", NotificationSeverity.Error);

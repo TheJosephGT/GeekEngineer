@@ -1,4 +1,5 @@
 @page "/c_categoria"
+@inject CategoriaBLL CategoriaBLL
 @* @attribute [Authorize] *@
 
 <PageTitle>Consulta categoria</PageTitle>
@@ -9,20 +10,43 @@
 <button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
     Generar reporte</button>
 
-@* <div class="card col-lg-8 mx-auto"> *@
-<RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-    FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4" PagerHorizontalAlign="HorizontalAlign.Left"
-    AllowSorting="true" Data="@listaClientes" ColumnWidth="180px">
+<div>
 
-    <Columns>
-        <RadzenGridColumn TItem="string" Title="ID" />
-        <RadzenGridColumn TItem="string" Title="Fecha" />
-        <RadzenGridColumn TItem="string" Title="Nombre" >
-        </RadzenGridColumn>
-    </Columns>
-</RadzenGrid>
-@* </div> *@
+    @if (ListaCategorias == null)
+    {
+        <p><em>Sin datos para mostrar...</em></p>
+    }
+    else
+    {
+        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+            FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4" PagerHorizontalAlign="HorizontalAlign.Left"
+            AllowSorting="true" Data="@ListaCategorias" ColumnWidth="180px">
+
+            <Columns>
+                <RadzenGridColumn TItem="Categorias" Property="CategoriaId" Title="ID" />
+                <RadzenGridColumn TItem="Categorias" Property="Fecha" Title="Fecha" />
+                <RadzenGridColumn TItem="Categorias" Property="Nombre" Title="Nombre">
+                </RadzenGridColumn>
+
+                <RadzenGridColumn TItem="Categorias" Title="Editar">
+                    <Template Context="Categoria">
+                        <RadzenLink Path=@($"/r_categoria/{Categoria.CategoriaId}") Text="Ver">
+                            <RadzenBadge BadgeStyle="BadgeStyle.Success" Text="Ver" />
+                        </RadzenLink>
+                    </Template>
+                </RadzenGridColumn>
+
+            </Columns>
+        </RadzenGrid>
+    }
+
+</div>
 
 @code {
-    List<string> listaClientes = new List<string>();
+    List<Categorias> ListaCategorias = new List<Categorias>();
+
+    protected override void OnInitialized()
+    {
+        ListaCategorias = CategoriaBLL.GetList(o => true && o.Status == true);
+    }
 }

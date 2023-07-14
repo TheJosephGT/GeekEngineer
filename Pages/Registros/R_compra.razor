@@ -1,5 +1,5 @@
 @page "/r_compra"
-@page "/compra/{compraid:int}"
+@page "/r_compra/{Compraid:int}"
 @inject NotificationService notify
 @inject ComprasBLL ComprasBLL
 @inject ProductoBLL ProductoBLL
@@ -209,11 +209,6 @@
     {
         bool validar = true;
 
-        if (compra!.CompraId < 0)
-        {
-            notify.ShowNotification("El ID debe ser mayor que 0.", NotificationSeverity.Error);
-            validar = false;
-        }
         if (compra.ComprasDetalle.Count < 1)
         {
             notify.ShowNotification("Debe agregar al menos un detalle", NotificationSeverity.Error);
@@ -288,7 +283,7 @@
 
                 detalle.Importe = detalle.Cantidad * producto.Precio;
 
-                var detalleExistente = this.compra.ComprasDetalle.FirstOrDefault(d => d.ProductoId == detalle.ProductoId);
+                var detalleExistente = this.compra.ComprasDetalle.FirstOrDefault(d => d.ProductoId == detalle.ProductoId && d.Llegada == detalle.Llegada);
                 if (detalleExistente != null)
                 {
                     var cantidadMaximaDisponible = producto.Existencia - detalleExistente.Cantidad;

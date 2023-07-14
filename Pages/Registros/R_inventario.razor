@@ -61,7 +61,7 @@
                     <div class="row">
                         <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                             <div class="group">
-                                <InputNumber required="" @bind-Value="Cantidad" class="input" />
+                                <InputNumber required="" @bind-Value="Cantidad" class="input" Disabled=@(inventario.ProductoId == 0) />
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label>Cantidad</label>
@@ -69,7 +69,7 @@
                         </div>
                         <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                             <div class="group">
-                                <InputNumber required="" @bind-Value="inventario.Existencia" class="input"/>
+                                <InputNumber required="" @bind-Value="inventario.Existencia" class="input" Disabled=@(inventario.ProductoId == 0)/>
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label>Existencia (Cantidad aumentada: @inventario.CantidadAumentada)</label>
@@ -93,7 +93,7 @@
 
                         <div class="col-sm-2 col-md-4 mb-2 mx-auto">
                             <div class="group">
-                                <InputNumber required="" @bind-Value="monto" class="input" />
+                                <InputNumber required="" @bind-Value="monto" class="input" Disabled=@(inventario.ProductoId == 0)/>
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label>Monto</label>
@@ -165,12 +165,19 @@
 
     private void Aumentar()
     {
-        Cantidad = Cantidad + monto;
+        Cantidad += monto;
     }
     private void Disminuir()
     {
-        if (Cantidad > 0)
-            Cantidad = Cantidad - monto;
+        if (Cantidad > 0 && monto < Cantidad)
+        {
+            Cantidad -= monto;
+        }
+        else
+        {
+            notify.ShowNotification("La cantidad no puede ser disminuida.", NotificationSeverity.Warning);
+        }
+            
     }
     private void ExistenciaAumento()
     {
@@ -178,19 +185,23 @@
         {
             inventario.Existencia += Cantidad;
             inventario.CantidadAumentada += Cantidad;
-            Cantidad =0;
+            Cantidad = 0;
             notify.ShowNotification("Se ha aumentado la existencia.", NotificationSeverity.Success);
         }
 
     }
     private void ExistenciaResta()
     {
-        if(inventario.Existencia >= 0 && Cantidad > 0)
+        if(inventario.Existencia >= 0 && Cantidad > 0 && Cantidad < inventario.Existencia)
         {
             inventario.Existencia -= Cantidad;
             inventario.CantidadAumentada -= Cantidad;
             Cantidad = 0;
             notify.ShowNotification("Se ha restado la existencia.", NotificationSeverity.Success);
+        }
+        else
+        {
+            notify.ShowNotification("La cantidad que se desea restar, debe ser menor que la existencia.", NotificationSeverity.Warning);
         }
 
     }
@@ -217,24 +228,9 @@
     {
         bool validar = true;
 
-        if (inventario!.InventarioId < 0)
+        if (inventario.ProductoId == 0)
         {
-            notify.ShowNotification("El ID debe ser mayor que 0.", NotificationSeverity.Warning);
-            validar = false;
-        }
-        if (inventario.ProductoId < 0)
-        {
-            notify.ShowNotification("Debe de llenar el campo producto.", NotificationSeverity.Warning);
-            validar = false;
-        }
-         if (inventario.CantidadAumentada <= 0)
-        {
-            notify.ShowNotification("Debe aumentar la existencia para poder guardar.", NotificationSeverity.Warning);
-            validar = false;
-        } 
-        if (inventario.CodigoBarra == string.Empty)
-        {
-            notify.ShowNotification("El código de barra no es válido.", NotificationSeverity.Warning);
+            notify.ShowNotification("Debe seleccionar un producto.", NotificationSeverity.Warning);
             validar = false;
         }
 
@@ -268,10 +264,6 @@
             {
                 notify.ShowNotification("Se ha encontrado con éxito", NotificationSeverity.Info);
                 this.inventario = encontrado;
-            }
-            else
-            {
-                notify.ShowNotification("El ID ingresado no ha sido encontrado.", NotificationSeverity.Error);
             }
         }
     }

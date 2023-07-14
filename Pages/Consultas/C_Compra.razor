@@ -24,7 +24,7 @@
 
         <RadzenGridColumn TItem="Compras" Title="Editar">
             <Template Context="Compra">
-                <RadzenLink Path=@($"/compra/{Compra.CompraId}") Text="Ver">
+                <RadzenLink Path=@($"/r_compra/{Compra.CompraId}") Text="Ver">
                     <RadzenBadge BadgeStyle="BadgeStyle.Success" Text="Ver" />
                 </RadzenLink>
             </Template>
@@ -39,6 +39,5 @@
     protected override void OnInitialized()
     {
         listaCompras = ComprasBLL.GetList(o => true && o.Status == true);
-
     }
 }

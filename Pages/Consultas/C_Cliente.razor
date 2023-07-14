@@ -1,4 +1,5 @@
 @page "/c_cliente"
+@inject ClienteBLL ClienteBLL
 @* @attribute [Authorize] *@
 
 <PageTitle>Consulta clientes</PageTitle>
@@ -7,25 +8,49 @@
 <h1 class="text-center">Consulta Clientes</h1>
 
 <button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
-Generar reporte</button>
+    Generar reporte</button>
 
-@* <div class="card col-lg-8 mx-auto"> *@
+<div>
+    @if (listaClientes == null)
+    {
+        <p><em>Sin datos para mostrar...</em></p>
+    }
+    else
+    {
         <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-            FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4" PagerHorizontalAlign="HorizontalAlign.Left" AllowSorting="true" Data="@listaClientes"
-            ColumnWidth="180px">
+            FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4" PagerHorizontalAlign="HorizontalAlign.Left"
+            AllowSorting="true" Data="@listaClientes" ColumnWidth="180px">
             <Columns>
-                <RadzenGridColumn TItem="string" Property="ClienteId" Title="ID" />
-                <RadzenGridColumn TItem="string" Property="Nombre" Title="Nombre" />
-                <RadzenGridColumn TItem="string" Property="Cedula" Title="Cédula" />
-                <RadzenGridColumn TItem="string" Property="Telefono" Title="Teléfono" />
-                <RadzenGridColumn TItem="string" Property="Dirección" Title="Dirección" />
-                <RadzenGridColumn TItem="string" Property="Correo" Title="Correo" />
-                <RadzenGridColumn TItem="string" Property="Fecha" Title="Fecha" >
+                <RadzenGridColumn TItem="Clientes" Property="ClienteId" Title="ID" />
+                <RadzenGridColumn TItem="Clientes" Property="Nombre" Title="Nombre" />
+                <RadzenGridColumn TItem="Clientes" Property="Cedula" Title="Cédula" />
+                <RadzenGridColumn TItem="Clientes" Property="Telefono" Title="Teléfono" />
+                <RadzenGridColumn TItem="Clientes" Property="Dirección" Title="Dirección" />
+                <RadzenGridColumn TItem="Clientes" Property="Email" Title="Email" />
+                <RadzenGridColumn TItem="Clientes" Property="Fecha" Title="Fecha">
                 </RadzenGridColumn>
+
+                <RadzenGridColumn TItem="Clientes" Title="Editar">
+                    <Template Context="Cliente">
+                        <RadzenLink Path=@($"/r_cliente/{Cliente.ClienteId}") Text="Ver">
+                            <RadzenBadge BadgeStyle="BadgeStyle.Success" Text="Ver" />
+                        </RadzenLink>
+                    </Template>
+                </RadzenGridColumn>
+
             </Columns>
         </RadzenGrid>
-@* </div> *@
+
+
+    }
+
+</div>
 
 @code {
-    List<string> listaClientes = new List<string>();
+    List<Clientes> listaClientes = new List<Clientes>();
+
+    protected override void OnInitialized()
+    {
+        listaClientes = ClienteBLL.GetList(o => true && o.Status == true);
+    }
 }

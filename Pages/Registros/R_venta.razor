@@ -384,11 +384,6 @@
     {
         bool validar = true;
 
-        if (venta!.VentaId < 0)
-        {
-            notify.ShowNotification("El ID debe ser mayor que 0.", NotificationSeverity.Error);
-            validar = false;
-        }
         if (venta.ventasDetalle.Count < 1)
         {
             notify.ShowNotification("Debe agregar al menos un detalle", NotificationSeverity.Error);

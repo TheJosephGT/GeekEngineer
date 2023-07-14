@@ -187,11 +187,6 @@
     {
         bool validar = true;
 
-        if (producto!.ProductoId < 0)
-        {
-            notify.ShowNotification("El ID debe ser mayor que 0.", NotificationSeverity.Warning);
-            validar = false;
-        }
         if (ProductoBLL.ExisteNombre(producto) == false)
         {
             notify.ShowNotification("Ya hay un producto registrado con ese nombre, intente de nuevo.",
