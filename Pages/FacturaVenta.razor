@@ -3,8 +3,9 @@
 @inject VentasBLL VentasBLL
 @inject ClienteBLL ClienteBLL
 @inject ProductoBLL ProductoBLL
+@inject IJSRuntime jsRunTime
 
-<div id="app" class="col-11" onload="window.print()">
+<div id="app" class="col-11">
 
     <div class="invoice-box">
         <table cellpadding="0" cellspacing="0">
@@ -16,8 +17,8 @@
                                 <i class="fa fa-desktop"></i>
                             </td>
                             <td>
-                                Invoice #: 123<br>
-                                Created: January 1, 2015<br>
+                                Factura#: @venta.VentaId<br>
+                                Created: @venta.Fecha<br>
                             </td>
                         </tr>
                     </table>
@@ -40,43 +41,68 @@
                                 GeekEngineer<br>
                                 ****************<br>
                                 GeekEngineer@gmail.com <br>
-                                ****************<br>
+                                @ClienteBLL.Buscar(venta.ClienteId)?.Nombre<br>
                             </td>
                         </tr>
                     </table>
                 </td>
             </tr>
-            <tr class="heading">
-                <td>Qtd</td>
-                <td>Item </td>
-                <td>Price </td>
-            </tr>
-            <tr class="item">
-                <td>3 </td>
-                <td>Website design </td>
-                <td>$300.00 </td>
-            </tr>
-            <tr class="item">
-                <td>3 </td>
-                <td> Hosting (3 months) </td>
-                <td>$75.00 </td>
-            </tr>
-            <tr class="item last">
-                <td>3 </td>
-                <td> Domain name (1 year) </td>
-                <td>$10.00 </td>
-            </tr>
+            <table class="table table-light table-striped">
+                <thead class="thead">
+                    <tr class="table text-center bg-inventariocolor">
+                        <th class="border border-3">Producto</th>
+                        <th class="border border-3">Cantidad</th>
+                        <th class="border border-3">Precio</th>
+                        <th class="border border-3">ITBIS</th>
+                        <th class="border border-3">Descuento</th>
+                        <th class="border border-3">Importe</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (venta.ventasDetalle is not null)
+                    {
+                        @foreach (var item in venta.ventasDetalle)
+                        {
+                            <tr class="text-center">
+                                <td>@ProductoBLL.Buscar(item.ProductoId)?.Nombre</td>
+                                <td>@item.Cantidad</td>
+                                <td>RD$ @ProductoBLL.Buscar(item.ProductoId)?.Precio</td>
+                                <td>@ProductoBLL.Buscar(item.ProductoId)?.ITBIS %</td>
+                                <td>@ProductoBLL.Buscar(item.ProductoId)?.Descuento %</td>
+                                <td>RD$ @item.Importe</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
 
-            <tr class="heading">
-                <td>SubTotal</td>
-                <td>Total </td>
-            </tr>
-            <tr class="item">
-                <td>1000 </td>
-                <td>$300.00 </td>
-            </tr>
+           <div class="custom-card-body">
+                <div class="custom-row">
+                    <div class="custom-col">
+                        <div class="custom-form-group">
+                            <div class="custom-input-group">
+                                <div class="custom-input-group-prepend">
+                                    <span class="custom-input-group-text">SubTotal</span>
+                                </div>
+                                <input type="number" class="custom-input" value="@detalle.SubTotal" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="custom-col">
+                        <div class="custom-form-group">
+                            <div class="custom-input-group">
+                                <div class="custom-input-group-prepend">
+                                    <span class="custom-input-group-text">Total</span>
+                                </div>
+                                <input type="number" class="custom-input" value="@venta.Total" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </table>
-    <button class="btn btn-danger mr-2" id="botton-tamanio"><i class="fa fa-print"></i></button>
+    <button class="btn btn-danger mr-2 hideWhenPrint" id="botton-tamanio" @onclick="Imprimir"><i class="fa fa-print"></i></button>
 
 
     </div>
@@ -89,21 +115,32 @@
     [Parameter]
     public int VentaId { get; set; }
     public Ventas venta { get; set; } = new Ventas();
+    public VentasDetalle detalle = new VentasDetalle();
 
     protected override void OnInitialized()
     {
         if (VentaId > 0)
         {
+            this.venta.VentaId = VentaId;
             this.Buscar();
         }
     }
 
     private void Buscar()
     {
-        Ventas? ventaEncontrada = VentasBLL.Buscar(this.VentaId);
-        if (ventaEncontrada != null)
+        if (venta!.VentaId > 0)
         {
-            this.venta = ventaEncontrada;
+            var encontrado = VentasBLL.Buscar(venta.VentaId);
+            if (encontrado != null)
+            {
+                
+                this.venta = encontrado;
+            }
         }
+    }
+
+    private void Imprimir()
+    {
+        jsRunTime.InvokeVoidAsync("Facturar");
     }
 }

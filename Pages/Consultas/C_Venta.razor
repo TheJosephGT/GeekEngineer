@@ -35,6 +35,13 @@
                         </RadzenLink>
                     </Template>
                 </RadzenGridColumn>
+                <RadzenGridColumn TItem="Ventas" Title="Factura">
+                    <Template Context="Venta">
+                        <RadzenLink Path=@($"/f_Factura/{Venta.VentaId}") Text="Ver">
+                            <RadzenBadge BadgeStyle="BadgeStyle.Warning" Text="Ver" />
+                        </RadzenLink>
+                    </Template>
+                </RadzenGridColumn>
             </Columns>
         </RadzenGrid>
     }

@@ -4,7 +4,7 @@
 @inject VentasBLL VentasBLL
 @inject ProductoBLL ProductoBLL
 @inject ClienteBLL ClienteBLL
-@inject IJSRuntime jsRunTime
+@inject NavigationManager NavigationManager
 @*@attribute [Authorize]*@
 
 
@@ -439,8 +439,7 @@
         if (VentasBLL.Guardar(venta))
         {
             notify.ShowNotification("Fue guardado correctamente.");
-            //Generar factura en PDF
-            jsRunTime.InvokeVoidAsync("Facturar");
+            NavigationManager.NavigateTo($"/f_Factura/{venta.VentaId}");
             venta = new Ventas();
             PagoObtenido = 0;
             Devuelta = 0;
