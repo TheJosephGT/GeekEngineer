@@ -78,10 +78,12 @@
                             <label>¿Ha llegado?</label>
                         </div>
                     </div>
-                        <button type="button" class="btn btn-primary" title="Añadir detalle de venta" @onclick="AgregarDetalle" id="botton-tamanio">
+                    <button type="button" class="btn btn-primary" title="Añadir detalle de venta" @onclick="AgregarDetalle" id="botton-tamanio">
                             <span class="oi oi-plus"></span>
                         </button>
                 </div>
+
+
 
                 <br>
                 <br>
@@ -158,6 +160,8 @@
 
 @code {
 
+    #nullable disable
+    
     [Parameter]
     public int compraId { get; set; }
     public Compras compra { get; set; } = new Compras();
