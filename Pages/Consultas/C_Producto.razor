@@ -34,7 +34,10 @@
                 <RadzenGridColumn TItem="Productos" Property="Existencia" Title="Existencia" />
                 <RadzenGridColumn TItem="Productos" Property="Ubicacion" Title="Ubicacion" />
                 <RadzenGridColumn TItem="Productos" Property="CodigoBarra" Title="Codigo de barra" />
-                <RadzenGridColumn TItem="Productos" Property="Descuento" Title="Descuento">
+                <RadzenGridColumn TItem="Productos" Title="Descuento">
+                    <Template Context="producto">
+                        <span>@producto.Descuento%</span>
+                    </Template>
                 </RadzenGridColumn>
 
                 <RadzenGridColumn TItem="Productos" Title="Editar">
