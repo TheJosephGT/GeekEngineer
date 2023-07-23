@@ -17,5 +17,6 @@ public class Clientes
     public string Email { get; set; } = string.Empty;
     [Required(ErrorMessage = "La fecha es un campo requerido.")]
     public DateOnly Fecha { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+    public double TotalVentas { get; set; } = 0;
     public bool Status { get; set; } = true;
 }

@@ -19,6 +19,12 @@ public class VentasBLL
     private bool Insertar(Ventas venta)
     {
         InsertarDetalle(venta);
+        // var cliente = contexto.Clientes.Find(venta.ClienteId);
+        // if (cliente != null)
+        // {
+        //     cliente.TotalVentas += venta.Total;
+        //     contexto.Entry(cliente).State = EntityState.Modified;
+        // }
         contexto.Ventas.Add(venta);
         bool salida = contexto.SaveChanges() > 0;
         contexto.Entry(venta).State = EntityState.Detached;
@@ -28,6 +34,21 @@ public class VentasBLL
     private bool Modificar(Ventas venta)
     {
         ModificarDetalle(venta);
+
+        // var clienteAnterior = contexto.Clientes.Find(venta.ClienteId);
+        // if (clienteAnterior != null)
+        // {
+        //     clienteAnterior.TotalVentas -= venta.Total;
+        //     contexto.Entry(clienteAnterior).State = EntityState.Modified;
+        // }
+
+        // var cliente = contexto.Clientes.Find(venta.ClienteId);
+        // if (cliente != null)
+        // {
+        //     cliente.TotalVentas += venta.Total;
+        //     contexto.Entry(cliente).State = EntityState.Modified;
+        // }
+
         contexto.Entry(venta).State = EntityState.Modified;
         bool salida = contexto.SaveChanges() > 0;
         contexto.Entry(venta).State = EntityState.Detached;
@@ -50,11 +71,14 @@ public class VentasBLL
             {
                 var producto = contexto.Productos.Find(item.ProductoId);
 
+
                 if (producto != null)
                 {
                     producto.Existencia -= item.Cantidad;
+                    producto.Ganancias += item.Importe;
+                    producto.TotalVentas += item.Cantidad;
                     contexto.Entry(producto).State = EntityState.Modified;
-                    
+
                 }
             }
         }
@@ -73,6 +97,8 @@ public class VentasBLL
                 if (producto != null)
                 {
                     producto.Existencia += item.Cantidad;
+                    producto.Ganancias -= item.Importe;
+                    producto.TotalVentas -= item.Cantidad;
                     contexto.Entry(producto).State = EntityState.Modified;
                 }
             }
@@ -84,6 +110,8 @@ public class VentasBLL
                 if (producto != null)
                 {
                     producto.Existencia -= item.Cantidad;
+                    producto.Ganancias += item.Importe;
+                    producto.TotalVentas += item.Cantidad;
                     contexto.Entry(producto).State = EntityState.Modified;
                 }
             }
@@ -96,8 +124,16 @@ public class VentasBLL
         .Where(p => p.VentaId == ventaId)
         .SingleOrDefault();
 
+
         if (eliminado != null)
         {
+            // var cliente = contexto.Clientes.Find(eliminado.ClienteId);
+            // if (cliente != null)
+            // {
+            //     cliente.TotalVentas -= eliminado.Total;
+            //     contexto.Entry(cliente).State = EntityState.Modified;
+            // }
+
             foreach (var item in eliminado.ventasDetalle)
             {
                 var producto = contexto.Productos.Find(item.ProductoId);
@@ -105,6 +141,8 @@ public class VentasBLL
                 if (producto != null)
                 {
                     producto.Existencia += item.Cantidad;
+                    producto.Ganancias -= item.Importe;
+                    producto.TotalVentas -= item.Cantidad;
                     contexto.Entry(producto).State = EntityState.Modified;
                 }
             }

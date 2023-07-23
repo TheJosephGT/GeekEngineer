@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeekEngineer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230717133700_Initial")]
-    partial class Initial
+    [Migration("20230723203000_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -72,6 +72,9 @@ namespace GeekEngineer.Migrations
                     b.Property<string>("Telefono")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<double>("TotalVentas")
+                        .HasColumnType("REAL");
 
                     b.HasKey("ClienteId");
 
@@ -440,6 +443,9 @@ namespace GeekEngineer.Migrations
                     b.Property<DateOnly>("Fecha")
                         .HasColumnType("TEXT");
 
+                    b.Property<double>("Ganancias")
+                        .HasColumnType("REAL");
+
                     b.Property<double>("ITBIS")
                         .HasColumnType("REAL");
 
@@ -455,6 +461,9 @@ namespace GeekEngineer.Migrations
 
                     b.Property<bool>("Status")
                         .HasColumnType("INTEGER");
+
+                    b.Property<double>("TotalVentas")
+                        .HasColumnType("REAL");
 
                     b.Property<string>("Ubicacion")
                         .IsRequired()

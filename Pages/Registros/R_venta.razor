@@ -523,6 +523,7 @@
                 //Metodo para actualizar la cantidad del producto en el detalle
                 ActualizarCantidadProducto(detalle.ProductoId, detalle.Cantidad);
 
+                
                 this.detalle = new VentasDetalle();
                 detalle.SubTotal = venta.ventasDetalle.Sum(p => p.PrecioProducto * p.Cantidad);
                 venta.Total = venta.ventasDetalle.Sum(p => p.Importe);

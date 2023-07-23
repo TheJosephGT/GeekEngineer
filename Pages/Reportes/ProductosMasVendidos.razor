@@ -1,4 +1,4 @@
-@page "/r_reporte_productosMenosVendidos"
+@page "/r_reporte_productosVendidos"
 @inject ProductoBLL ProductoBLL
 @inject CategoriaBLL CategoriaBLL
 @inject ProveedorBLL ProveedorBLL
@@ -7,7 +7,7 @@
 
 <PageTitle>Consulta Productos</PageTitle>
 
-<h1 class="text-center">10 Productos menos vendidos</h1>
+<h1 class="text-center">10 Productos mas vendidos</h1>
 
 <button type="submit" class="btn btn-outline-success"><span class="oi oi-document"></span>
     Generar reporte</button>
@@ -62,7 +62,7 @@
 
         listaProductos = ProductoBLL.GetList(o => true && o.Status == true);
 
-        listaProductos = listaProductos.OrderBy(p => p.TotalVentas).ToList();
+        listaProductos = listaProductos.OrderByDescending(p => p.TotalVentas).ToList();
 
         // Toma solo los 10 productos con mayores ganancias
         listaProductos = listaProductos.Take(10).ToList();

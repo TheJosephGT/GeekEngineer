@@ -27,6 +27,8 @@ public class Productos
     public string Ubicacion { get; set; } = string.Empty;
     public double Descuento { get; set; }
     [Required(ErrorMessage = "Ingrese el código de barra.")]
+    public double Ganancias { get; set; } = 0;
+    public double TotalVentas { get; set; } = 0;
     public string CodigoBarra { get; set; } = string.Empty; 
     public bool Status { get; set; } = true;
     
