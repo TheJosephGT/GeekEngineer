@@ -70,9 +70,6 @@ namespace GeekEngineer.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<double>("TotalVentas")
-                        .HasColumnType("REAL");
-
                     b.HasKey("ClienteId");
 
                     b.ToTable("Clientes");
@@ -95,6 +92,9 @@ namespace GeekEngineer.Migrations
 
                     b.Property<double>("Total")
                         .HasColumnType("REAL");
+
+                    b.Property<int>("TotalCompras")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("CompraId");
 

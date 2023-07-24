@@ -10,6 +10,7 @@ public class Compras
     [Required(ErrorMessage = "El campo fecha es necesario")]
     public DateOnly Fecha { get; set; } = DateOnly.FromDateTime(DateTime.Now);
     public double Total { get; set; }
+    public int TotalCompras { get; set; } = 0;
     public bool Status { get; set; } = true;
 
     [ForeignKey("CompraId")]

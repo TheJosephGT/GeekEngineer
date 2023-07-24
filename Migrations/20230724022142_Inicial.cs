@@ -77,7 +77,6 @@ namespace GeekEngineer.Migrations
                     Direccion = table.Column<string>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
                     Fecha = table.Column<DateOnly>(type: "TEXT", nullable: false),
-                    TotalVentas = table.Column<double>(type: "REAL", nullable: false),
                     Status = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -94,6 +93,7 @@ namespace GeekEngineer.Migrations
                     ProveedorId = table.Column<int>(type: "INTEGER", nullable: false),
                     Fecha = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     Total = table.Column<double>(type: "REAL", nullable: false),
+                    TotalCompras = table.Column<int>(type: "INTEGER", nullable: false),
                     Status = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>

@@ -1,12 +1,17 @@
 @page "/dashboard"
+@inject ComprasBLL ComprasBLL
+@inject ClienteBLL ClienteBLL
+@inject VentasBLL VentasBLL
+@inject ProductoBLL ProductoBLL
 @using ChartJs.Blazor.PieChart
 @* @attribute [Authorize] *@
+
 <body class="body-board">
     <div class="cardBox">
         <div class="card">
             <div>
-                <div class="numbers">1,500</div>
-                <div class="cardName">Vistas diarias</div>
+                <div class="numbers">@CantidadCompras</div>
+                <div class="cardName">Compras</div>
             </div>
             <div class="iconBx">
                 <ion-icon name="eye-outline"></ion-icon>
@@ -14,7 +19,7 @@
         </div>
         <div class="card">
             <div>
-                <div class="numbers">500</div>
+                <div class="numbers">@CantidadClientes</div>
                 <div class="cardName">Clientes</div>
             </div>
             <div class="iconBx">
@@ -23,7 +28,7 @@
         </div>
         <div class="card">
             <div>
-                <div class="numbers">80</div>
+                <div class="numbers">@CantidadVentas</div>
                 <div class="cardName">Ventas</div>
             </div>
             <div class="iconBx">
@@ -32,7 +37,7 @@
         </div>
         <div class="card">
             <div>
-                <div class="numbers">15,000</div>
+                <div class="numbers">@CantidadGanancias</div>
                 <div class="cardName">Ganancias</div>
             </div>
             <div class="iconBx">
@@ -52,35 +57,20 @@
                     <tr>
                         <td>Id</td>
                         <td>Producto</td>
-                        <td>Categoría</td>
+                        <td>Ganancias</td>
                         <td>Existencia</td>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>5</td>
-                        <td>Lápices</td>
-                        <td>Útiles</td>
-                        <td>3</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Lápices</td>
-                        <td>Útiles</td>
-                        <td>3</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Lápices</td>
-                        <td>Útiles</td>
-                        <td>3</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Lápices</td>
-                        <td>Útiles</td>
-                        <td>3</td>
-                    </tr>
+                    @foreach (var item in productosConMenorExistencia)
+                    {
+                        <tr>
+                            <td>@item.ProductoId</td>
+                            <td>@item.Nombre</td>
+                            <td>@item.Ganancias</td>
+                            <td>@item.Existencia</td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
@@ -88,7 +78,7 @@
         @* ChartJS *@
         <div class="Grafic">
             <div class="cardHeader">
-                <h2>Top productos más vendidos p/categoría</h2>
+                <h2>Top 3 productos con mas ganancias</h2>
             </div>
 
             <Chart Config="_configuracionPastel"></Chart>
@@ -99,10 +89,26 @@
 
 @code {
     private PieConfig? _configuracionPastel;
+    public int CantidadCompras { get; set; } = 0;
+    public int CantidadVentas { get; set; } = 0;
+    public int CantidadClientes { get; set; } = 0;
+    public double CantidadGanancias { get; set; } = 0;
+    public List<Productos> productosConMenorExistencia = new List<Productos>();
+    public List<Productos> productosConMasGanancias = new List<Productos>();
+
 
     protected override void OnInitialized()
     {
         RealizarConfiguracionPastel();
+        CantidadCompras = ComprasBLL.GetList(o => true && o.Status == true).Count();
+        CantidadVentas = VentasBLL.GetList(o => true && o.Status == true).Count();
+        CantidadClientes = ClienteBLL.GetList(o => true && o.Status == true).Count();
+        var listaProductos = ProductoBLL.GetList(o => true && o.Status == true);
+        CantidadGanancias = listaProductos.Sum(c => c.Ganancias);
+
+        productosConMenorExistencia = listaProductos.OrderBy(p => p.Existencia).Take(5).ToList();
+
+        productosConMasGanancias = listaProductos.OrderByDescending(p => p.Ganancias).Take(3).ToList();
     }
 
     private void RealizarConfiguracionPastel()
@@ -110,30 +116,37 @@
         _configuracionPastel = new PieConfig();
 
         _configuracionPastel.Options = new PieOptions
-        {
-            Responsive = true,
-            Title = new OptionsTitle
             {
-                Display = true,
-                Text = "Mas vendidos"
-            }
-        };
+                Responsive = true,
+                Title = new OptionsTitle
+                {
+                    Display = true,
+                    Text = "Productos con mayores ganancias"
+                }
+            };
 
-        foreach (var item in new[] {"Opción 1", "Opción 2", "Opción 3"})
+        // Seleccionar solo los 3 primeros productos con mayores ganancias
+        var productosConMasGananciasLimitados = productosConMasGanancias.Take(3).ToList();
+
+        // Labels para las leyendas en el gráfico (nombre de los productos)
+        foreach (var item in productosConMasGananciasLimitados)
         {
-            _configuracionPastel.Data.Labels.Add(item);
+            _configuracionPastel.Data.Labels.Add(item.Nombre); // Supongo que hay una propiedad "NombreProducto" en la clase
         }
 
-        PieDataset<int> dataset = new PieDataset<int>(new[] {35, 50, 15})
+        // Valores para el gráfico (valores de las ganancias)
+        var valoresGanancias = productosConMasGananciasLimitados.Select(p => p.Ganancias).Take(3).ToList();
+    PieDataset<double> dataset = new PieDataset<double>(valoresGanancias)
+    {
+        BackgroundColor = new[]
         {
-            BackgroundColor = new[]
-            {
-                ColorUtil.ColorHexString(255,0,0), //Rojo
-                ColorUtil.ColorHexString(0,0,255), //Azul
-                ColorUtil.ColorHexString(255,255,0) //Amarillo
-            }
-        };
+            "#FF0000", // Rojo
+            "#0000FF", // Azul
+            "#FFFF00"  // Amarillo
+        }
+    };
 
-        _configuracionPastel.Data.Datasets.Add(dataset);
+    _configuracionPastel.Data.Datasets.Add(dataset);
     }
+
 }
