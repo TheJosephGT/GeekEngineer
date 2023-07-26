@@ -8,6 +8,7 @@ public class Compras
     public int ProveedorId { get; set; }
     [DataType(DataType.Date)]
     [Required(ErrorMessage = "El campo fecha es necesario")]
+    [NotMapped]
     public DateOnly Fecha { get; set; } = DateOnly.FromDateTime(DateTime.Now);
     public double Total { get; set; }
     public int TotalCompras { get; set; } = 0;

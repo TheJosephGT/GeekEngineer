@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 public class Clientes
 {
     [Key]
@@ -16,6 +17,7 @@ public class Clientes
     [RegularExpression("\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*", ErrorMessage = "Formato inválido. name@gmail.com")]
     public string Email { get; set; } = string.Empty;
     [Required(ErrorMessage = "La fecha es un campo requerido.")]
+    [NotMapped]
     public DateOnly Fecha { get; set; } = DateOnly.FromDateTime(DateTime.Now);
     public bool Status { get; set; } = true;
 }

@@ -11,23 +11,20 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeekEngineer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230724022142_Inicial")]
+    [Migration("20230726154731_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.9");
 
             modelBuilder.Entity("Categorias", b =>
                 {
                     b.Property<int>("CategoriaId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
-
-                    b.Property<DateOnly>("Fecha")
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -59,9 +56,6 @@ namespace GeekEngineer.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateOnly>("Fecha")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -83,9 +77,6 @@ namespace GeekEngineer.Migrations
                     b.Property<int>("CompraId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
-
-                    b.Property<DateOnly>("Fecha")
-                        .HasColumnType("TEXT");
 
                     b.Property<int>("ProveedorId")
                         .HasColumnType("INTEGER");
@@ -150,9 +141,6 @@ namespace GeekEngineer.Migrations
                     b.Property<int>("ClienteId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateOnly>("Fecha")
-                        .HasColumnType("TEXT");
-
                     b.Property<bool>("Status")
                         .HasColumnType("INTEGER");
 
@@ -207,9 +195,6 @@ namespace GeekEngineer.Migrations
 
                     b.Property<int>("Existencia")
                         .HasColumnType("INTEGER");
-
-                    b.Property<DateOnly>("Fecha")
-                        .HasColumnType("TEXT");
 
                     b.Property<int>("ProductoId")
                         .HasColumnType("INTEGER");
@@ -440,9 +425,6 @@ namespace GeekEngineer.Migrations
                     b.Property<int>("Existencia")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateOnly>("Fecha")
-                        .HasColumnType("TEXT");
-
                     b.Property<double>("Ganancias")
                         .HasColumnType("REAL");
 
@@ -488,9 +470,6 @@ namespace GeekEngineer.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateOnly>("Fecha")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -525,9 +504,6 @@ namespace GeekEngineer.Migrations
 
                     b.Property<string>("EsCredito")
                         .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateOnly>("Fecha")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("Status")

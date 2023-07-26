@@ -57,7 +57,6 @@ namespace GeekEngineer.Migrations
                     CategoriaId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Nombre = table.Column<string>(type: "TEXT", nullable: false),
-                    Fecha = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     Status = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -76,7 +75,6 @@ namespace GeekEngineer.Migrations
                     Telefono = table.Column<string>(type: "TEXT", nullable: false),
                     Direccion = table.Column<string>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
-                    Fecha = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     Status = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -91,7 +89,6 @@ namespace GeekEngineer.Migrations
                     CompraId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ProveedorId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Fecha = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     Total = table.Column<double>(type: "REAL", nullable: false),
                     TotalCompras = table.Column<int>(type: "INTEGER", nullable: false),
                     Status = table.Column<bool>(type: "INTEGER", nullable: false)
@@ -108,7 +105,6 @@ namespace GeekEngineer.Migrations
                     FacturaId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ClienteId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Fecha = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     Total = table.Column<double>(type: "REAL", nullable: false),
                     Status = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
@@ -126,7 +122,6 @@ namespace GeekEngineer.Migrations
                     ProductoId = table.Column<int>(type: "INTEGER", nullable: false),
                     CantidadAumentada = table.Column<int>(type: "INTEGER", nullable: false),
                     CodigoBarra = table.Column<string>(type: "TEXT", nullable: false),
-                    Fecha = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     Status = table.Column<bool>(type: "INTEGER", nullable: false),
                     Existencia = table.Column<int>(type: "INTEGER", nullable: false)
                 },
@@ -142,7 +137,6 @@ namespace GeekEngineer.Migrations
                     ProductoId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Nombre = table.Column<string>(type: "TEXT", nullable: false),
-                    Fecha = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     Costo = table.Column<double>(type: "REAL", nullable: false),
                     Precio = table.Column<double>(type: "REAL", nullable: false),
                     ITBIS = table.Column<double>(type: "REAL", nullable: false),
@@ -169,7 +163,6 @@ namespace GeekEngineer.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Nombre = table.Column<string>(type: "TEXT", nullable: false),
                     RNC = table.Column<string>(type: "TEXT", nullable: false),
-                    Fecha = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     Direccion = table.Column<string>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
                     Telefono = table.Column<string>(type: "TEXT", nullable: false),
@@ -187,7 +180,6 @@ namespace GeekEngineer.Migrations
                     VentaId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ClienteId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Fecha = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     Total = table.Column<double>(type: "REAL", nullable: false),
                     EsCredito = table.Column<string>(type: "TEXT", nullable: false),
                     Cuotas = table.Column<int>(type: "INTEGER", nullable: false),

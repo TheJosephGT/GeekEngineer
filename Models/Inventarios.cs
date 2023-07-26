@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 public class Inventarios
 {
     [Key]
@@ -8,6 +9,7 @@ public class Inventarios
     [Required(ErrorMessage = "Seleccione el código de barra.")]
     public string CodigoBarra { get; set; } = string.Empty;
     [Required(ErrorMessage = "El campo fecha es requerido.")]
+    [NotMapped]
     public DateOnly Fecha { get; set; } = DateOnly.FromDateTime(DateTime.Now);
     public bool Status { get; set; } = true;
     public int Existencia { get; set; }

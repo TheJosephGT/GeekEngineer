@@ -1,4 +1,4 @@
-
+using System.ComponentModel.DataAnnotations.Schema;
 public class Productos
 {
     [Key]
@@ -6,6 +6,7 @@ public class Productos
     [Required(ErrorMessage = "Ingrese el nombre del producto.")]
     public string Nombre { get; set; } = string.Empty;
     [DataType(DataType.Date)]
+    [NotMapped]
     public DateOnly Fecha { get; set; } = DateOnly.FromDateTime(DateTime.Now);
     [Required]
     [Range(minimum: 1, maximum: double.MaxValue, ErrorMessage = "Ingrese un costo mayor a 0.")]

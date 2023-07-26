@@ -6,6 +6,7 @@ public class Ventas
     [Required(ErrorMessage = "El campo cliente es necesario")]
     public int ClienteId { get; set; }
     [DataType(DataType.Date)] 
+    [NotMapped]
     public DateOnly Fecha { get; set; } = DateOnly.FromDateTime(DateTime.Now);
     public double Total { get; set; }
     [Required(ErrorMessage = "Favor especifique si su venta es a crédito.")]

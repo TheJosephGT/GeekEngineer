@@ -1,4 +1,4 @@
-
+using System.ComponentModel.DataAnnotations.Schema;
 public class Proveedores
 {
     [Key]
@@ -9,6 +9,7 @@ public class Proveedores
     [RegularExpression(@"^\d{3}[- ]?\d{7}[- ]?\d{1}$",ErrorMessage = "Formato inválido. 000-000-000.")]
     public string RNC { get; set; } = string.Empty;
     [DataType(DataType.Date)]
+    [NotMapped]
     public DateOnly Fecha { get; set; } = DateOnly.FromDateTime(DateTime.Now);
     [Required(ErrorMessage = "Ingrese una dirección.")]
     public string Direccion { get; set; } = string.Empty;
