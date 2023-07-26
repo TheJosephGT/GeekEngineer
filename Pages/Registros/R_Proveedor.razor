@@ -2,7 +2,7 @@
 @page "/r_proveedor/{ProveedorId:int}"
 @inject ProveedorBLL ProveedorBLL
 @inject NotificationService notify
-@* @attribute [Authorize] *@
+@attribute [Authorize]
 
 <EditForm Model="proveedor" OnValidSubmit="Guardar"> 
     <DataAnnotationsValidator />

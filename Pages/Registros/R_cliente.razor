@@ -2,7 +2,7 @@
 @page "/r_cliente/{ClienteId:int}"
 @inject ClienteBLL ClienteBLL
 @inject NotificationService notify
-@*@attribute [Authorize]*@
+@attribute [Authorize]
 
 
 <EditForm Model="cliente" OnValidSubmit="Guardar">
