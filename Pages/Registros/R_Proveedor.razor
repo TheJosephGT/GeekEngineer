@@ -2,6 +2,7 @@
 @page "/r_proveedor/{ProveedorId:int}"
 @inject ProveedorBLL ProveedorBLL
 @inject NotificationService notify
+@inject NavigationManager NavigationManager
 @attribute [Authorize]
 
 <EditForm Model="proveedor" OnValidSubmit="Guardar"> 
@@ -116,6 +117,7 @@
     {
         proveedor = new Proveedores();
         notify.ShowNotification("Nueva plantilla creada correctamente.", NotificationSeverity.Success);
+        NavigationManager.NavigateTo($"/r_proveedor");
     }
 
     bool Validar()
@@ -155,6 +157,7 @@
         {
             notify.ShowNotification("Fue guardado correctamente.");
             proveedor = new Proveedores();
+            NavigationManager.NavigateTo($"/r_proveedor");
         }
         else
         {

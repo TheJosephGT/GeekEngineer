@@ -4,6 +4,7 @@
 @inject ProveedorBLL ProveedorBLL
 @inject CategoriaBLL CategoriaBLL
 @inject NotificationService notify
+@inject NavigationManager NavigationManager
 @attribute [Authorize]
 
 <EditForm Model="producto" OnValidSubmit="Guardar">
@@ -181,6 +182,7 @@
     {
         producto = new Productos();
         notify.ShowNotification("Nueva plantilla creada correctamente.", NotificationSeverity.Success);
+        NavigationManager.NavigateTo($"/r_producto");
     }
 
     bool Validar()
@@ -230,6 +232,7 @@
         {
             notify.ShowNotification("Fue guardado correctamente.");
             producto = new Productos();
+            NavigationManager.NavigateTo($"/r_producto");
         }
         else
         {

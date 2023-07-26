@@ -4,6 +4,7 @@
 @inject ProveedorBLL ProveedorBLL
 @inject InventarioBLL InventarioBLL
 @inject NotificationService notify
+@inject NavigationManager NavigationManager
 @attribute [Authorize]
 
 
@@ -160,6 +161,7 @@
         ExistenciaActual = 0;
         monto = 0;
         Cantidad = 0;
+        NavigationManager.NavigateTo($"/r_inventario");
     }
 
     private void Aumentar()
@@ -246,6 +248,7 @@
         {
             notify.ShowNotification("Fue guardado correctamente.");
             inventario = new Inventarios();
+            NavigationManager.NavigateTo($"/r_inventario");
         }
         else
         {

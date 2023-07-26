@@ -2,6 +2,7 @@
 @page "/r_cliente/{ClienteId:int}"
 @inject ClienteBLL ClienteBLL
 @inject NotificationService notify
+@inject NavigationManager NavigationManager
 @attribute [Authorize]
 
 
@@ -120,6 +121,7 @@
     public void Nuevo()
     {
         cliente = new Clientes();
+        NavigationManager.NavigateTo($"/r_cliente");
         notify.ShowNotification("Nueva plantilla creada correctamente.", NotificationSeverity.Success);
     }
 
@@ -155,6 +157,7 @@
         {
             notify.ShowNotification("Fue guardado correctamente.");
             cliente = new Clientes();
+            NavigationManager.NavigateTo($"/r_cliente");
         }
         else
         {

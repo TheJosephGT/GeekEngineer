@@ -3,6 +3,7 @@
 @inject NotificationService notify
 @inject FacturacionBLL FacturacionBLL
 @inject ClienteBLL ClienteBLL
+@inject NavigationManager NavigationManager
 @inject IJSRuntime jsRunTime
 @attribute [Authorize]
 
@@ -172,6 +173,7 @@
         detalle.Cantidad = 0;
         detalle.Precio = 0;
         notify.ShowNotification("Nueva plantilla creada correctamente.", NotificationSeverity.Success);
+        NavigationManager.NavigateTo($"/r_facturacion");
     }
 
     bool Validar()

@@ -4,6 +4,7 @@
 @inject ComprasBLL ComprasBLL
 @inject ProductoBLL ProductoBLL
 @inject ProveedorBLL ProveedorBLL
+@inject NavigationManager NavigationManager
 @inject IJSRuntime jsRunTime
 @attribute [Authorize]
 
@@ -207,6 +208,7 @@
         detalle.Cantidad = 0;
         Condicion = false;
         notify.ShowNotification("Nueva plantilla creada correctamente.", NotificationSeverity.Success);
+        NavigationManager.NavigateTo($"/r_compra");
     }
 
     bool Validar()
@@ -236,6 +238,7 @@
         {
             notify.ShowNotification("Fue guardado correctamente.");
             compra = new Compras();
+            NavigationManager.NavigateTo($"/r_compra");
         }
         else
         {
